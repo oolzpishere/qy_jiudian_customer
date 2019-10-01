@@ -1,0 +1,35 @@
+zh-CN:
+  admin:
+    field:
+      string:
+        form:
+          name: 名称
+      date_time:
+        form:
+          start: 会议开始
+          finish: 会议结束
+          sale_from: 开始销售
+          sale_to: 结束销售
+    manager:
+      conferences:
+        index:
+          new_hotel: 创建酒店
+          show: 查看
+          edit: 编辑
+          destroy: 删除
+          id: 序号
+          name: 名称
+          start: 会议开始
+          finish: 会议结束
+          sale_from: 开始销售
+          sale_to: 结束销售
+        edit:
+          show: 查看
+          back: 返回
+        form:
+        show:
+          name: 名称
+          start: 会议开始
+          finish: 会议结束
+          sale_from: 开始销售
+          sale_to: 结束销售

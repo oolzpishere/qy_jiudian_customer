@@ -1,0 +1,43 @@
+columns = %w(group id names contact phone twin_beds queen_bed three_beds other_twin_beds twin_beds_price queen_bed_price three_beds_price other_twin_beds_price breakfast room_number check_in_out nights total_price twin_beds_settlement_price queen_bed_settlement_price three_beds_settlement_price other_twin_beds_settlement_price actual_settlement profit tax_rate tax_point actual_profit)
+
+columns_zh = columns.map {|name| t('.' + name)}
+
+
+
+xlsx_package.workbook do |wb|
+  styles = wb.styles
+  head = styles.add_style :sz => 18, :b => true, :alignment=>{:horizontal => :center}
+  title = styles.add_style :sz => 14, :b => true, :alignment=>{:horizontal => :center, :shrink_to_fit => true}
+  body = styles.add_style :alignment=>{:horizontal => :center}
+
+  count = 0
+
+  wb.add_worksheet(name: "Orders") do |sheet|
+    first_order_data = Admin::OrderData.new(order: @orders.first)
+    sheet.add_row ["前沿课堂#{@conference.name + @hotel.name + first_order_data.send_command("room_type_zh") + first_order_data.send_command("conference_check_in_out") }"], :style => head
+
+
+    sheet.add_row columns_zh, :style => title
+    @orders.each_with_index do |order, i|
+      order.rooms.each do |room|
+        order_data = Admin::OrderData.new(order: order, i: count, room: room)
+        count += 1
+        row = columns.map do |column|
+          order_data.send_command(column)
+        end
+
+        sheet.add_row row, :style => body
+        # sheet.add_row [order.group, (i + 1), room.names, order.hotel.name, order.phone, order.room_type, ]
+      end
+
+    end
+
+    column_array = ('A'..'Z').to_a + ('AA'..'AZ').to_a
+    title_merge_end = column_array[(columns.length - 1)]
+    sheet.merge_cells "A1:#{title_merge_end}1"
+
+    sheet.column_widths 6, 6, nil
+
+  end
+
+end

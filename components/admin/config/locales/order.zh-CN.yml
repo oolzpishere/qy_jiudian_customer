@@ -1,0 +1,71 @@
+zh-CN:
+  admin:
+    manager:
+      orders:
+        index:
+          new_order: 创建订单
+          show: 查看
+          edit: 编辑
+          destroy: 删除
+          group: 组数
+          names: 姓名
+          contact: 联系人
+          phone: 联系方式
+          room_count_zh: 房间
+          room_type_zh: 房型
+          check_in_out: 入住日期
+          nights: 天数
+        edit:
+          show: 查看
+          back: 返回
+        form:
+          group: 组数
+          id: 号码
+          conference: 会议
+          hotel: 酒店
+          names: 姓名
+          room_number: 房号
+          contact: 联系人
+          phone: 联系方式
+          twin_beds: 标间
+          queen_bed: 单间
+          three_beds: 三人间
+          other_twin_beds: 其他双人间
+          twin_beds_price: 标单/双现付价格/元/间/晚
+          queen_bed_price: 标单/双现付价格/元/间/晚
+          three_beds_price: 三人间现付价格/元/间/晚
+          other_twin_beds_price: 其他双间现付价格/元/间/晚
+          breakfast: 含早情况
+          car: 用车情况
+          price: 现付价格
+          checkin: 入住日期
+          checkout: 离店日期
+          check_in_out: 入住日期
+          nights: 天数（天）
+        show:
+          group: 组数
+          id: 号码
+          conference_name: 会议
+          hotel_name: 酒店
+          names: 姓名
+          room_type_zh: 房型
+          room_count_zh: 房间数
+          all_names_string: 姓名
+          room_number: 房号
+          contact: 联系人
+          phone: 联系方式
+          twin_beds: 标间
+          queen_bed: 单间
+          three_beds: 三人间
+          other_twin_beds: 其他双人间
+          twin_beds_price: 标单/双现付价格/元/间/晚
+          queen_bed_price: 标单/双现付价格/元/间/晚
+          three_beds_price: 三人间现付价格/元/间/晚
+          other_twin_beds_price: 其他双间现付价格/元/间/晚
+          breakfast: 含早情况
+          car: 用车情况
+          price: 现付价格
+          checkin: 入住日期
+          checkout: 离店日期
+          check_in_out: 入住日期
+          nights: 天数（天）

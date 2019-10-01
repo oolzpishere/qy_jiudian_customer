@@ -1,0 +1,15 @@
+<div class="shadow p-3 rounded">
+  <%= current_manager.email %>
+  <%= link_to "退出登录", admin.destroy_manager_session_path, method: "delete", class: " btn btn-sm btn-secondary"%>
+</div>
+
+<ul class="nav flex-column mt-3">
+  <% @conferences.each do |conf| %>
+  <li class="nav-item">
+    <% class_names = ["nav-link", "btn", "mt-2"] %>
+    <% params["conference_id"] == conf.id.to_s ? class_names <<  ["active", "btn-primary"] : class_names << ["btn-secondary"] %>
+
+    <%= link_to conf.name, admin.conference_hotels_path(conf) , class: class_names.join(" ") %>
+  </li>
+  <% end %>
+</ul>

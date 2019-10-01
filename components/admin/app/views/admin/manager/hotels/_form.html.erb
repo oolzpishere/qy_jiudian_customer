@@ -1,0 +1,69 @@
+<%= form_with(model: [@conference, hotel], local: true) do |form| %>
+  <% if hotel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(hotel.errors.count, "error") %> prohibited this hotel from being saved:</h2>
+
+      <ul>
+      <% hotel.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label t('.name'), class: "h6" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label t('.conferences'), class: "h6" %>
+    <%= form.select(:conference_ids, Product::Conference.all.collect {|item| [ item.name, item.id ] },{},{:multiple => true, id: "hotel_conference_selection", class: ""})%>
+  </div>
+
+  <div id="hotel_room_types" class="mb-3">
+    <%= form.fields_for :hotel_room_types do |hotel_room_types_form| %>
+      <%= render 'hotel_room_type_fields', f: hotel_room_types_form %>
+    <% end %>
+    <%= link_to_add_association '增加房型', form, :hotel_room_types, {class: "btn btn-sm btn-success"} %>
+  </div>
+  <!-- <div class="form-group">
+    <%# form.label t('.twin_beds'), class: "h6" %>
+    <%# form.text_field :twin_beds, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%# form.label t('.twin_beds_price'), class: "h6" %>
+    <%# form.text_field :twin_beds_price, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%# form.label t('.twin_beds_settlement_price'), class: "h6" %>
+    <%# form.text_field :twin_beds_settlement_price, class: "form-control" %>
+  </div> -->
+
+
+
+  <div class="form-group">
+    <%= form.label t('.breakfast'), class: "h6" %>
+    <%# form.text_field :breakfast, class: "form-control" %>
+    <%= form.select(:breakfast, [["不含早", 0],["含早", 1]], {},{id: "breakfast_selection", class: "", required: true})%>
+  </div>
+
+  <div class="form-group">
+    <%= form.label t('.car'), class: "h6" %>
+    <%# form.text_field :breakfast, class: "form-control" %>
+    <%= form.select(:car, [["不含用车", 0],["含用车", 1]], {},{ id: "car_selection", class: "", required: true})%>
+  </div>
+
+  <div class="form-group">
+    <%= form.label t('.tax_rate'), class: "h6" %>
+    <%= form.text_field :tax_rate, id: "hotel_tax_rate", class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= javascript_include_tag "admin/form_selectize" %>

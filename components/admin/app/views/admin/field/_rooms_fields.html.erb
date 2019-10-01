@@ -1,0 +1,10 @@
+<%= form.fields_for :rooms do |nest_form| %>
+  <li>
+    <% field.has_many_attributes_to_show.each do |name| %>
+      <%= nest_form.label name %>
+      <%= nest_form.text_field name %>
+    <% end %>
+    <%= nest_form.check_box :_destroy%>
+    </li>
+
+<% end %>

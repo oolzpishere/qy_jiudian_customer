@@ -1,0 +1,5 @@
+zh-CN:
+  helpers:
+    submit:
+      create: "创建新%{model}"
+      update: "更新%{model}"

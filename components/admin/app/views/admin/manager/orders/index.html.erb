@@ -1,0 +1,104 @@
+
+<div class="row mb-2">
+  <div class="col">
+    <% start = @conference.start %>
+    <% finish = @conference.finish %>
+    <% conference_period_zh = "#{start.month}月#{start.day}日-#{finish.month}月#{finish.day}日" %>
+    <span class="h5"><%= "#{@conference.name}(#{conference_period_zh})"%></span>
+    </br>
+    <span class="h5"><%= @hotel.name%> > 订单</span>
+    <span class="badge badge-pill badge-primary"><%= @orders.count %></span>
+  </div>
+  <div class="col-auto">
+    <span>
+      <%= link_to t('.new_order'), admin.new_conference_hotel_order_path, class: "btn btn-success my-auto" %>
+    </span>
+  </div>
+</div>
+
+<table class="table table-sm table-striped table-bordered">
+  <thead>
+    <tr>
+      <th><%= check_box_tag 'select_all' %></th>
+      <% @show_page_attributes.each do |spa| %>
+        <th scope="col"><%= t(".#{spa.to_s}") %></th>
+      <% end %>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |item| %>
+      <tr>
+        <td><%= check_box_tag 'select', item.id %></td>
+        <% @show_page_attributes.each do |spa| %>
+          <% order_data = ::Admin::OrderData.new(order: item) %>
+          <% case spa.to_s %>
+          <% when /names/ %>
+            <td><%= order_data.all_names_string.truncate(16) %></td>
+          <% else %>
+            <td><%= order_data.send_command(spa) %></td>
+          <% end %>
+
+
+        <% end %>
+        <td>
+          <%= link_to t('.show'), item, class: "btn btn-sm btn-primary" %>
+          <%= link_to t('.edit'), admin.edit_order_path(item), class: "btn btn-sm btn-primary" %>
+          <%= link_to t('.destroy'), item, class: "btn btn-sm btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<button type="button" class="btn btn-success" id="send_sms">发送短信</button>
+<%= link_to '导出报表', "/manager/orders/download.xlsx?conference_id=#{@conference.id}&hotel_id=#{@hotel.id}", class: "btn btn-primary", id: "render_xlsx" %>
+
+
+<div class="row mt-3">
+  <div class="col-4">
+    <table class="table table-sm  table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>日期</th>
+          <th>余房</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% included_hotel = Product::Hotel.includes(:room_types, hotel_room_types: [:room_type, :date_rooms]).find(@hotel.id) %>
+        <% included_hotel.hotel_room_types.each do |item| %>
+          <tr>
+            <td colspan="2" style="text-align: center">
+              <%= item.room_type.name %>
+            </td>
+          </tr>
+          <% item.date_rooms.order(:date).each do |date_room| %>
+          <tr>
+            <td>
+              <%= date_room.date %>
+            </td>
+            <td>
+              <%= date_room.rooms %>
+            </td>
+          </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div id="preparing-file-modal" title="报表生成中..." style="display: none;">
+    报表生成中，请稍后...
+    <div class="ui-progressbar-value ui-corner-left ui-corner-right" style="width: 100%; height:22px; margin-top: 20px;"></div>
+</div>
+
+<div id="error-modal" title="Error" style="display: none;">
+    报表生成错误，请重试或联系管理员。
+</div>
+
+<div id="choice-modal" title="Error" style="display: none;">
+    请勾选需要生成的订单，再重试生成报表。
+</div>

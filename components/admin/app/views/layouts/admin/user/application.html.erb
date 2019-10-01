@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag    "admin/application", media: "all" %>
+  <%= javascript_include_tag "admin/application" %>
+</head>
+<body>
+
+<%= yield %>
+User dashboard application
+<%= current_user.email %>
+<%= link_to "Log out", admin.destroy_user_session_path, method: "delete", class: "ml-2 btn btn-secondary"%>
+
+</body>
+</html>

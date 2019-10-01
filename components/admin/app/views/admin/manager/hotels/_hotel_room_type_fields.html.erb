@@ -1,0 +1,26 @@
+<div class="nested-fields shadow p-3 rounded mb-3">
+  <div class="form-group">
+    <%= f.label t('.room_type'), class: "h6" %>
+    <%= f.select(:room_type_id, Product::RoomType.all.order(:position).collect {|item| [ item.name, item.id ] },{ include_blank: true },{ id: "hotel_room_type_selection", class: ""})%>
+  </div>
+
+  <div class="form-group">
+    <%= f.label t('.price'), class: "h6" %>
+    <%= f.text_field :price, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label t('.settlement_price'), class: "h6" %>
+    <%= f.text_field :settlement_price, class: "form-control" %>
+  </div>
+
+  <!-- 增加日期/房间余量 -->
+  <div class="date_rooms mb-3">
+    <%= f.fields_for :date_rooms do |date_room_form| %>
+      <%= render 'date_room_fields', f: date_room_form %>
+    <% end %>
+    <%= link_to_add_association '增加日期/房间余量', f, :date_rooms, {class: "add_date btn btn-sm btn-primary"} %>
+  </div>
+
+  <%= link_to_remove_association "删除房型", f, {class: "btn btn-sm btn-danger"} %>
+</div>

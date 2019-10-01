@@ -1,0 +1,37 @@
+<div class="row mb-2">
+  <div class="col">
+    <span class="h3">酒店</span>
+    <span class="badge badge-pill badge-primary"><%= @hotels.count %></span>
+  </div>
+  <div class="col-auto">
+    <span>
+      <%= link_to t('.new_hotel'), admin.new_conference_hotel_path, class: "btn btn-success my-auto" %>
+    </span>
+  </div>
+</div>
+
+<table class="table table-sm table-striped table-bordered">
+  <thead>
+    <tr>
+      <% @show_page_attributes.each do |spa| %>
+        <th scope="col"><%= t(".#{spa.to_s}") %></th>
+      <% end %>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hotels.each do |item| %>
+      <tr>
+        <% @show_page_attributes.each do |spa| %>
+          <td><%= link_to item.try(spa), admin.conference_hotel_orders_path(@conference, item) %></td>
+        <% end %>
+        <td>
+          <%= link_to t('.show'), admin.hotel_path(item), class: "btn btn-sm btn-primary" %>
+          <%= link_to t('.edit'), admin.edit_hotel_path(item), class: "btn btn-sm btn-primary" %>
+          <%= link_to t('.destroy'), item, class: "btn btn-sm btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
