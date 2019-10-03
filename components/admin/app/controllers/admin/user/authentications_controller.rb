@@ -4,6 +4,8 @@ module Admin
   class User::AuthenticationsController < User::ApplicationController
     # skip_before_action :verify_authenticity_token, :authenticate_user!
     # skip_before_action :authenticate_manager!, raise: false
+    skip_before_action :check_user
+    
     def wechat
       auth = request.env['omniauth.auth']       # 引入回调数据 HASH
       data = auth.info                          # https://github.com/skinnyworm/omniauth-wechat-oauth2
