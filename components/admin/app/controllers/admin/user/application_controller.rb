@@ -6,7 +6,7 @@ module Admin
 
     def check_user
       if user_signed_in?
-        redirect_to admin.user_root_path
+        return
       else
         redirect_to "/auth/wechat"
       end
