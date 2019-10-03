@@ -24,7 +24,7 @@ module Admin
           email:  "#{i}@sflx.com.cn",       # 因为devise 的缘故,邮箱暂做成随机
           # avatar: data.headimgurl,
           password: i,                                              # 密码随机
-          # password_confirmation: i
+          password_confirmation: i
         )
         identify = Account::Identify.create(
           provider: auth.provider,
@@ -36,7 +36,7 @@ module Admin
       end
 
       # sign_in_and_redirect @user, :event => :authentication
-      sign_in_and_redirect @user, :event => :authentication, scope: :admin
+      sign_in @user, :event => :authentication, scope: :user
       # sign_in @user, scope: :admin
       # redirect_to "/user"
     end

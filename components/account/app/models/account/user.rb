@@ -1,7 +1,7 @@
 module Account
   class User < ApplicationRecord
     self.table_name = 'users'
-    has_many :identifies
+    has_many :identifies, dependent: :destroy
 
     # Include default devise modules. Others available are:
     # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
