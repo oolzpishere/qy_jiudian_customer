@@ -3,7 +3,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :wechat, ENV["QIANYANJICHU_APP_ID"], ENV["QIANYANJICHU_APP_SECRET"],
    :client_options => {
         site:          "https://api.weixin.qq.com",
-        authorize_url: "https://open.weixin.qq.com/connect/oauth2/authorize?#wechat_redirect",
+        # authorize_url: "https://open.weixin.qq.com/connect/oauth2/authorize?#wechat_redirect",
+        authorize_url: "https://www.sflx.com.cn/get-weixin-code.html?#wechat_redirect",
         token_url:     "/sns/oauth2/access_token",
         token_method:  :get
       },

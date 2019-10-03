@@ -89,6 +89,7 @@ gem 'jquery-fileupload-rails'
 gem 'devise'
 gem 'devise-i18n'
 gem 'cancan' # or cancancan
+gem "omniauth-wechat-oauth2", git: "https://github.com/mycolorway/omniauth-wechat-oauth2"
 
 gem "jquery-slick-rails"
 

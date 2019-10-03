@@ -26,11 +26,15 @@ Admin::Engine.routes.draw do
   #
   # end
 
-
-  devise_for :users,  module: 'devise', class_name: "Account::User"
   devise_for :managers, module: 'devise', class_name: "Account::Manager"
+  devise_for :users,  module: 'devise', class_name: "Account::User"
+  # devise_scope :user do
+  #   get 'signin', to: 'devise/sessions#new'
+  # end
 
-  get "/auth/wechat/callback" => "authentications#wechat"
+  # get "/auth/wechat/callback" => "authentications#wechat"
+  get "/auth/:action/callback", :controller => "user/authentications", :constraints => { :action => /wechat/ }
+
 
   root to: "conferences#index"
   # get "/auth/:action/callback", :controller => "authentications", :constraints => { :action => /wechat|google/ }
