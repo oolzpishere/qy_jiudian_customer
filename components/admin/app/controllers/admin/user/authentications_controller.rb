@@ -22,7 +22,7 @@ module Admin
           username: data.nickname.to_s,
           # username: data.nickname.to_s + "_" + rand(36 ** 3).to_s(36),
           email:  "#{i}@sflx.com.cn",       # 因为devise 的缘故,邮箱暂做成随机
-          avatar: data.headimgurl,
+          # avatar: data.headimgurl,
           password: i,                                              # 密码随机
           # password_confirmation: i
         )
@@ -36,7 +36,7 @@ module Admin
       end
 
       # sign_in_and_redirect @user, :event => :authentication
-      sign_in_and_redirect admin.user_root, :event => :authentication
+      sign_in_and_redirect admin.user_root_path, :event => :authentication
       # redirect_to "/user"
     end
 
