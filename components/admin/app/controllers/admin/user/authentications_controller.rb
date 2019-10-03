@@ -36,7 +36,7 @@ module Admin
       end
 
       # sign_in_and_redirect @user, :event => :authentication
-      sign_in @user, :event => :authentication, scope: :user
+      sign_in_and_redirect @user, :event => :authentication, scope: :user
       # sign_in @user, scope: :admin
       # redirect_to "/user"
     end
