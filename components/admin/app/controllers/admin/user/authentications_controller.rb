@@ -5,7 +5,7 @@ module Admin
     # skip_before_action :verify_authenticity_token, :authenticate_user!
     # skip_before_action :authenticate_manager!, raise: false
     skip_before_action :check_user
-    
+
     def wechat
       auth = request.env['omniauth.auth']       # 引入回调数据 HASH
       data = auth.info                          # https://github.com/skinnyworm/omniauth-wechat-oauth2
@@ -18,7 +18,7 @@ module Admin
         @user = identify.user
       else
         i = Devise.friendly_token[0,20]
-        user = User.create!(
+        user = Account::User.create!(
           username: data.nickname.to_s,
           # username: data.nickname.to_s + "_" + rand(36 ** 3).to_s(36),
           email:  "#{i}@sflx.com.cn",       # 因为devise 的缘故,邮箱暂做成随机
