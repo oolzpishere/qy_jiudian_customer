@@ -60,7 +60,7 @@
 #     # password: "please use keys"
 #   }
 
-server "qyjiudian.sflx.com.cn",
+server "qyjiudian-customer.sflx.com.cn",
        user: "ubuntu",
        roles: %w{web app},
        ssh_options: {
@@ -74,5 +74,5 @@ server "qyjiudian.sflx.com.cn",
 set :puma_conf, "#{shared_path}/puma_production.rb"
 set :puma_bind, File.join("unix://#{shared_path}", 'tmp', 'sockets', 'puma_production.sock')
 
-set :nginx_server_name, "qyjiudian.sflx.com.cn"
+set :nginx_server_name, "qyjiudian-customer.sflx.com.cn"
 set :nginx_use_ssl, false

@@ -1,8 +1,8 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.11.0"
 
-set :application, "qy_jiudian"
-set :repo_url, "https://github.com/oolzpishere/qy_jiudian"
+set :application, "qy_jiudian_customer"
+set :repo_url, "https://github.com/oolzpishere/qy_jiudian_customer"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
