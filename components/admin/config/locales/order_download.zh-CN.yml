@@ -10,16 +10,28 @@ zh-CN:
               names: 姓名
               contact: 联系人
               phone: 联系方式
-              twin_beds: 标间
-              queen_bed: 单间
+              twin_beds: 标准双人间
+              queen_bed: 标准单人间
+              business_twin_beds: 商务双人间
+              luxury_twin_beds: 豪华双人间
+              business_queen_bed: 商务单人间
+              luxury_queen_bed: 豪华单人间
               three_beds: 三人间
               other_twin_beds: 其他双人间
-              twin_beds_price: 标单/双现付价格/元/间/晚
-              queen_bed_price: 标单/双现付价格/元/间/晚
+              twin_beds_price: 标准双人间现付价格/元/间/晚
+              queen_bed_price: 标准单人间现付价格/元/间/晚
+              business_twin_beds_price: 商务双人间现付价格/元/间/晚
+              luxury_twin_beds_price: 豪华双人间现付价格/元/间/晚
+              business_queen_bed_price: 商务单人间现付价格/元/间/晚
+              luxury_queen_bed_price: 豪华单人间现付价格/元/间/晚
               three_beds_price: 三人间现付价格/元/间/晚
               other_twin_beds_price: 其他双间现付价格/元/间/晚
-              twin_beds_settlement_price: 标单/双结算价格/元/间/晚
-              queen_bed_settlement_price: 标单/双结算价格/元/间/晚
+              twin_beds_settlement_price: 标准双人间结算价格/元/间/晚
+              queen_bed_settlement_price: 标准单人间结算价格/元/间/晚
+              business_twin_beds_settlement_price: 商务双人间结算价格/元/间/晚
+              luxury_twin_beds_settlement_price: 豪华双人间结算价格/元/间/晚
+              business_queen_bed_settlement_price: 商务单人间结算价格/元/间/晚
+              luxury_queen_bed_settlement_price: 豪华单人间结算价格/元/间/晚
               three_beds_settlement_price: 三人间结算价格/元/间/晚
               other_twin_beds_settlement_price: 其他双间结算价格/元/间/晚
               breakfast: 含早情况

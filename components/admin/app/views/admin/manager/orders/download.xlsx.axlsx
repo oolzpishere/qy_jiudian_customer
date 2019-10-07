@@ -1,4 +1,16 @@
-columns = %w(group id names contact phone twin_beds queen_bed three_beds other_twin_beds twin_beds_price queen_bed_price three_beds_price other_twin_beds_price breakfast room_number check_in_out nights total_price twin_beds_settlement_price queen_bed_settlement_price three_beds_settlement_price other_twin_beds_settlement_price actual_settlement profit tax_rate tax_point actual_profit)
+columns = %w(group id names contact phone)
+name_eng_arr = @hotel.hotel_room_types.map {|hrt| hrt.room_type.name_eng}
+
+columns << name_eng_arr
+
+columns << name_eng_arr.map {|name| name + "_price" }
+
+columns << %w(breakfast room_number check_in_out nights total_price)
+
+columns << name_eng_arr.map {|name| name + "_settlement_price" }
+
+columns << %w(actual_settlement profit tax_rate tax_point actual_profit)
+columns.flatten!
 
 columns_zh = columns.map {|name| t('.' + name)}
 

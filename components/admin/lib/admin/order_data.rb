@@ -43,13 +43,29 @@ module Admin
     def room_number
       room.room_number
     end
-
+# room_type
     def twin_beds
       hotel_room_type.room_type.name_eng.match(/twin_beds/) ? 1 : ""
     end
 
     def queen_bed
       hotel_room_type.room_type.name_eng.match(/queen_bed/) ? 1 : ""
+    end
+
+    def business_twin_beds
+      hotel_room_type.room_type.name_eng.match(/business_twin_beds/) ? 1 : ""
+    end
+
+    def luxury_twin_beds
+      hotel_room_type.room_type.name_eng.match(/luxury_twin_beds/) ? 1 : ""
+    end
+
+    def business_queen_bed
+      hotel_room_type.room_type.name_eng.match(/business_queen_bed/) ? 1 : ""
+    end
+
+    def luxury_queen_bed
+      hotel_room_type.room_type.name_eng.match(/luxury_queen_bed/) ? 1 : ""
     end
 
     def three_beds
@@ -59,13 +75,29 @@ module Admin
     def other_twin_beds
       hotel_room_type.room_type.name_eng.match(/other_twin_beds/) ? 1 : ""
     end
-
+#################### price
     def twin_beds_price
       hotel_room_type.room_type.name_eng.match(/twin_beds/) ? order.hotel.hotel_room_types.find(hotel_room_type.id).price : ""
     end
 
     def queen_bed_price
       hotel_room_type.room_type.name_eng.match(/queen_bed/) ? order.hotel.hotel_room_types.find(hotel_room_type.id).price : ""
+    end
+
+    def business_twin_beds_price
+      hotel_room_type.room_type.name_eng.match(/business_twin_beds/) ? order.hotel.hotel_room_types.find(hotel_room_type.id).price : ""
+    end
+
+    def luxury_twin_beds_price
+      hotel_room_type.room_type.name_eng.match(/luxury_twin_beds/) ? order.hotel.hotel_room_types.find(hotel_room_type.id).price : ""
+    end
+
+    def business_queen_bed_price
+      hotel_room_type.room_type.name_eng.match(/business_queen_bed/) ? order.hotel.hotel_room_types.find(hotel_room_type.id).price : ""
+    end
+
+    def luxury_queen_bed_price
+      hotel_room_type.room_type.name_eng.match(/luxury_queen_bed/) ? order.hotel.hotel_room_types.find(hotel_room_type.id).price : ""
     end
 
     def three_beds_price
@@ -75,13 +107,29 @@ module Admin
     def other_twin_beds_price
       hotel_room_type.room_type.name_eng.match(/other_twin_beds/) ? order.hotel.hotel_room_types.find(hotel_room_type.id).price : ""
     end
-
+################# settlement_price
     def twin_beds_settlement_price
       hotel_room_type.room_type.name_eng.match(/twin_beds/) ? order.hotel.hotel_room_types.find(hotel_room_type.id).settlement_price : ""
     end
 
     def queen_bed_settlement_price
       hotel_room_type.room_type.name_eng.match(/queen_bed/) ? order.hotel.hotel_room_types.find(hotel_room_type.id).settlement_price : ""
+    end
+
+    def business_twin_beds_settlement_price
+      hotel_room_type.room_type.name_eng.match(/business_twin_beds/) ? order.hotel.hotel_room_types.find(hotel_room_type.id).settlement_price : ""
+    end
+
+    def luxury_twin_beds_settlement_price
+      hotel_room_type.room_type.name_eng.match(/luxury_twin_beds/) ? order.hotel.hotel_room_types.find(hotel_room_type.id).settlement_price : ""
+    end
+
+    def business_queen_bed_settlement_price
+      hotel_room_type.room_type.name_eng.match(/business_queen_bed/) ? order.hotel.hotel_room_types.find(hotel_room_type.id).settlement_price : ""
+    end
+
+    def luxury_queen_bed_settlement_price
+      hotel_room_type.room_type.name_eng.match(/luxury_queen_bed/) ? order.hotel.hotel_room_types.find(hotel_room_type.id).settlement_price : ""
     end
 
     def three_beds_settlement_price
