@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= content_for(:title) || "前沿课堂" %></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <%= csrf_meta_tags %>
+
+  <% if content_for?(:turbolinks_reload) %>
+    <!-- <meta name="turbolinks-visit-control" content="reload"> -->
+  <% end %>
+
+  <% if content_for?(:turbolinks_no_cache) %>
+    <meta name="turbolinks-cache-control" content="no-cache">
+  <% end %>
+
+
+  <% if content_for(:description) %>
+    <meta name="description" content="<%= content_for(:description) %>">
+  <% end %>
+  <% if content_for(:keywords) %>
+    <meta name="keywords" content="<%= content_for(:keywords) %>">
+  <% end %>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag    'shared/manifests/application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= render_manifests('css') %>
+  <%= javascript_include_tag 'shared/manifests/application', 'data-turbolinks-track': 'reload', 'defer': true %>
+
+
+</head>
+
+<body>
+  <div id="menu">
+    <div class="row">
+    </div>
+  </div>
+
+  <main id="panel" >
+    <header>
+      <%= render "shared/layouts/header" %>
+    </header>
+
+
+    <% if notice %>
+    <p class="notice alert alert-success fade show" role="alert"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+    <p class="alert"><%= alert %></p>
+    <% end %>
+    <%= yield %>
+
+
+    <!-- <footer> -->
+    <%= render "shared/layouts/footer" %>
+
+  </main>
+
+
+
+</body>
+
+</html>

@@ -103,5 +103,5 @@ gem 'babel-transpiler'
 # my engines
 gem 'account', path: 'components/account'
 gem 'admin', path: 'components/admin'
-
 gem 'product', path: 'components/product'
+gem 'frontend', path: 'components/frontend'
