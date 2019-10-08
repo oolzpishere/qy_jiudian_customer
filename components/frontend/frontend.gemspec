@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.version     = Frontend::VERSION
   spec.authors     = [""]
   spec.email       = [""]
-  spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of Frontend."
-  spec.description = "TODO: Description of Frontend."
+  spec.homepage    = ""
+  spec.summary     = "Summary of Frontend."
+  spec.description = "Description of Frontend."
   spec.license     = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

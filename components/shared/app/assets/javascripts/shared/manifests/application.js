@@ -17,7 +17,6 @@
 //= require bootstrap-sprockets
 //= require jquery.slick
 //= require turbolinks
-//= require shared/manifests/mslideout
 //= require shared/manifests/lib/slideout
 //= require shared/manifests/lib/waves
 //= require shared/manifests/lib/moveit

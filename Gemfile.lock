@@ -41,10 +41,22 @@ PATH
       selectize-rails
 
 PATH
+  remote: components/frontend
+  specs:
+    frontend (0.1.0)
+      rails (~> 5.2.3)
+
+PATH
   remote: components/product
   specs:
     product (0.1.0)
       rails (~> 5.2.3)
+
+PATH
+  remote: components/shared
+  specs:
+    shared (0.1.0)
+      rails (~> 5.2.2)
 
 GEM
   remote: https://rubygems.org/
@@ -462,6 +474,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   font-awesome-sass (~> 5.8.1)
+  frontend!
   guard-rspec
   jbuilder (~> 2.5)
   jquery-fileupload-rails
@@ -481,6 +494,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0)
   selenium-webdriver
+  shared!
   sidekiq
   sinatra
   spring

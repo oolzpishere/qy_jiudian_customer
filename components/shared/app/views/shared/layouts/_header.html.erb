@@ -1,7 +1,19 @@
-<%#byebug%>
 
-<!--Navbar-->
-<nav class="navbar-wrap position-relative container-fluid p-0">
+<nav class="navbar navbar-light grey lighten-3">
+  <button class="collapsed" type="button" data-toggle="collapse" data-target="#navbarsExample10" aria-controls="navbarsExample10" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-lg fa-bars"></span>
+  </button>
+  <span class="">title</span>
+  <a class="far fa-lg fa-user"></a>
+  <!-- <a class="navbar-brand" href="#">Navbar</a> -->
 
+  <div class="navbar-collapse justify-content-md-center collapse" id="navbarsExample10" style="">
+    <ul class="navbar-nav">
+      <% @conferences.each do |conf| %>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><%= conf.name %></a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </nav>
-<!--/.Navbar-->
