@@ -17,22 +17,5 @@ gemspec
 gem 'account',path: "../account"
 gem 'product',path: "../product"
 
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec-rails'
-  # guard detect chang need gem install rb-fsevent
-  gem 'guard-rspec', require: false
-  gem 'factory_bot_rails'
-  gem 'rails-controller-testing'
-  gem 'faker'
-
-  gem 'awesome_print'
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'pry'
-  gem 'railroady'
-end
-
   # gem 'rubyzip', '>= 1.2.1'
   # gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'

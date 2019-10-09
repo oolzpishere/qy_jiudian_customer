@@ -1,0 +1,17 @@
+<%= form_with(model: manager_hotel_image, local: true) do |form| %>
+  <% if manager_hotel_image.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(manager_hotel_image.errors.count, "error") %> prohibited this manager_hotel_image from being saved:</h2>
+
+      <ul>
+      <% manager_hotel_image.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

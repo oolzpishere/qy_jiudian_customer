@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_08_144329) do
+ActiveRecord::Schema.define(version: 2019_10_09_124408) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -69,6 +69,15 @@ ActiveRecord::Schema.define(version: 2019_10_08_144329) do
     t.index ["hotel_room_type_id"], name: "index_date_rooms_on_hotel_room_type_id"
   end
 
+  create_table "hotel_images", force: :cascade do |t|
+    t.integer "hotel_id"
+    t.integer "cover"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hotel_id"], name: "index_hotel_images_on_hotel_id"
+  end
+
   create_table "hotel_room_types", force: :cascade do |t|
     t.integer "hotel_id"
     t.integer "room_type_id"
@@ -88,6 +97,9 @@ ActiveRecord::Schema.define(version: 2019_10_08_144329) do
     t.decimal "tax_point", default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "cover"
+    t.string "distance"
+    t.string "address"
   end
 
   create_table "identifies", force: :cascade do |t|

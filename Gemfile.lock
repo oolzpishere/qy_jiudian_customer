@@ -39,6 +39,7 @@ PATH
       rubyzip (~> 1.2.1)
       sass-rails
       selectize-rails
+      thor
 
 PATH
   remote: components/frontend
@@ -111,7 +112,7 @@ GEM
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
     arel (9.0.0)
-    autoprefixer-rails (9.6.1.1)
+    autoprefixer-rails (9.6.4)
       execjs
     awesome_print (1.8.0)
     axlsx (3.0.0.pre)
@@ -327,10 +328,6 @@ GEM
       bundler (>= 1.3.0)
       railties (= 5.2.3)
       sprockets-rails (>= 2.0.0)
-    rails-controller-testing (1.0.4)
-      actionpack (>= 5.0.1.x)
-      actionview (>= 5.0.1.x)
-      activesupport (>= 5.0.1.x)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -490,7 +487,6 @@ DEPENDENCIES
   puma (~> 3.11)
   railroady
   rails (~> 5.2.3)
-  rails-controller-testing
   rspec-rails
   sass-rails (~> 5.0)
   selenium-webdriver

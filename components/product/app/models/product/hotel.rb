@@ -9,5 +9,7 @@ module Product
     has_many :room_types, through: :hotel_room_types
     accepts_nested_attributes_for :hotel_room_types, reject_if: :all_blank, allow_destroy: true
 
+    has_many :hotel_images
+
   end
 end
