@@ -2,11 +2,21 @@ require_dependency "admin/application_controller"
 
 module Admin
   class Manager::HotelImagesController < Manager::ApplicationController
-    before_action :set_manager_hotel_image, only: [:show, :edit, :update, :destroy]
+    before_action :set_hotel, only: [:index, :new, :create]
+    before_action :set_hotel_image, only: [:show, :edit, :update, :destroy]
+
+    def dashboard
+      # @manager_hotel_images = Product::HotelImage.all
+      @hotel_image = Product::HotelImage.new
+    end
 
     # GET /manager/hotel_images
     def index
-      @manager_hotel_images = Manager::HotelImage.all
+      # @manager_hotel_images = Product::HotelImage.all
+      respond_to do |format|
+        format.html {}
+        format.json {render json: @hotel.hotel_images.reorder('id ASC').map {|img| img.to_jq_upload}}
+      end
     end
 
     # GET /manager/hotel_images/1
@@ -15,7 +25,7 @@ module Admin
 
     # GET /manager/hotel_images/new
     def new
-      @manager_hotel_image = Manager::HotelImage.new
+      @hotel_image = Product::HotelImage.new
     end
 
     # GET /manager/hotel_images/1/edit
@@ -24,12 +34,24 @@ module Admin
 
     # POST /manager/hotel_images
     def create
-      @manager_hotel_image = Manager::HotelImage.new(manager_hotel_image_params)
+      # not actually delete, return nil if not exist
+      images = hotel_image_params.delete(:images)
+      # @hotel_image = Product::HotelImage.new(hotel_image_params)
 
-      if @manager_hotel_image.save
-        redirect_to @manager_hotel_image, notice: 'Hotel image was successfully created.'
+      image_first = images.first if images.class == Array
+      # @image = Product::HotelImage.new({hotel_id: @hotel.id, :image => image_first})
+      @hotel_image = @hotel.hotel_images.create!(:image => image_first)
+      if @hotel_image.save
+        respond_to do |format|
+          format.html {
+            # redirect_to @gallery, notice: 'Gallery was successfully created.'
+          }
+          format.json {
+            render json: { :files =>  [@image.to_jq_upload] }
+          }
+        end
       else
-        render :new
+        render :json => [{:error => "custom_failure"}], :status => 304
       end
     end
 
@@ -44,19 +66,30 @@ module Admin
 
     # DELETE /manager/hotel_images/1
     def destroy
-      @manager_hotel_image.destroy
-      redirect_to manager_hotel_images_url, notice: 'Hotel image was successfully destroyed.'
+      @hotel_image.destroy
+
+      respond_to do |format|
+        format.html {
+          redirect_to admin.admin_root_path, notice: 'Hotel image was successfully destroyed.'
+        }
+        format.json {render json: 200}
+      end
+
     end
 
     private
       # Use callbacks to share common setup or constraints between actions.
-      def set_manager_hotel_image
-        @manager_hotel_image = Manager::HotelImage.find(params[:id])
+      def set_hotel_image
+        @hotel_image = Product::HotelImage.find(params[:id])
+      end
+
+      def set_hotel
+        @hotel = Product::Hotel.find(params[:hotel_id])
       end
 
       # Only allow a trusted parameter "white list" through.
-      def manager_hotel_image_params
-        params.fetch(:manager_hotel_image, {})
+      def hotel_image_params
+        params.fetch(:hotel_image, {}).permit(images: [])
       end
   end
 end

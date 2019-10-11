@@ -29,6 +29,7 @@
         <td>
           <%= link_to t('.show'), admin.hotel_path(item), class: "btn btn-sm btn-primary" %>
           <%= link_to t('.edit'), admin.edit_hotel_path(item), class: "btn btn-sm btn-primary" %>
+          <%= link_to t('.edit_image'), admin.new_hotel_hotel_image_path(hotel_id: item.id), class: "btn btn-sm btn-primary" %>
           <%= link_to t('.destroy'), item, class: "btn btn-sm btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>
