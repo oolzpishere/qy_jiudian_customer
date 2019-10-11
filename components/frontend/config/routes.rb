@@ -1,4 +1,4 @@
 Frontend::Engine.routes.draw do
-  resources :customer_hotels, only: [:show, :index]
-  root to: "customer_hotels#index"
+  resources :hotels, only: [:show, :index]
+  root to: "hotels#index"
 end
