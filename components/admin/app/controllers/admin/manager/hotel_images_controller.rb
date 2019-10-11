@@ -44,10 +44,12 @@ module Admin
       if @hotel_image.save
         respond_to do |format|
           format.html {
-            # redirect_to @gallery, notice: 'Gallery was successfully created.'
+            render :json => [@hotel_image.to_jq_upload].to_json,
+            :content_type => 'text/html',
+            :layout => false
           }
           format.json {
-            render json: { :files =>  [@image.to_jq_upload] }
+            render json: { :files =>  [@hotel_image.to_jq_upload] }
           }
         end
       else
