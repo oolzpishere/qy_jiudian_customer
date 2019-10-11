@@ -6,6 +6,7 @@ zh-CN:
           new_hotel: 创建酒店
           show: 查看
           edit: 编辑
+          edit_image: 上传图片
           destroy: 删除
           id: 序号
           name: 名称

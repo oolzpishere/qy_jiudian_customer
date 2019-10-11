@@ -39,9 +39,9 @@ module Admin
       # @hotel_image = Product::HotelImage.new(hotel_image_params)
 
       image_first = images.first if images.class == Array
-      # @image = Product::HotelImage.new({hotel_id: @hotel.id, :image => image_first})
+      # @hotel_image = Product::HotelImage.create!({hotel_id: @hotel.id, :image => image_first})
       @hotel_image = @hotel.hotel_images.create!(:image => image_first)
-      if @hotel_image.save
+      if @hotel_image
         respond_to do |format|
           format.html {
             render :json => [@hotel_image.to_jq_upload].to_json,
