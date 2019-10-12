@@ -2,11 +2,12 @@ require_dependency "frontend/application_controller"
 
 module Frontend
   class HotelsController < ApplicationController
+    before_action :set_conference, only: [:index, :show]
     before_action :set_hotel, only: [:show, :edit, :update, :destroy]
 
     # GET /hotels
     def index
-      @hotels = Product::Hotel.all
+      @hotels = @conference.hotels
     end
 
     # GET /hotels/1
@@ -52,6 +53,14 @@ module Frontend
       # Use callbacks to share common setup or constraints between actions.
       def set_hotel
         @hotel =  Product::Hotel.find(params[:id])
+      end
+
+      def set_conference
+        if params[:conference_id]
+          @conference = Product::Conference.find(params[:conference_id])
+        else
+          @conference = Product::Conference.first
+        end
       end
 
       # Only allow a trusted parameter "white list" through.

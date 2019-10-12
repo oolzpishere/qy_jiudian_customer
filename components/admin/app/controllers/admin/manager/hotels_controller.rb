@@ -81,6 +81,7 @@ module Admin
           :breakfast,
           :car,
           :tax_rate,
+          :address,
           conference_ids: [],
           hotel_room_types_attributes: [:id, :room_type_id, :price, :settlement_price, :_destroy, date_rooms_attributes: [:id, :date, :rooms, :_destroy ] ]
         )

@@ -1,21 +1,27 @@
-<h1>Hotels</h1>
+<div class="container px-0  grey lighten-4">
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @hotels.each do |hotel| %>
-      <tr>
+  <% @hotels.each do |hotel| %>
+    <div class="row mx-1 mb-2 rounded-lg overflow-hidden white">
+      <div class="col-4 px-0">
+        <% cover_size = '640x450' %>
+        <%= image_tag main_app.url_for(hotel.hotel_images.first.image.variant(combine_options: {resize: "#{cover_size}^", gravity: 'center', crop: "#{cover_size}+0+0"} )), class: "w-100", style: "" %>
+      </div>
+      <div class="col-8 px-2 pt-1">
+        <span class="h6"><%= hotel.name %></span>
+        <p class="small"><%= hotel.address %></p>
+        <div class="col px-0 text-right">
+          <span class="small">含税总价</span>
+          <span class="small red-text">￥</span>
+          <span class="h5 red-text"><%= hotel.hotel_room_types.map{|hrt| hrt.price}.min.to_i %></span>
+          <span class="small red-text">起</span>
 
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
-<br>
+
 
 <%# link_to 'New Hotel', new_hotel_path %>
+</div>

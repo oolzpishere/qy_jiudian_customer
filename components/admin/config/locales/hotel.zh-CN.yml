@@ -39,6 +39,7 @@ zh-CN:
           check_in_out: 入住日期
           nights: 天数（天）
           tax_rate: 税率
+          address: 地址
         show:
           name: 酒店名称
           id: 序号
@@ -66,6 +67,7 @@ zh-CN:
           check_in_out: 入住日期
           nights: 天数（天）
           tax_rate: 税率
+          address: 地址
         hotel_room_type_fields:
           room_type: 房型
           price: 现付价格

@@ -84,6 +84,15 @@
       </td>
     </tr>
 
+    <tr>
+      <td>
+        <%= t(".address") %>
+      </td>
+      <td>
+        <%= @hotel.try('address') %>
+      </td>
+    </tr>
+
     <!-- <tr>
       <td>
         <%# t(".tax_point") %>
