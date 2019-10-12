@@ -1,4 +1,28 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row py-2 deep-orange darken-3 text-white">
+    <div class="col-auto py-2 px-2 d-flex align-content-center flex-wrap">
+      <i class="fas fa-arrow-left fa-lg"></i>
+    </div>
+    <div class="col pl-0">
+      <span class="h6"><%= @conference.name %><span>
+      <br>
+      <span> <%= @hotel.name %></span>
+    </div>
+  </div>
 
-<%= link_to 'Edit', edit_hotel_path(@hotel) %> |
-<%= link_to 'Back', hotels_path %>
+<% @hotel.hotel_images.each do |img| %>
+  <%= image_tag main_app.url_for(img.image), class: "w-100", style: "" %>
+<% end %>
+
+<%= @hotel.name %>
+<%= @hotel.address %>
+
+
+<% @hotel.hotel_room_types.each do |hrt| %>
+  <%= hrt.room_type.name %>
+  <%= hrt.price %>
+<% end %>
+
+
+<%# link_to 'Back', hotels_path %>
+</div>

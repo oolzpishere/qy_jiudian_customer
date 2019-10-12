@@ -2,13 +2,14 @@
 
 
   <% @hotels.each do |hotel| %>
-    <div class="row mx-1 mb-2 rounded-lg overflow-hidden white">
+    <div class="row position-relative mx-1 mb-2 rounded-lg overflow-hidden white">
+      <%= link_to "", frontend.hotel_path(hotel), class: "w-100 h-100 position-absolute",style: "z-index: 10;" %>
       <div class="col-4 px-0">
         <% cover_size = '640x450' %>
         <%= image_tag main_app.url_for(hotel.hotel_images.first.image.variant(combine_options: {resize: "#{cover_size}^", gravity: 'center', crop: "#{cover_size}+0+0"} )), class: "w-100", style: "" %>
       </div>
       <div class="col-8 px-2 pt-1">
-        <span class="h6"><%= hotel.name %></span>
+        <%= link_to hotel.name, frontend.hotel_path(hotel), class: "h6 text-dark" %>
         <p class="small"><%= hotel.address %></p>
         <div class="col px-0 text-right">
           <span class="small">含税总价</span>
