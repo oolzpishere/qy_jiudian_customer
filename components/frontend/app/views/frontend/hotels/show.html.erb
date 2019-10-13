@@ -1,7 +1,10 @@
 <div class="container">
   <div class="row py-2 deep-orange darken-3 text-white">
     <div class="col-auto py-2 px-2 d-flex align-content-center flex-wrap">
-      <i class="fas fa-arrow-left fa-lg"></i>
+      <%= link_to frontend.hotels_path(conference_id: @conference.id), class: "text-white" do %>
+        <i class="fas fa-arrow-left fa-lg"></i>
+      <% end %>
+
     </div>
     <div class="col pl-0">
       <span class="h6"><%= @conference.name %><span>
@@ -10,7 +13,13 @@
     </div>
   </div>
 
+  <div class="your-class">
+    <div>your content</div>
+    <div>your content</div>
+    <div>your content</div>
+  </div>
 <% @hotel.hotel_images.each do |img| %>
+
   <%= image_tag main_app.url_for(img.image), class: "w-100", style: "" %>
 <% end %>
 
