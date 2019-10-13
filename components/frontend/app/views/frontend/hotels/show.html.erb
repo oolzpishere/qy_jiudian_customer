@@ -1,5 +1,7 @@
-<div class="container">
-  <div class="row py-2 deep-orange darken-3 text-white">
+<% content_for(:turbolinks_reload) %>
+
+<div class="container grey lighten-4">
+  <div class="row py-2 deep-orange darken-2 text-white">
     <div class="col-auto py-2 px-2 d-flex align-content-center flex-wrap">
       <%= link_to frontend.hotels_path(conference_id: @conference.id), class: "text-white" do %>
         <i class="fas fa-arrow-left fa-lg"></i>
@@ -13,24 +15,51 @@
     </div>
   </div>
 
-  <div class="your-class">
-    <div>your content</div>
-    <div>your content</div>
-    <div>your content</div>
+  <div class="row">
+    <div class="col px-0">
+      <div class="hotel-images-slick">
+        <% @hotel.hotel_images.each do |img| %>
+          <div class="">
+            <%= image_tag main_app.url_for(img.image), class: "w-100", style: "" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-<% @hotel.hotel_images.each do |img| %>
 
-  <%= image_tag main_app.url_for(img.image), class: "w-100", style: "" %>
-<% end %>
+  <div class="row">
+    <div class="col">
+      <div class="h5">
+        <%= @hotel.name %>
+      </div>
+      <%= @hotel.address %>
+    </div>
+  </div>
 
-<%= @hotel.name %>
-<%= @hotel.address %>
+  <div class="row">
+    <% @hotel.hotel_room_types.each do |hrt| %>
+      <div class="col m-2 py-2 rounded-lg d-flex justify-content-between white">
+        <div class="h6 d-flex align-content-center flex-wrap">
+          <%= hrt.room_type.name %>
+        </div>
+
+        <div class="p-2 rounded-lg text-center grey lighten-3 ">
+          <span class="small red-text">￥</span>
+          <span class="h5 red-text"><%= hrt.price %></span>
+          <span class="small red-text">元</span>
+          <br>
+          <span class="small red-text">含税总价</span>
+        </div>
+
+        <div class="d-flex align-content-center flex-wrap">
+          <%= link_to "预订", admin.new_order_path(conference_id: @conference.id, hotel_room_type_id: hrt.id),class: "btn-sm deep-orange text-white" %>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
 
 
-<% @hotel.hotel_room_types.each do |hrt| %>
-  <%= hrt.room_type.name %>
-  <%= hrt.price %>
-<% end %>
 
 
 <%# link_to 'Back', hotels_path %>

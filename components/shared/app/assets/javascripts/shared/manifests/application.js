@@ -23,3 +23,4 @@
 //= require shared/manifests/lib/lazysizes
 //= require shared/manifests/lib/wow
 //= require shared/manifests/lib/jquery.scrollTo
+//= require frontend/application
