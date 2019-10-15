@@ -1,17 +1,91 @@
-<%= form_with(model: user_order, local: true) do |form| %>
-  <% if user_order.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user_order.errors.count, "error") %> prohibited this user_order from being saved:</h2>
+<div class="row mx-2 mt-3 py-2 rounded-lg white">
+  <div class="col">
 
-      <ul>
-      <% user_order.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+    <%= form_with(model: order, local: true, id: "user_order_form") do |form| %>
+      <% if order.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+          <ul>
+          <% order.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="actions">
-    <%= form.submit %>
+      <%= form.hidden_field :conference_id, value: @conference.id %>
+      <%= form.hidden_field :hotel_id, value: @hotel.id %>
+      <%= form.hidden_field :hotel_room_type_id, value: @hotel_room_type.id %>
+
+      <span class="h6">房型：</span>
+      <%= form.label @hotel_room_type.room_type.name, class: "h6" %>
+      <%= form.hidden_field :room_type, value: @hotel_room_type.room_type.name_eng %>
+
+      <div class="form-group position-relative">
+        <%= form.label t(".checkin"), class: "h6" %>
+        <%= form.text_field :checkin, data: { type: 'datetime' }, class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group position-relative">
+        <%= form.label t(".checkout"), class: "h6" %>
+        <%= form.text_field :checkout, data: { type: 'datetime' }, class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <span class="h6">共</span>
+        <span id="order_nights_label" class="h6"></span>
+        <%= form.label t(".nights"), class: "h6" %>
+        <%= form.hidden_field :nights, class: "form-control" %>
+      </div>
+
+      <div class="form-group position-relative">
+        <ul id="rooms_ul">
+          <%= form.fields_for :rooms do |nest_form| %>
+            <li  class="has_many_field_li">
+              <% ["names"].each do |name| %>
+                <%= nest_form.label t("." + name) %>
+                <%= nest_form.text_field name, class: "border" %>
+              <% end %>
+              <%= nest_form.check_box :_destroy%> 删除
+              </li>
+          <% end %>
+        </ul>
+        <a id="has-many-addmore" href="#" class="btn btn-sm btn-success">加入房间</a>
+        <span id="rooms_count" class="badge badge-pill badge-success"></span>
+      </div>
+
+      <div class="form-group">
+        <%= form.label t(".contact"), class: "h6" %>
+        <%= form.text_field :contact, class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label t(".phone"), class: "h6" %>
+        <%= form.text_field :phone, class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label t(".price"), class: "h6" %>：<%= @hotel_room_type.price %>
+        <%= form.hidden_field :price, value: @hotel_room_type.price %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label t(".breakfast"), class: "h6" %>
+        <%= @hotel.breakfast == 0 ? "(不含早)" : "(含早)" %>
+        <%# form.hidden_field :breakfast, value: @hotel.breakfast %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label t(".car"), class: "h6" %>
+        <%# form.text_field :breakfast, class: "form-control" %>
+        <%= @hotel.car == 0 ? "(不含用车)" : "(含用车)" %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit "提交预订", class: "btn deep-orange text-white"%>
+      </div>
+    <% end %>
+
   </div>
-<% end %>
+</div>

@@ -1,5 +1,13 @@
 @import "bootstrap";
 
+// @import "mdb/scss/mdb";
+@import "shared/lib/mdb/colors";
+@import "shared/lib/mdb/mixins";
+@import "shared/lib/mdb/variables";
+@import "shared/lib/mdb/navbars";
+@import "shared/lib/mdb/footers";
+@import "shared/lib/mdb/global";
+
 @import 'jquery-ui/core';
 @import 'jquery-ui/theme';
 
@@ -28,3 +36,6 @@
 // jquery.fileupload
 @import 'jquery.fileupload';
 @import 'jquery.fileupload-ui';
+
+@import "font-awesome-sprockets";
+@import "font-awesome";

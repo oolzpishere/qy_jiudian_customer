@@ -52,7 +52,7 @@
         </div>
 
         <div class="d-flex align-content-center flex-wrap">
-          <%= link_to "预订", admin.new_order_path(conference_id: @conference.id, hotel_room_type_id: hrt.id),class: "btn-sm deep-orange text-white" %>
+          <%= link_to "预订", admin.new_order_path(conference_id: @conference.id, hotel_id: @hotel.id, hotel_room_type_id: hrt.id),class: "btn-sm deep-orange text-white" %>
         </div>
       </div>
     <% end %>

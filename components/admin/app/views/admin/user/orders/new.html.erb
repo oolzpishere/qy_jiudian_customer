@@ -1,5 +1,24 @@
-<h1>New User Order</h1>
+<div class="container px-0 pb-3 grey lighten-4">
+  <div class="row no-gutters py-2 deep-orange darken-2 text-white">
+    <div class="col-auto py-2 px-2 d-flex align-content-center flex-wrap">
+      <%= link_to frontend.hotel_path(@hotel.id, conference_id: @conference.id), class: "text-white" do %>
+        <i class="fas fa-arrow-left fa-lg"></i>
+      <% end %>
 
-<%= render 'form', user_order: @user_order %>
+    </div>
 
-<%= link_to 'Back', user_orders_path %>
+    <div class="col pl-0">
+      <span class="h6"><%= @conference.name %><span>
+      <br>
+      <span> <%= @hotel.name %></span>
+    </div>
+
+
+
+  </div>
+
+
+
+  <%= render 'form', order: @order %>
+
+</div>

@@ -53,6 +53,9 @@ $(function () {
     if ( startDate && endDate ) {
       $('#order_nights').attr( 'value', daysBetween(startDate, endDate) );
     }
+    if ($('#order_nights_label').length > 0){
+      $('#order_nights_label').text( daysBetween(startDate, endDate) )
+    }
   }
 
   function treatAsUTC(date) {
