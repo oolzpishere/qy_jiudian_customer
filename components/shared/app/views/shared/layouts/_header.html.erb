@@ -4,14 +4,16 @@
     <span class="fas fa-lg fa-bars"></span>
   </button>
   <span class=""><%= @conference.name %></span>
-  <a class="far fa-lg fa-user"></a>
+  <%= link_to "", admin.orders_path(conference_id: @conference.id), class: "far fa-lg fa-user" %>
   <!-- <a class="navbar-brand" href="#">Navbar</a> -->
 
   <div class="navbar-collapse justify-content-md-center collapse" id="navbarsExample10" style="">
     <ul class="navbar-nav">
       <% @conferences.each do |conf| %>
         <li class="nav-item">
-          <a class="nav-link" href="#"><%= conf.name %></a>
+          <% class_tags = ["nav-link"] %>
+          <% class_tags << "active" if params["conference_id"] == conf.id.to_s %>
+          <%= link_to conf.name, frontend.hotels_path(conference_id: conf.id), class: class_tags.join(" ") %>
         </li>
       <% end %>
     </ul>

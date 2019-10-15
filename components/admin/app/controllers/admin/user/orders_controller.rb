@@ -3,8 +3,8 @@ require_dependency "admin/application_controller"
 module Admin
   class User::OrdersController < User::ApplicationController
     before_action :set_conference, only: [:new, :create, :index]
-    before_action :set_hotel, only: [:new, :create, :index]
-    before_action :set_hotel_room_type, only: [:new, :create, :index]
+    before_action :set_hotel, only: [:new, :create]
+    before_action :set_hotel_room_type, only: [:new, :create]
     before_action :set_order, only: [:show, :edit, :update, :destroy]
 
     # GET /user/orders
@@ -40,7 +40,7 @@ module Admin
       hotel_room_type_id = params['hotel_room_type_id']
 
       unless date_rooms_handler.check_all_date_rooms
-        redirect_to(admin.new_order_path(conference_id: @conference.id, hotel_id: @hotel.id, hotel_room_type_id: hotel_room_type_id), alert: '入住日期不在售卖范围内，请重新填写.')
+        redirect_to(frontend.hotel_path(@hotel.id, conference_id: @conference.id), alert: '入住日期不在售卖范围内，请重新填写.')
         return
       end
 

@@ -16,7 +16,6 @@
 
       <%= form.hidden_field :conference_id, value: @conference.id %>
       <%= form.hidden_field :hotel_id, value: @hotel.id %>
-      <%= form.hidden_field :hotel_room_type_id, value: @hotel_room_type.id %>
 
       <span class="h6">房型：</span>
       <%= form.label @hotel_room_type.room_type.name, class: "h6" %>
