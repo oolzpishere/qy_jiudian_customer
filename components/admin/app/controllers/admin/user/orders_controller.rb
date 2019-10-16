@@ -2,14 +2,14 @@ require_dependency "admin/application_controller"
 
 module Admin
   class User::OrdersController < User::ApplicationController
-    before_action :set_conference, only: [:new, :create, :index]
+    before_action :set_conference, only: [:new, :create]
     before_action :set_hotel, only: [:new, :create]
     before_action :set_hotel_room_type, only: [:new, :create]
     before_action :set_order, only: [:show, :edit, :update, :destroy]
 
     # GET /user/orders
     def index
-      @orders = Product::Order.where(user: current_user)
+      @orders = Product::Order.where(user_id: current_user)
     end
 
     # GET /user/orders/1
