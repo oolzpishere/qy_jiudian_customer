@@ -1,24 +1,23 @@
 
 <h1>User Orders</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3">orders</th>
-    </tr>
-  </thead>
+<% if user_signed_in? %>
+  current_user.name
+  current_user.avatar
 
-  <tbody>
-    <%# @user_orders.each do |user_order| %>
-      <tr>
-        <td><%# link_to 'Show', user_order %></td>
-        <td><%# link_to 'Edit', edit_user_order_path(user_order) %></td>
-        <td><%# link_to 'Destroy', user_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <%# end %>
-  </tbody>
-</table>
+  <% @orders.each do |order| %>
+    <% order_data = Admin::OrderData.new(order: order) %>
+    <%= order.hotel.name %>
 
-<br>
+    <%= order_data.total_price %>
+    <%= order_data.check_in_out %>
+    <%= order_data.nights %>
+    <%= order_data.room_count_zh %>
+    <%= order_data.room_type_zh %>
+
+
+
+  <% end %>
+<% end %>
 
 <%# link_to 'New User Order', new_user_order_path %>

@@ -63,16 +63,21 @@
         <tr>
           <th>日期</th>
           <th>余房</th>
+          <th class="text-success">已订</th>
+          <th>总房数</th>
         </tr>
       </thead>
       <tbody>
+        <% orders_date_rooms_count_hash = Admin::OrderRoomsCount.new(@hotel_orders).set_date_rooms_count_hash %>
+
         <% included_hotel = Product::Hotel.includes(:room_types, hotel_room_types: [:room_type, :date_rooms]).find(@hotel.id) %>
         <% included_hotel.hotel_room_types.each do |item| %>
           <tr>
-            <td colspan="2" style="text-align: center">
+            <td colspan="4" style="text-align: center">
               <%= item.room_type.name %>
             </td>
           </tr>
+
           <% item.date_rooms.order(:date).each do |date_room| %>
           <tr>
             <td>
@@ -80,6 +85,15 @@
             </td>
             <td>
               <%= date_room.rooms %>
+            </td>
+            <% room_type_name_eng = item.room_type.name_eng %>
+            <% ordered_rooms =  orders_date_rooms_count_hash[room_type_name_eng] && orders_date_rooms_count_hash[room_type_name_eng][date_room.date.to_s] %>
+
+            <td class="text-success">
+              <%= ordered_rooms %>
+            </td>
+            <td>
+              <%= ordered_rooms + date_room.rooms if ordered_rooms %>
             </td>
           </tr>
           <% end %>

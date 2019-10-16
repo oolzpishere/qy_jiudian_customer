@@ -9,7 +9,7 @@ module Admin
 
     # GET /user/orders
     def index
-      @orders = Product::Order.all
+      @orders = Product::Order.where(user: current_user)
     end
 
     # GET /user/orders/1

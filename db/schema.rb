@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_09_124408) do
+ActiveRecord::Schema.define(version: 2019_10_16_153436) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(version: 2019_10_09_124408) do
     t.decimal "total_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["conference_id"], name: "index_orders_on_conference_id"
     t.index ["hotel_id"], name: "index_orders_on_hotel_id"
   end
@@ -172,6 +173,8 @@ ActiveRecord::Schema.define(version: 2019_10_09_124408) do
     t.string "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "avatar"
+    t.string "motto"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
