@@ -2,7 +2,7 @@ require_dependency "admin/application_controller"
 
 module Admin
   class User::OrdersController < User::ApplicationController
-    before_action :set_conference, only: [:new, :create, :index]
+    before_action :set_conference, only: [:new, :create]
     before_action :set_conferences, only: [:new, :show, :index]
     before_action :set_hotel, only: [:new, :create]
     before_action :set_hotel_room_type, only: [:new, :create]
