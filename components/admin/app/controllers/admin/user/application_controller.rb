@@ -1,6 +1,8 @@
 module Admin
   class User::ApplicationController < ApplicationController
 
+    include Shared::Controller::Layout
+
     # before_action :authenticate_user!
     if Rails.env.match(/production/)
       before_action :check_user

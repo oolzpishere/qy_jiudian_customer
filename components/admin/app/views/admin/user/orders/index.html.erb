@@ -1,23 +1,74 @@
-
-<h1>User Orders</h1>
+<% content_for(:user_page, true) %>
 
 <% if user_signed_in? %>
-  current_user.name
-  current_user.avatar
+  <div class="container px-0 pb-3 grey lighten-4">
+    <div class="row no-gutters py-1 deep-orange darken-2 text-white">
+      <div class="col-auto py-2 px-2">
+        <%= link_to frontend.hotels_path(conference_id: @conference.id), class: "text-white" do %>
+          <i class="fas fa-arrow-left fa-lg"></i>
+        <% end %>
+      </div>
+    </div>
 
-  <% @orders.each do |order| %>
-    <% order_data = Admin::OrderData.new(order: order) %>
-    <%= order.hotel.name %>
+    <div class="row no-gutters py-2 ">
 
-    <%= order_data.total_price %>
-    <%= order_data.check_in_out %>
-    <%= order_data.nights %>
-    <%= order_data.room_count_zh %>
-    <%= order_data.room_type_zh %>
+      <div class="ml-4" style="width: 60px; height: 60px;">
+        <%= image_tag current_user.avatar, class: "w-100 rounded-lg", style: "" %>
+      </div>
+      <div class="col pl-2 d-flex align-content-center flex-wrap">
+        <%= current_user.username %>
+      </div>
+    </div>
+    <div class="row no-gutters py-2 px-3">
+      <div class="col-12 d-flex justify-content-between">
+        <span class="h5">全部订单</span>
+        <i class="fas fa-chevron-down fa-lg"></i>
+      </div>
+    </div>
+      <% if @orders.empty? %>
+      <div class="row no-gutters py-2 px-2 ">
+        <div class="col-12 p-2 bg-white rounded-lg">
+          您尚未提交预订。
+        </div>
+      </div>
+      <% end %>
+
+
+      <% @orders.each do |order| %>
+        <% order_data = Admin::OrderData.new(order: order) %>
+        <div class="row no-gutters my-2 mx-2 py-2 px-3 bg-white rounded-lg">
+
+          <div class="col-12 ">
+            <span class="h6">
+              <%= order.hotel.name %>
+            </span>
+          </div>
+
+          <div class="col-12 my-2 d-flex justify-content-between">
+            <%= order_data.room_type_zh %>
+            <span class="ml-2">
+              总价：<%= order_data.total_price %>
+            </span>
+
+          </div>
+
+          <div class="col-12 ">
+            入住日期：<%= order_data.check_in_out %>
+            <br>
+            <%= order_data.room_count_zh %>
+            <span class="ml-2">
+              <%= order_data.nights %>晚
+            </span>
+          </div>
+        </div>
+
+
+        <% end %>
 
 
 
-  <% end %>
+  </div>
+
 <% end %>
 
 <%# link_to 'New User Order', new_user_order_path %>

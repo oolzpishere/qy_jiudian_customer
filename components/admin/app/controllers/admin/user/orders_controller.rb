@@ -2,7 +2,8 @@ require_dependency "admin/application_controller"
 
 module Admin
   class User::OrdersController < User::ApplicationController
-    before_action :set_conference, only: [:new, :create]
+    before_action :set_conference, only: [:new, :create, :index]
+    before_action :set_conferences, only: [:new, :show, :index]
     before_action :set_hotel, only: [:new, :create]
     before_action :set_hotel_room_type, only: [:new, :create]
     before_action :set_order, only: [:show, :edit, :update, :destroy]
@@ -43,7 +44,7 @@ module Admin
         redirect_to(frontend.hotel_path(@hotel.id, conference_id: @conference.id), alert: '入住日期不在售卖范围内，请重新填写.')
         return
       end
-
+      # byebug
       if @order.save
         date_rooms_handler.handle_date_rooms
         if Rails.env.match(/production/)
@@ -83,6 +84,10 @@ module Admin
         @conference = Product::Conference.find(id)
       end
 
+      def set_conferences
+        @conferences = Product::Conference.all
+      end
+
       def set_hotel
         id = params["hotel_id"] || order_params["hotel_id"]
         @hotel = Product::Hotel.find(id)
@@ -101,6 +106,7 @@ module Admin
           :count,
           :conference_id,
           :hotel_id,
+          :user_id,
           :room_type,
           :names,
           :contact,
