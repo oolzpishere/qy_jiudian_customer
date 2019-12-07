@@ -6,7 +6,8 @@ module Product
 
     belongs_to :conference
     belongs_to :hotel
-    belongs_to :user, class_name: "Account::User"
+    # have to have a user
+    # belongs_to :user, class_name: "Account::User"
 
     has_many :rooms, dependent: :destroy
     accepts_nested_attributes_for :rooms, allow_destroy: true, reject_if: :all_blank

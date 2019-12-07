@@ -4,9 +4,9 @@ module Admin
     include Shared::Controller::Layout
 
     # before_action :authenticate_user!
-    if Rails.env.match(/production/)
+    if Rails.env.match(/production|test/)
       before_action :check_user
-    else
+    elsif Rails.env.match(/development/)
       before_action :dev_set_user
     end
 

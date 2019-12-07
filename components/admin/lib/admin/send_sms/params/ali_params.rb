@@ -2,16 +2,11 @@
 
 module Admin
   module SendSms
-    class AliParams
-      attr_reader :record, :type, :order_data
+    class AliParams < Params
+      attr_reader :order_data
       def initialize( record, type )
-        @record = record
-        @type = type
+        super
         @order_data = ::Admin::OrderData.new(order: record)
-      end
-
-      def to_params
-        self.send(type)
       end
 
       def order

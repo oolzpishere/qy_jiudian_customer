@@ -82,7 +82,8 @@ module Admin
     # DELETE /orders/1
     def destroy
       if Rails.env.match(/production/)
-        ::Admin::SendSms::Ali.new(@order, "cancel").send_sms
+        # ::Admin::SendSms::Ali.new(@order, "cancel").send_sms
+        ::Admin::SendSms::Combiner.send_sms(@order, "cancel")
       end
       date_rooms_handler = DateRoomsHandler::Destroy.new(order: @order )
       @order.destroy
@@ -122,8 +123,10 @@ module Admin
       orders_array = JSON.parse(orders_string)
       @orders = Product::Order.order(:id).find(orders_array)
 
-      @orders.each {|order| ::Admin::SendSms::Ali.new(order, "order").send_sms }
-      # ::Admin::SendSms::Ali.new(@orders, "SMS_173472652").send_sms
+      @orders.each do |order|
+        # ::Admin::SendSms::Ali.new(order, "order").send_sms
+        ::Admin::SendSms::Combiner.send_sms(order, "order")
+      end
     end
 
     private

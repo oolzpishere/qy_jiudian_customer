@@ -7,7 +7,7 @@ RSpec.feature "sign in", :type => :feature do
     FactoryBot.create(:manager)
   end
 
-  it "signs me in" do
+  xit "signs me in" do
     visit '/managers/sign_in'
     within("#new_manager") do
       fill_in 'manager[email]', with: 'manager@example.com'
