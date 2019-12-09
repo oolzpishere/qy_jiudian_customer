@@ -49,7 +49,7 @@ module Admin
       if @order.save
         date_rooms_handler.handle_date_rooms
         if Rails.env.match(/production/)
-          ::Admin::SendSms::Ali.new(@order, "order").send_sms
+          ::Admin::SendSms::Combiner.send_sms(@order, "order")
         end
         redirect_to(admin.conference_hotel_orders_path(@conference, @hotel), notice: '订单创建成功。')
       else
@@ -71,7 +71,7 @@ module Admin
         date_rooms_handler.handle_date_rooms
         # order_rooms_change = @order.rooms.length - order_rooms_org
         if Rails.env.match(/production/)
-          ::Admin::SendSms::Ali.new(@order, "order").send_sms
+          ::Admin::SendSms::Combiner.send_sms(@order, "order")
         end
         redirect_back_or_default(admin.admin_root_path, notice: '订单更新成功。')
       else
