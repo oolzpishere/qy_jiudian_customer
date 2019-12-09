@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :hotel, class: "Product::Hotel" do
-    id {1}
+    # id {1}
     name {"hotel"}
     conference_ids {["1"]}
     breakfast {"0"}

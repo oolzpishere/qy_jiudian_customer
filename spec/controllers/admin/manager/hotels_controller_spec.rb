@@ -63,7 +63,7 @@ RSpec.describe Admin::Manager::HotelsController, type: :controller do
           hotel = FactoryBot.create(:hotel_with_hotel_room_types)
           hotel_org_attributes = hotel.attributes
 
-          hotel_new_params = FactoryBot.attributes_for(:hotel_with_hotel_room_types, name: "hotel-new")
+          hotel_new_params = FactoryBot.attributes_for(:hotel_with_hotel_room_types, id: hotel.id, name: "hotel-new")
           put :update, params: {id: hotel_new_params[:id], hotel: hotel_new_params}, session: valid_session
           hotel.reload
 

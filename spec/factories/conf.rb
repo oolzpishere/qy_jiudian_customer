@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :conf, class: "Product::Conference" do
-    id { 1 }
+    # id { 1 }
     name { "conf" }
     start { "2019-10-31"}
     finish { "2019-11-01" }
