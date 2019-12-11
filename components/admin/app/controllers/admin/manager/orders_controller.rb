@@ -49,7 +49,7 @@ module Admin
       if @order.save
         date_rooms_handler.handle_date_rooms
         if Rails.env.match(/production/)
-          ::Admin::SendSms::Combiner.send_sms(@order, "order")
+          SendSms::Combiner.send_sms(@order, "order")
         end
         redirect_to(admin.conference_hotel_orders_path(@conference, @hotel), notice: '订单创建成功。')
       else
@@ -71,7 +71,7 @@ module Admin
         date_rooms_handler.handle_date_rooms
         # order_rooms_change = @order.rooms.length - order_rooms_org
         if Rails.env.match(/production/)
-          ::Admin::SendSms::Combiner.send_sms(@order, "order")
+          SendSms::Combiner.send_sms(@order, "order")
         end
         redirect_back_or_default(admin.admin_root_path, notice: '订单更新成功。')
       else
@@ -82,8 +82,8 @@ module Admin
     # DELETE /orders/1
     def destroy
       if Rails.env.match(/production/)
-        # ::Admin::SendSms::Ali.new(@order, "cancel").send_sms
-        ::Admin::SendSms::Combiner.send_sms(@order, "cancel")
+        # SendSms::Ali.new(@order, "cancel").send_sms
+        SendSms::Combiner.send_sms(@order, "cancel")
       end
       date_rooms_handler = DateRoomsHandler::Destroy.new(order: @order )
       @order.destroy
@@ -124,8 +124,8 @@ module Admin
       @orders = Product::Order.order(:id).find(orders_array)
 
       @orders.each do |order|
-        # ::Admin::SendSms::Ali.new(order, "order").send_sms
-        ::Admin::SendSms::Combiner.send_sms(order, "order")
+        # SendSms::Ali.new(order, "order").send_sms
+        SendSms::Combiner.send_sms(order, "order")
       end
     end
 

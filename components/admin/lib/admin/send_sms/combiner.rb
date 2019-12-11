@@ -9,7 +9,7 @@ module Admin
         phone_numbers = record.phone
         template_codes = ::Admin::SendSms::TemplateCodes::ALI
         template_param = ::Admin::SendSms::AliParams.new( record, type )
-        ::Admin::SendSms::Sender.platform(type, phone_numbers, template_codes, template_param).send_sms
+        ::SendSms::Sender.platform(type, phone_numbers, template_codes, template_param).send_sms
       end
 
     end

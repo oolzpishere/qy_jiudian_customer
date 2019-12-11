@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Admin::SendSms do
+RSpec.describe "SendSms" do
 
   describe "send sms" do
     before(:each) do

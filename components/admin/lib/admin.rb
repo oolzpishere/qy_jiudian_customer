@@ -18,12 +18,16 @@ require 'jquery-validation-rails'
 require 'cocoon'
 
 require 'admin/order_data'
-require 'admin/send_sms'
 require 'admin/date_rooms_handler'
 require 'admin/order_rooms_count'
 
+# require 'send_sms'
+require_relative "admin/send_sms/params"
+require_relative "admin/send_sms/params/ali_params"
+require_relative "admin/send_sms/template_codes"
+require_relative "admin/send_sms/type"
+require_relative "admin/send_sms/combiner"
 
 module Admin
   # Your code goes here...
-
 end
