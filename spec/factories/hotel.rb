@@ -28,6 +28,7 @@ FactoryBot.define do
   factory :hotel_room_type, class: "Product::HotelRoomType" do
     # hotel
     # room_type_first
+    # "twin_beds"
     price { "100" }
     settlement_price {"200"}
   end

@@ -1,4 +1,6 @@
-columns = %w(group id names contact phone)
+form = Admin::Form.new(order: order)
+
+columns = ["group", "id", lambda{|room| room.names }, "contact", "phone"]
 name_eng_arr = @hotel.hotel_room_types.map {|hrt| hrt.room_type.name_eng}
 
 columns << name_eng_arr
@@ -32,10 +34,17 @@ xlsx_package.workbook do |wb|
     sheet.add_row columns_zh, :style => title
     @orders.each_with_index do |order, i|
       order.rooms.each do |room|
-        order_data = Admin::OrderData.new(order: order, i: count, room: room)
+        # order_data = Admin::OrderData.new(order: order, i: count, room: room)
         count += 1
         row = columns.map do |column|
-          order_data.send_command(column)
+          # order_data.send_command(column)
+          tf = Admin::OrderTranslate::Form.new(order: order)
+          if column.is_a?(Proc)
+            column.call(room)
+          else
+            tf.send_command(request: column)
+          end
+
         end
 
         sheet.add_row row, :style => body

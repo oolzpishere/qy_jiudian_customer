@@ -21,6 +21,8 @@ require 'admin/order_data'
 require 'admin/date_rooms_handler'
 require 'admin/order_rooms_count'
 
+require 'admin/order_translate'
+
 # require 'send_sms'
 require_relative "admin/send_sms/params"
 require_relative "admin/send_sms/params/ali_params"

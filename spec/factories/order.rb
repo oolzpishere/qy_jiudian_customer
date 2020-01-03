@@ -17,7 +17,7 @@ FactoryBot.define do
     checkin {"2019-10-30"}
     checkout {"2019-11-1"}
     nights {2}
-    total_price {660}
+    total_price {440}
     factory :order_with_rooms do
       transient do
         rooms_count { 2 }
