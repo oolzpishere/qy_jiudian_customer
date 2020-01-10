@@ -11,5 +11,9 @@ module Product
 
     has_many :hotel_images
 
+    attribute :tax_rate, :float
+    attribute :tax_point, :float
+
+
   end
 end

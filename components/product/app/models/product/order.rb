@@ -12,6 +12,9 @@ module Product
     has_many :rooms, dependent: :destroy
     accepts_nested_attributes_for :rooms, allow_destroy: true, reject_if: :all_blank
 
+    attribute :price, :float
+    attribute :total_price, :float
+
     # def checkin_zh
     #   checkin = self.checkin
     #   "#{checkin.month}月#{checkin.day}日"
@@ -28,8 +31,11 @@ module Product
     #   "#{checkin.month}月#{checkin.day}日-#{checkout.month}月#{checkout.day}日"
     # end
     #
-    # def nights
+    # def total_price
     #   (self.checkout-self.checkin).to_i
+    # end
+    # def price
+    #   self.price.to_f
     # end
 
   end

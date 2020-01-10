@@ -25,7 +25,7 @@ module Admin
       end
 
       def set_price
-        instance_variable_set("@#{room_type_eng_name}_price", hotel_room_type.price.to_f)
+        instance_variable_set("@#{room_type_eng_name}_price", order.price.to_f)
       end
 
       def set_settlement_price
