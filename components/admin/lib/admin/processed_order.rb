@@ -33,6 +33,8 @@ module Admin
         return calc_obj
       when /hotel/
         return hotel_obj
+      when /bed/
+        return bed_obj
       end
 
       case request.to_s

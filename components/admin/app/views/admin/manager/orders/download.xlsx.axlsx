@@ -1,6 +1,5 @@
-form = Admin::Form.new(order: order)
 
-columns = ["group", "id", lambda{|room| room.names }, "contact", "phone"]
+columns = ["group", "id", {request: "names", proc: lambda{ |room| room.names }, type: "proc"}, "contact", "phone"]
 name_eng_arr = @hotel.hotel_room_types.map {|hrt| hrt.room_type.name_eng}
 
 columns << name_eng_arr
@@ -11,10 +10,20 @@ columns << %w(breakfast room_number check_in_out nights total_price)
 
 columns << name_eng_arr.map {|name| name + "_settlement_price" }
 
-columns << %w(actual_settlement profit tax_rate tax_point actual_profit)
+# columns << %w(actual_settlement profit tax_rate tax_point actual_profit)
+
+columns << [{request: "actual_settlement", type: "calc"}, {request: "profit", type: "calc"}, {request: "tax_rate", type: "hotel"}, {request: "tax_point", type: "hotel"}, {request: "actual_profit", type: "calc"}]
+
 columns.flatten!
 
-columns_zh = columns.map {|name| t('.' + name)}
+columns_zh = columns.map do |name|
+  if name.is_a?(Hash)
+    t('.' + name[:request])
+  else
+    t('.' + name)
+  end
+end
+
 
 
 
@@ -27,8 +36,8 @@ xlsx_package.workbook do |wb|
   count = 0
 
   wb.add_worksheet(name: "Orders") do |sheet|
-    first_order_data = Admin::OrderData.new(order: @orders.first)
-    sheet.add_row ["前沿课堂#{@conference.name + @hotel.name + first_order_data.send_command("room_type_zh") + first_order_data.send_command("conference_check_in_out") }"], :style => head
+    first_order_data = Admin::OrderTranslate::Form.new(order: @orders.first)
+    sheet.add_row ["前沿课堂#{@conference.name + @hotel.name + first_order_data.send_command(request:  "conference_check_in_out") }"], :style => head
 
 
     sheet.add_row columns_zh, :style => title
@@ -39,8 +48,8 @@ xlsx_package.workbook do |wb|
         row = columns.map do |column|
           # order_data.send_command(column)
           tf = Admin::OrderTranslate::Form.new(order: order)
-          if column.is_a?(Proc)
-            column.call(room)
+          if column.is_a?(Hash) && column[:type] && column[:type].match(/proc/)
+            column[:proc].call(room)
           else
             tf.send_command(request: column)
           end

@@ -17,7 +17,11 @@ module Admin
       end
 
       def data(request)
-        instance_variable_get("@#{request}")
+        if self.try(request)
+          self.send(request)
+        else
+          instance_variable_get("@#{request}")
+        end
       end
 
       def set_room_type
