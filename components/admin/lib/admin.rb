@@ -23,6 +23,8 @@ require 'admin/order_rooms_count'
 
 require 'admin/order_translate'
 
+require 'admin/table'
+
 # require 'send_sms'
 require_relative "admin/send_sms/params"
 require_relative "admin/send_sms/params/ali_params"

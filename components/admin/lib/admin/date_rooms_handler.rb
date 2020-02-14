@@ -13,7 +13,7 @@ module DateRoomsHandler
       @before_date_range_array.pop
     end
 
-    # have check after assign attributes to @order, because order_rooms_change_to need assigned @order.
+    # have to check after assign attributes to @order, because order_rooms_change_to need assigned @order.
     def check_all_date_rooms
       return false unless hotel_room_type
 
