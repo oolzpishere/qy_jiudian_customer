@@ -1,11 +1,12 @@
 module Admin
   class ChangeRooms
-    attr_reader :order, :date_range_array, :hotel_room_type, :order_rooms_before, :before_date_range_array, :table
+    attr_reader :order, :date_range_array, :hotel_room_type, :order_rooms_before, :order_room_type_before, :before_date_range_array, :table
     def initialize( order: )
       @order = order
 
       # before data
       @order_rooms_before = @order.rooms.length
+      @order_room_type_before = @order.room_type
       before_checkin = @order.checkin
       before_checkout = @order.checkout
       @before_date_range_array = (before_checkin..before_checkout).to_a
@@ -15,20 +16,17 @@ module Admin
       @table ||= Admin::Table.new()
     end
 
-    def create_action
+    def create_to_table
       add_now_rooms_to_table
-      insert_to_db
     end
 
-    def update_action
+    def update_to_table
       add_before_rooms_to_table
       add_now_rooms_to_table
-      insert_to_db
     end
 
-    def delete_action
+    def delete_to_table
       delete_now_rooms_to_table
-      insert_to_db
     end
 
     def insert_to_db
@@ -62,12 +60,6 @@ module Admin
       end
     end
 
-    def insert_to_table
-      before_data_insert_to_table
-      now_data_insert_to_table
-      table
-    end
-
     def add_before_rooms_to_table
       col = order.room_type
       date_room_num = order_rooms_before
@@ -81,8 +73,8 @@ module Admin
     end
 
     def delete_now_rooms_to_table
-      col = order.room_type
-      date_room_num = @order.rooms.length
+      col = order_room_type_before
+      date_room_num = order_rooms_before
       date_room_insert_to_table(date_range_array_now, col, date_room_num)
     end
 
@@ -91,30 +83,6 @@ module Admin
         raise "It's not a string room_type" unless col.is_a?(String)
 
         table.insert_calc(date, col, date_room_num)
-      end
-      table
-    end
-
-    # deleted
-    def before_data_insert_to_table
-      before_date_range_array.each do |date|
-        col = order.room_type
-        raise "It's not a string room_type" unless col.is_a?(String)
-
-        date_room = order_rooms_before
-        table.insert_calc(date, col, date_room)
-      end
-      table
-    end
-
-    # deleted
-    def now_data_insert_to_table
-      date_range_array_now.each do |date|
-        col = order.room_type
-        raise "It's not a string room_type" unless col.is_a?(String)
-
-        date_room = -@order.rooms.length
-        table.insert_calc(date, col, date_room)
       end
       table
     end
