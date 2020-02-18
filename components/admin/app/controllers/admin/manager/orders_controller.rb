@@ -38,16 +38,20 @@ module Admin
     # POST /orders
     def create
       @order = Product::Order.new(order_params)
+      change_rooms = ChangeRooms.new( order: @order )
+      change_rooms.create_to_table
 
-      date_rooms_handler = DateRoomsHandler::Create.new( order: @order )
+      # date_rooms_handler = DateRoomsHandler::Create.new( order: @order )
 
-      unless date_rooms_handler.check_all_date_rooms
+      # unless date_rooms_handler.check_all_date_rooms
+      unless change_rooms.check_all_date_rooms
         redirect_to(admin.conference_hotel_orders_path(@conference, @hotel), alert: '入住日期不在售卖范围内，请重新填写，或修改酒店售卖日期')
         return
       end
 
       if @order.save
-        date_rooms_handler.handle_date_rooms
+        # date_rooms_handler.handle_date_rooms
+        change_rooms.insert_to_db
         if Rails.env.match(/production/)
           SendSms::Combiner.send_sms(@order, "order")
         end

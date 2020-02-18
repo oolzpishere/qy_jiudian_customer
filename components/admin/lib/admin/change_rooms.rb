@@ -37,7 +37,7 @@ module Admin
           data = table.get_data(row_pk, col_pk)
           if data
             date_room_record = get_date_room(records, row_pk)
-            date_room_record.rooms += data
+            date_room_record && date_room_record.rooms += data
             date_room_record.save
           end
         end
@@ -46,7 +46,11 @@ module Admin
 
     # have to check after assign attributes to @order, because order_rooms_change_to need assigned @order.
     def check_all_date_rooms
-      order_date_room_records.each do |dr|
+      date_room_records = order_date_room_records
+      # find by date
+      return false unless check_hotel_dates(date_room_records)
+      # check rooms
+      date_room_records.each do |dr|
         row = dr.date
         col = order.room_type
         rooms = dr.rooms
@@ -58,6 +62,15 @@ module Admin
           return false
         end
       end
+    end
+
+    def check_hotel_dates(date_room_records)
+      record_dates = date_room_records.map {|r| r.date}
+      date_range_array_now.each do |new_date|
+        # if not included in hotel dates, then return false.
+        return false unless record_dates.include?(new_date)
+      end
+      return true
     end
 
     def add_before_rooms_to_table
@@ -95,17 +108,17 @@ module Admin
       date_range_array
     end
 
-    def get_hotel_room_type(order)
-      # hotel and room_types have to be compound keys.
-      Product::HotelRoomType.joins(:room_type).where(hotel: order.hotel, room_types: {name_eng: order.room_type}).first
-    end
-
     def get_date_room(order_date_room_records, date)
       order_date_room_records.find {|dr| dr.date == date}
     end
 
     def order_date_room_records
       get_hotel_room_type(order).date_rooms
+    end
+
+    def get_hotel_room_type(order)
+      # hotel and room_types have to be compound keys.
+      Product::HotelRoomType.joins(:room_type).where(hotel: order.hotel, room_types: {name_eng: order.room_type}).first
     end
 
   end

@@ -57,6 +57,8 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'pry'
   gem 'railroady'
+
+  gem 'tapping_device'
 end
 
 group :development do

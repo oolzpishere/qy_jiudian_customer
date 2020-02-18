@@ -48,17 +48,6 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
       end
     end
 
-    describe "POST #create" do
-      context "with valid params" do
-        it "creates a new item" do
-          expect {
-            @order = FactoryBot.create(:order_with_rooms, conference: @conf, hotel: @hotel)
-            # post :create, params: {conference_id: conf.id, hotel: valid_attributes}
-          }.to change(Product::Order, :count).by(1)
-        end
-      end
-    end
-
     describe "PUT #update" do
       context "with valid params" do
         it "updates the requested item" do
@@ -83,4 +72,69 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
     end
 
   end
+
+  describe "Authorise manager, post actions" do
+    login_manager
+
+    before(:each) do
+      @conf = FactoryBot.create(:conf)
+      @hotel = FactoryBot.create(:hotel_with_hotel_room_types)
+    end
+
+    describe "POST #create" do
+      context "with valid params" do
+        it "creates a new item" do
+          @order = FactoryBot.attributes_for(:order_with_rooms, conference_id: @conf.id, hotel_id: @hotel.id)
+          expect {
+            post :create, :params => {conference_id: @conf.id, hotel_id: @hotel.id, order: @order}
+          }.to change(Product::Order, :count).by(1)
+        end
+
+        it "creates a new order and decrease hotel_room_type.date_rooms" do
+          room = FactoryBot.attributes_for(:room)
+          @order = FactoryBot.attributes_for(:order_with_rooms, conference_id: @conf.id, hotel_id: @hotel.id, rooms_attributes: {"0"=>room})
+
+          post :create, :params => {conference_id: @conf.id, hotel_id: @hotel.id, order: @order}
+          # get created order.
+          @order = Product::Order.first
+          hrt = Product::HotelRoomType.joins(:room_type).where(hotel: @order.hotel, room_types: {name_eng: @order.room_type}).first
+
+          results = hrt.date_rooms.map { |dr| dr.rooms }
+
+          expect(results).to eq([24,24])
+        end
+      end
+
+      context "with wrong params" do
+        it "creates a new order with date not in available range." do
+          room = FactoryBot.attributes_for(:room)
+          @order = FactoryBot.attributes_for(:order_with_rooms, conference_id: @conf.id, hotel_id: @hotel.id, checkout: "2019-11-2", rooms_attributes: {"0"=>room})
+
+          post :create, :params => {conference_id: @conf.id, hotel_id: @hotel.id, order: @order}
+
+          # same redirection path.
+          # expect(response).to redirect_to(conference_hotel_orders_path(@conf, @hotel))
+          expect(Product::Order.all.length).to eq(0)
+        end
+
+        it "creates a new order with rooms more than available." do
+          room = FactoryBot.attributes_for(:room)
+          rooms_attr_hash = {}
+          # create 26 rooms, available 25.
+          (0..25).to_a.each do |i|
+            rooms_attr_hash["#{i}"] = room
+          end
+
+          @order = FactoryBot.attributes_for(:order_with_rooms, conference_id: @conf.id, hotel_id: @hotel.id, rooms_attributes: rooms_attr_hash)
+
+          post :create, :params => {conference_id: @conf.id, hotel_id: @hotel.id, order: @order}
+
+          expect(Product::Order.all.length).to eq(0)
+        end
+      end
+
+    end
+
+  end
+
 end
