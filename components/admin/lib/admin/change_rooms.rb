@@ -49,7 +49,7 @@ module Admin
       date_room_records = order_date_room_records
       # find by date
       return false unless check_hotel_dates(date_room_records)
-      # check rooms
+      # check rooms, use hotel_date_room.date_rooms, ignore dates not available in hotel.
       date_room_records.each do |dr|
         row = dr.date
         col = order.room_type

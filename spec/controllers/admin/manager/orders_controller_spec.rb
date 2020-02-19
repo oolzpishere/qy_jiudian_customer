@@ -48,28 +48,9 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
       end
     end
 
-    describe "PUT #update" do
-      context "with valid params" do
-        it "updates the requested item" do
-          # order = FactoryBot.create(:order_with_rooms)
-          order_org_attributes = @order.attributes
-          # order range have to have enough date_rooms.
-          order_new_params = FactoryBot.attributes_for(:order_with_rooms, id: @order.id, group: 2, conference: @conf, hotel: @hotel)
-          put :update, params: {id: order_new_params[:id], order: order_new_params}, session: valid_session
-          @order.reload
 
-          expect(order_org_attributes).to_not eq(@order.attributes)
-        end
-      end
-    end
 
-    describe "DELETE #destroy" do
-      it "destroys the requested item" do
-        expect {
-          delete :destroy, params: {id: @order.to_param}, session: valid_session
-        }.to change(Product::Order, :count).by(-1)
-      end
-    end
+
 
   end
 
@@ -132,7 +113,87 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
           expect(Product::Order.all.length).to eq(0)
         end
       end
+    end
 
+    describe "PUT #update" do
+      context "with valid params" do
+        it "updates the requested item" do
+          FactoryBot.create(:order_with_rooms, conference: @conf, hotel: @hotel)
+
+          order_org = Product::Order.first
+          # order change group and add room
+          room = FactoryBot.attributes_for(:room)
+          order_new_params = FactoryBot.attributes_for(:order_with_rooms, id: 1, group: 2, conference: @conf, hotel: @hotel, rooms_attributes: {"0"=>room})
+
+          put :update, params: {id: order_new_params[:id], order: order_new_params}, session: valid_session
+          # below is test.
+          order_now = Product::Order.first
+          hrt = Product::HotelRoomType.joins(:room_type).where(hotel: order_now.hotel, room_types: {name_eng: order_now.room_type}).first
+
+          date_rooms_array = hrt.date_rooms.map { |dr| dr.rooms }
+
+          expect(order_org.group).to_not eq(order_now.group)
+          expect(date_rooms_array).to eq([24,24])
+        end
+      end
+
+      context "with wrong params" do
+        before(:each) do
+          FactoryBot.create(:order_with_rooms, conference: @conf, hotel: @hotel)
+          @order_org = Product::Order.first
+          # order change group and add room
+          @room = FactoryBot.attributes_for(:room)
+        end
+        it "updates with date not in available range, should be reject at check_all_date_rooms." do
+          order_new_params = FactoryBot.attributes_for(:order_with_rooms, id: 1, group: 2, conference: @conf, hotel: @hotel, checkout: "2019-11-2", rooms_attributes: {"0"=>@room})
+
+          put :update, params: {id: order_new_params[:id], order: order_new_params}, session: valid_session
+          # below is test.
+          order_now = Product::Order.first
+          hrt = Product::HotelRoomType.joins(:room_type).where(hotel: order_now.hotel, room_types: {name_eng: order_now.room_type}).first
+
+          date_rooms_array = hrt.date_rooms.map { |dr| dr.rooms }
+          # test order should not saved.
+          expect(@order_org.group).to eq(order_now.group)
+          # test date_rooms should not change
+          expect(date_rooms_array).to eq([25,25])
+        end
+
+        it "updates with rooms over available, should be reject at check_all_date_rooms." do
+          rooms_attr_hash = {}
+          # create 26 rooms, available 25.
+          (0..25).to_a.each do |i|
+            rooms_attr_hash["#{i}"] = @room
+          end
+          order_new_params = FactoryBot.attributes_for(:order_with_rooms, id: 1, group: 2, conference: @conf, hotel: @hotel, rooms_attributes: rooms_attr_hash)
+
+          put :update, params: {id: order_new_params[:id], order: order_new_params}, session: valid_session
+          # below is test.
+          order_now = Product::Order.first
+          hrt = Product::HotelRoomType.joins(:room_type).where(hotel: order_now.hotel, room_types: {name_eng: order_now.room_type}).first
+
+          date_rooms_array = hrt.date_rooms.map { |dr| dr.rooms }
+          # test order should not saved.
+          expect(@order_org.group).to eq(order_now.group)
+          # test date_rooms should not change
+          expect(date_rooms_array).to eq([25,25])
+        end
+      end
+    end
+
+    describe "DELETE #destroy" do
+      it "destroys the requested item" do
+        @order = FactoryBot.create(:order_with_rooms, conference: @conf, hotel: @hotel)
+
+        delete :destroy, params: {id: @order.to_param}, session: valid_session
+
+        hrt = Product::HotelRoomType.joins(:room_type).where(hotel: @order.hotel, room_types: {name_eng: @order.room_type}).first
+
+        date_rooms_array = hrt.date_rooms.map { |dr| dr.rooms }
+
+        expect(Product::Order.all.length).to eq(0)
+        expect(date_rooms_array).to eq([27,27])
+      end
     end
 
   end
