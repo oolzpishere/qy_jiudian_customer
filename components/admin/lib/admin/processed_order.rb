@@ -9,7 +9,7 @@ module Admin
 
     attr_reader :order, :bed_obj, :nothing_obj, :hotel_obj, :calc_obj
 
-    def initialize(order: order)
+    def initialize(order: nil)
       @order = order
 
       set_all_data

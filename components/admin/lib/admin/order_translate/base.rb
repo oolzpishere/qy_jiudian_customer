@@ -5,7 +5,7 @@ module Admin
 
       attr_reader :order, :processed_order, :processed_data
 
-      def initialize(order: order)
+      def initialize(order: nil)
         @order = order
         @processed_order = Admin::ProcessedOrder.new(order: order)
       end

@@ -3,7 +3,7 @@ module Admin
     class Calc
       attr_reader :order, :bed_obj
 
-      def initialize(order, bed_obj: bed_obj)
+      def initialize(order, bed_obj: nil)
         @order = order
         @bed_obj = bed_obj
       end
