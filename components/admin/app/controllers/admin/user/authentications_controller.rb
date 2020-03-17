@@ -10,8 +10,10 @@ module Admin
       identify = get_user
 
       if identify
+        # exist, get user data from db.
         @user = identify.user
       else
+        # not exist, create user.
         @user = create_user
       end
 
