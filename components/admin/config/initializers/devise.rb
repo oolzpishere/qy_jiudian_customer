@@ -300,7 +300,7 @@ Devise.setup do |config|
 end
 
 Rails.application.config.to_prepare do
-  DeviseController.layout "admin/devise"
+  # DeviseController.layout "admin/devise"
   # Devise::RegistrationsController.layout proc { |controller| user_signed_in? ? "application" : "devise" }
   # And/or Sessions, Confirmations, Unlocks, Passwords
 end
