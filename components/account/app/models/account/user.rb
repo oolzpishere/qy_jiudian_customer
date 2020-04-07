@@ -10,8 +10,21 @@ module Account
     devise :database_authenticatable, :registerable,
            :recoverable, :rememberable, :validatable, authentication_keys: [:login]
 
+   def email_required?
+       false
+   end
 
+   validates_presence_of :email, if: :phone_blank?
+   validates_presence_of :phone, if: :email_blank?
 # https://github.com/heartcombo/devise/wiki/How-To:-Allow-users-to-sign-in-using-their-username-or-email-address
+
+    def phone_blank?
+      phone.blank?
+    end
+
+    def email_blank?
+      email.blank?
+    end
 # <10 login with phone and email
     attr_writer :login
 

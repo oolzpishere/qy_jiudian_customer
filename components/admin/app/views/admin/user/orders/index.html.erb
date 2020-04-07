@@ -13,7 +13,7 @@
     <div class="row no-gutters py-2 ">
 
       <div class="ml-4" style="width: 60px; height: 60px;">
-        <%= image_tag current_user.avatar, class: "w-100 rounded-lg", style: "" %>
+        <%= image_tag(current_user.avatar, class: "w-100 rounded-lg", style: "") if current_user.avatar %>
       </div>
       <div class="col pl-2 d-flex align-content-center flex-wrap">
         <%= current_user.username %>

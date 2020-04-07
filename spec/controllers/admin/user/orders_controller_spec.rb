@@ -4,7 +4,7 @@ RSpec.describe Admin::User::OrdersController, type: :controller do
   routes { Admin::Engine.routes }
 
   describe "devise redirects" do
-    it "when not login, will redirects /auth/wechat page" do
+    xit "when not login, will redirects /auth/wechat page" do
       get :index
       expect(response).to redirect_to("/auth/wechat")
     end
