@@ -8,10 +8,21 @@ RSpec.feature "devise", :type => :feature do
       @user = FactoryBot.create(:user)
     end
 
-    it "signs me in" do
+    it "signs me in with phone" do
       visit '/user'
       within("#new_user") do
         fill_in 'user[login]', with: @user.phone
+        fill_in 'user[password]', with: @user.password
+      end
+      click_button 'commit'
+
+      expect(page).to have_content '登录成功'
+    end
+
+    it "signs me in with email" do
+      visit '/user'
+      within("#new_user") do
+        fill_in 'user[login]', with: @user.email
         fill_in 'user[password]', with: @user.password
       end
       click_button 'commit'
