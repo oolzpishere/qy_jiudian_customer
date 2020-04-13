@@ -1,5 +1,5 @@
 module Admin
-  class User::ApplicationController < ApplicationController
+  class User::ApplicationController < ::Admin::ApplicationController
     include Shared::Controller::Layout
 
     # set login_type:

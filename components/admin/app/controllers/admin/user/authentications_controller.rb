@@ -1,7 +1,7 @@
 require_dependency "admin/application_controller"
 
 module Admin
-  class User::AuthenticationsController < ::Admin::User::ApplicationController
+  class User::AuthenticationsController < User::ApplicationController
     # skip_before_action :verify_authenticity_token, :authenticate_user!
     skip_before_action :check_user
 
