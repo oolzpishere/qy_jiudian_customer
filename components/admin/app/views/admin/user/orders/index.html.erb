@@ -19,6 +19,13 @@
         <%= current_user.username %>
       </div>
     </div>
+
+    <div class="row no-gutters py-2 px-3">
+      <div class="col-12">
+        <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+      </div>
+    </div>
+
     <div class="row no-gutters py-2 px-3">
       <div class="col-12 d-flex justify-content-between">
         <span class="h5">全部订单</span>

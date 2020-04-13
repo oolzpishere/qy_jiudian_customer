@@ -19,20 +19,23 @@ module Admin
       elsif Rails.env.match(/development/)
         before_action :dev_set_user
       end
+    end
 
-      def check_user
-        if user_signed_in?
-          return
-        else
-          redirect_to "/auth/wechat"
-        end
+    def check_user
+      if user_signed_in?
+        return
+      else
+        redirect_to "/auth/wechat"
       end
+    end
 
-      def dev_set_user
+    def dev_set_user
+      if !user_signed_in?
         user = Account::User.first
         sign_in user, scope: :user
       end
     end
+
 
 
   end

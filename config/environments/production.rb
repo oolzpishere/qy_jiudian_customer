@@ -51,7 +51,10 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
+  # config.log_level = :debug
+  # M. For devise reset token not write to log.
+  config.log_level = :warn
+
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
@@ -64,6 +67,19 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "qy_jiudian_#{Rails.env}"
 
   config.action_mailer.perform_caching = false
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.qq.com',
+    port:                 587,
+    # domain:               'example.com',
+    user_name:            ENV["MYQQMAIL_ID"],
+    password:             ENV["MYQQMAIL_PASS"],
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
+
+  config.action_mailer.default_url_options = { :host => "www.sflx.com.cn" }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
