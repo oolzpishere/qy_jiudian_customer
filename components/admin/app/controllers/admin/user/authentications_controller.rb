@@ -1,9 +1,8 @@
 require_dependency "admin/application_controller"
 
 module Admin
-  class User::AuthenticationsController < User::ApplicationController
+  class User::AuthenticationsController < ::Admin::User::ApplicationController
     # skip_before_action :verify_authenticity_token, :authenticate_user!
-    # skip_before_action :authenticate_manager!, raise: false
     skip_before_action :check_user
 
     def wechat
