@@ -109,4 +109,4 @@ gem 'account', path: 'components/account'
 gem 'admin', path: 'components/admin'
 gem 'product', path: 'components/product'
 # admin engine
-gem 'send_sms', '~> 0.1.2', git: "https://github.com/oolzpishere/send_sms"
+# gem 'send_sms', '~> 0.1.2', git: "https://github.com/oolzpishere/send_sms"

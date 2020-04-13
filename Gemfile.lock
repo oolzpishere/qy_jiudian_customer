@@ -6,15 +6,6 @@ GIT
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
 
-GIT
-  remote: https://github.com/oolzpishere/send_sms
-  revision: e5aeb27e946a4e23ff16db0699483463da5e9967
-  specs:
-    send_sms (0.1.2)
-      aliyun-sms
-      qcloud-sms
-      rails (~> 5.2.3)
-
 PATH
   remote: components/account
   specs:
@@ -506,7 +497,6 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0)
   selenium-webdriver
-  send_sms (~> 0.1.2)!
   shared!
   sidekiq
   sinatra
