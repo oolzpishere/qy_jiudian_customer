@@ -506,7 +506,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0)
   selenium-webdriver
-  send_sms!
+  send_sms (~> 0.1.2)!
   shared!
   sidekiq
   sinatra
