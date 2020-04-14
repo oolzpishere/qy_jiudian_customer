@@ -37,13 +37,15 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.qq.com',
-    port:                 587,
-    # domain:               'example.com',
-    user_name:            ENV["MYQQMAIL_ID"],
-    password:             ENV["MYQQMAIL_PASS"],
-    authentication:       'plain',
-    enable_starttls_auto: true
+    address:              'smtp.sendcloud.net',
+    port:                 25,
+    # domain:               'TIZvzoFgfxgmQSU2TO0b0LjKDOo96qgX.sendcloud.org',
+    user_name:            ENV["SENDCLOUD_ID"],
+    password:             ENV["SENDCLOUD_PASS"],
+    authentication:       'login'
+    # ssl:                  true,
+    # openssl_verify_mode:  true,
+    # enable_starttls_auto: true
   }
   config.action_mailer.default_url_options = { :host => "dev.yourhost.com" }
 
