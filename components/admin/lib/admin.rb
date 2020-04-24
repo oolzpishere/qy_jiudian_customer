@@ -16,6 +16,7 @@ require 'axlsx_rails'
 # require 'client_side_validations'
 require 'jquery-validation-rails'
 require 'cocoon'
+require 'active_model_otp'
 
 require 'admin/order_data'
 require 'admin/date_rooms_handler'

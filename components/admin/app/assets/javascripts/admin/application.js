@@ -27,3 +27,4 @@
 //= require jquery.validate.localization/messages_zh
 //= require cocoon
 //= require jquery-fileupload
+//= require admin/user/session

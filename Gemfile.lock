@@ -18,6 +18,7 @@ PATH
   specs:
     admin (0.1.0)
       account
+      active_model_otp
       aliyun-sms
       axlsx
       axlsx_rails (~> 0.5.2)
@@ -84,6 +85,9 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_model_otp (2.0.1)
+      activemodel
+      rotp (~> 5.0.0)
     activejob (5.2.4)
       activesupport (= 5.2.4)
       globalid (>= 0.3.6)
@@ -111,7 +115,7 @@ GEM
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
     arel (9.0.0)
-    autoprefixer-rails (9.7.3)
+    autoprefixer-rails (9.7.6)
       execjs
     awesome_print (1.8.0)
     axlsx (3.0.0.pre)
@@ -300,7 +304,7 @@ GEM
       omniauth (~> 1.9)
     orm_adapter (0.5.0)
     pg (1.1.4)
-    popper_js (1.14.5)
+    popper_js (1.16.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -351,6 +355,8 @@ GEM
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    rotp (5.0.0)
+      addressable (~> 2.5)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)

@@ -7,7 +7,7 @@ RSpec.describe Admin::User::ApplicationController, type: :controller do
 
     login_user
 
-    it "login success" do
+    xit "login success" do
 
       get :new
 

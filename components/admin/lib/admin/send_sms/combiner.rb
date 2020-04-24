@@ -3,7 +3,9 @@
 module Admin
   module SendSms
     class Combiner
-
+      # Usage：
+      # order send_sms
+      # SendSms::Combiner.send_sms(order, "order")
       def self.send_sms(record, type, template_codes = nil)
         type = ::Admin::SendSms::Type.get_type(record, type)
         phone_numbers = record.phone

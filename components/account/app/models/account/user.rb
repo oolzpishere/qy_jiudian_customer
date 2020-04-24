@@ -56,5 +56,8 @@ module Account
     end
 # <!10
 
+    include ::ActiveModel::OneTimePassword
+    has_one_time_password
+
   end
 end

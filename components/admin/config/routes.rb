@@ -28,6 +28,8 @@ Admin::Engine.routes.draw do
   scope path: "/user", module: "user" do
     resources :orders
     root to: "orders#index", :as => :user_root
+    resources :sessions, only: [:new, :create]
+    # get "sessions", to: "sessions#index"
   end
 
   # namespace :user do
@@ -39,6 +41,12 @@ Admin::Engine.routes.draw do
 
   devise_for :managers, module: 'devise', class_name: "Account::Manager"
   devise_for :users,  module: 'devise', class_name: "Account::User"
+  # devise_for :users, controllers: { sessions: '/admin/user/sessions' }, :action => "check_verification_code"
+
+  post :check_verification_code, :controller => "/admin/user/sessions", :action => "check_verification_code"
+  get :sendverification, :controller => "/admin/user/sessions", :constraints => { :action => /sendverification/ }
+
+
   # devise_scope :user do
   #   get 'signin', to: 'devise/sessions#new'
   # end
