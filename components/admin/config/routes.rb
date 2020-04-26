@@ -29,6 +29,7 @@ Admin::Engine.routes.draw do
     resources :orders
     root to: "orders#index", :as => :user_root
     resources :sessions, only: [:new, :create]
+    resources :reset_password_by_phone, only: [:new, :create]
     # get "sessions", to: "sessions#index"
   end
 
@@ -43,8 +44,8 @@ Admin::Engine.routes.draw do
   devise_for :users,  module: 'devise', class_name: "Account::User"
   # devise_for :users, controllers: { sessions: '/admin/user/sessions' }, :action => "check_verification_code"
 
-  post :check_verification_code, :controller => "/admin/user/sessions", :action => "check_verification_code"
-  get :sendverification, :controller => "/admin/user/sessions", :constraints => { :action => /sendverification/ }
+  post :check_verification_code, :controller => "/admin/user/phone_verification", :action => "check_verification_code"
+  get :sendverification, :controller => "/admin/user/phone_verification", :action => "sendverification"
 
 
   # devise_scope :user do
