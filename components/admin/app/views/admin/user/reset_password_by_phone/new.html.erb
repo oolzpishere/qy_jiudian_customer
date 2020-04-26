@@ -7,22 +7,21 @@
       <%= form_with(url: admin.reset_password_by_phone_index_path, local: true) do |form| %>
 
         <div id="phone_details">
-          <%= form.label :mobile_phone, class: 'control-label', id: 'verify_phone_label' %>
-          <%= form.text_field  :verification_phone, placeholder: '05XX XXXXXXX', id: 'verification_phone' ,:class => "{mask:'(0569) 9999999'}" %>
-          <%= link_to 'send_code', "#", :id=> 'sendverification', :class=> 'btn btn-medium btn-success' %>
-          <%= form.label :error_mobile_label, class: 'control-label', id: 'error_mobile_label' %>
-
+          <%= form.label "手机号码 ", class: 'control-label', id: 'verify_phone_label' %>
+          <%= form.text_field  :verification_phone, id: 'verification_phone' ,:class => "{mask:'(0569) 9999999'}" %>
+          <%= link_to '发送验证码', "#", :id=> 'sendverification', :class=> 'btn btn-sm btn-success' %>
+          <%= form.label "", class: 'control-label', id: 'error_mobile_label' %>
         </div>
 
         <div id="verification_details">
-          <%= form.label :info_label, class: 'control-label', id: 'verify_code_label' , style:"display:none" %>
+          <%= form.label "验证码 ", class: 'control-label', id: 'verify_code_label' , style:"display:none" %>
           <%= form.text_field :verification_code, placeholder: 'XXXXXX', id: 'verification_code' ,:class => "{mask:'999999'}", :alt=> "999999'" %>
-          <%= form.label :error_label, class: 'control-label', id: 'error_code_label' %>
-          <%= form.label :success_label, class: 'control-label', id: 'success_code_label' %>
+          <%= form.label "", class: 'control-label', id: 'error_code_label' %>
+          <%= form.label "", class: 'control-label', id: 'success_code_label' %>
         </div>
 
         <div class="field">
-          <%= form.label :password %>
+          <%= form.label "密码" %>
           <% if @minimum_password_length %>
           <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
           <% end %><br />
@@ -30,12 +29,12 @@
         </div>
 
         <div class="field">
-          <%= form.label :password_confirmation %><br />
+          <%= form.label "确认密码" %><br />
           <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
         </div>
 
         <div class="actions">
-          <%= form.submit "登录", class: "btn deep-orange text-white"%>
+          <%= form.submit "设置新密码", class: "btn deep-orange text-white"%>
         </div>
       <% end %>
     </div>
