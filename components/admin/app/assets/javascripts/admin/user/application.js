@@ -29,3 +29,4 @@
 //= require admin/hotel
 
 //= require admin/user/order
+//= require admin/user/wxpay

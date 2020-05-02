@@ -33,6 +33,9 @@ Admin::Engine.routes.draw do
     # get "sessions", to: "sessions#index"
   end
 
+  post 'wx_pay' => '/admin/user/pay#wx_pay'
+  post 'wx_notify' => '/admin/user/pay#wx_notify'
+
   # namespace :user do
   #
   #     resources :orders

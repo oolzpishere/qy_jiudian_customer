@@ -64,4 +64,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "cocoon"
 
+  spec.add_dependency 'wx_pay'
+
 end

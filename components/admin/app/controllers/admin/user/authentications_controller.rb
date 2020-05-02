@@ -1,9 +1,11 @@
 require_dependency "admin/application_controller"
 
 module Admin
-  class User::AuthenticationsController < User::ApplicationController
+  class User::AuthenticationsController < ::Admin::User::ApplicationController
     # skip_before_action :verify_authenticity_token, :authenticate_user!
-    skip_before_action :check_user
+    # not authenticate_user! when callback to wechat.
+    skip_before_action :authenticate_user!
+
 
     def wechat
       identify = get_user
@@ -17,9 +19,10 @@ module Admin
       end
 
       # sign_in_and_redirect @user, :event => :authentication
-      sign_in_and_redirect @user, :event => :authentication, scope: :user
+      sign_in @user, :event => :authentication, scope: :user
+      redirect_to "/user"
       # sign_in @user, scope: :admin
-      # redirect_to "/user"
+
     end
 
     private
@@ -33,6 +36,7 @@ module Admin
       find_user(auth.provider, auth.uid, unionid)
     end
 
+    # find user by unionid first.
     def find_user(provider, openid = "", unionid = "")
       identify = nil
       unless unionid.empty?
