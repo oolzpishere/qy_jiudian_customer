@@ -1,5 +1,7 @@
 module Admin
-  class User::PayController < Admin::User::ApplicationController
+  class User::PayController < ActionController::Base
+    layout "admin/user/sessions.html.erb"
+
     before_action :authenticate_user!, except: [:wx_notify]
     skip_before_action :verify_authenticity_token, only: [:wx_notify]
 
