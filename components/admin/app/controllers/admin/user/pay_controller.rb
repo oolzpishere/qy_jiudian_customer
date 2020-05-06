@@ -4,6 +4,7 @@ module Admin
     skip_before_action :verify_authenticity_token, only: [:wx_notify]
 
     def wx_pay
+      current_identify = Account::Identify.find_by(user: current_user, provider: 'wechat')
       pay_params = {
         body: 'Test Wechat Pay',
         out_trade_no: "trade-#{Time.now.to_i}",
@@ -11,7 +12,7 @@ module Admin
         spbill_create_ip: request.remote_ip,
         notify_url: 'http://qyjiudian-customer.sflx.com.cn/wx_notify',
         trade_type: 'JSAPI',
-        openid: current_user.identify.uid
+        openid: current_identify.uid
       }
 
       prepay_result = WxPay::Service.invoke_unifiedorder(pay_params)
