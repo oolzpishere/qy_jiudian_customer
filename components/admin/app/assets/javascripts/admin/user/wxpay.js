@@ -2,12 +2,15 @@
 $(document).on("ready page:load turbolinks:load", function() {
 
   $('.wx_pay').on( "click", function() {
+    wx.config({
+      appId: "wx37860e03b3e55945"
+    });
+
     wxpay();
   });
   function wxpay() {
     $.post('/wx_pay', function(data) {
       wx.chooseWXPay({
-        appId: data.appId,
         timestamp: data.timeStamp,
         nonceStr: data.nonceStr,
         package: data.package,
