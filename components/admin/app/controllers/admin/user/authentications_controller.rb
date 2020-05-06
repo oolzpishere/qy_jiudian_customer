@@ -31,7 +31,7 @@ module Admin
       auth = request.env['omniauth.auth']       # 引入回调数据 HASH
       data = auth.info                          # https://github.com/skinnyworm/omniauth-wechat-oauth2
       raw_info = auth.extra[:raw_info]
-      unionid = raw_info ? raw_info["unionid"] : ""
+      unionid = raw_info["unionid"] ? raw_info["unionid"] : ""
 
       find_user(auth.provider, auth.uid, unionid)
     end
@@ -51,6 +51,11 @@ module Admin
     end
 
     def create_user
+      auth = request.env['omniauth.auth']       # 引入回调数据 HASH
+      data = auth.info                          # https://github.com/skinnyworm/omniauth-wechat-oauth2
+      raw_info = auth.extra[:raw_info]
+      unionid = raw_info["unionid"] ? raw_info["unionid"] : ""
+
       i = Devise.friendly_token[0,20]
       # return nil, if create! fail
       user = Account::User.create!(
