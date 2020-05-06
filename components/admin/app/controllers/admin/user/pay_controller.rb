@@ -11,7 +11,7 @@ module Admin
         spbill_create_ip: request.remote_ip,
         notify_url: 'http://qyjiudian-customer.sflx.com.cn/wx_notify',
         trade_type: 'JSAPI',
-        openid: current_user.uid
+        openid: current_user.identify.uid
       }
 
       prepay_result = WxPay::Service.invoke_unifiedorder(pay_params)
