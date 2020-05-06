@@ -1,4 +1,5 @@
-class PayController < ApplicationController
+module Admin
+  class User::PayController < Admin::User::ApplicationController
   before_action :authenticate_user!, except: [:wx_notify]
   skip_before_action :verify_authenticity_token, only: [:wx_notify]
 
