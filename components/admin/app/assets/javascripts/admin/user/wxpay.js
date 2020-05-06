@@ -1,6 +1,9 @@
 
 $(document).on("ready page:load turbolinks:load", function() {
 
+  $('.wx_pay').on( "click", function() {
+    wxpay();
+  });
   function wxpay() {
     $.post('/wx_pay', function(data) {
       wx.chooseWXPay({
@@ -18,6 +21,6 @@ $(document).on("ready page:load turbolinks:load", function() {
       });
     });
   }
-  
+
 
 });
