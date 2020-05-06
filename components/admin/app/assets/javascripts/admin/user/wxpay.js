@@ -7,6 +7,7 @@ $(document).on("ready page:load turbolinks:load", function() {
   function wxpay() {
     $.post('/wx_pay', function(data) {
       wx.chooseWXPay({
+        appId: data.appId,
         timestamp: data.timeStamp,
         nonceStr: data.nonceStr,
         package: data.package,
