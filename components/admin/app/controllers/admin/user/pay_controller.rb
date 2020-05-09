@@ -7,15 +7,19 @@ module Admin
 
     def wx_pay
       current_identify = Account::Identify.find_by(user: current_user, provider: 'wechat')
+      # byebug
+      form_params = {
+        total_fee: params['total_fee']
+      }
       pay_params = {
         body: 'Test Wechat Pay',
         out_trade_no: "trade-#{Time.now.to_i}",
-        total_fee: 1,
+        # total_fee: 1,
         spbill_create_ip: request.remote_ip,
         notify_url: 'http://qyjiudian-customer.sflx.com.cn/wx_notify',
         trade_type: 'JSAPI',
         openid: current_identify.uid
-      }
+      }.merge(form_params)
 
       prepay_result = WxPay::Service.invoke_unifiedorder(pay_params)
       if prepay_result.success?

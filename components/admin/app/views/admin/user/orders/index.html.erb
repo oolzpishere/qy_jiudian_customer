@@ -40,11 +40,11 @@
       </div>
       <% end %>
 
-      <div class="row no-gutters py-2 px-2 ">
+      <!-- <div class="row no-gutters py-2 px-2 ">
         <div class="col-12">
           <a class="wx_pay btn weui-btn weui-btn_primary">Try wechat pay!</a>
         </div>
-      </div>
+      </div> -->
 
       <% @orders.each do |order| %>
         <% order_data = Admin::OrderTranslate::Index.new(order: order) %>

@@ -1,7 +1,7 @@
 <div class="row mx-2 mt-3 py-2 rounded-lg white">
   <div class="col">
 
-    <%= form_with(model: order, local: true, id: "user_order_form") do |form| %>
+    <%= form_with(model: order, local: true, id: "user_order_form", class: "wx_pay_form") do |form| %>
       <% if order.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
@@ -80,6 +80,10 @@
         <%= form.label t(".car"), class: "h6" %>
         <%# form.text_field :breakfast, class: "form-control" %>
         <%= @hotel.car == 0 ? "(不含用车)" : "(含用车)" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.hidden_field :total_fee, id: "total_fee", value: 1000 %>
       </div>
 
       <div class="actions">
