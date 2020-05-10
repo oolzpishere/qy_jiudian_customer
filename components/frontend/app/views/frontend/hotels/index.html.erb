@@ -6,7 +6,9 @@
       <%= link_to "", frontend.hotel_path(hotel, conference_id: @conference.id), class: "w-100 h-100 position-absolute",style: "z-index: 10;" %>
       <div class="col-4 px-0">
         <% cover_size = '640x450' %>
-        <%= image_tag main_app.url_for(hotel.hotel_images.first.image.variant(combine_options: {resize: "#{cover_size}^", gravity: 'center', crop: "#{cover_size}+0+0"} )), class: "w-100", style: "" %>
+        <% if hotel.hotel_images.first %>
+          <%= image_tag main_app.url_for(hotel.hotel_images.first.image.variant(combine_options: {resize: "#{cover_size}^", gravity: 'center', crop: "#{cover_size}+0+0"} )), class: "w-100", style: "" %>
+        <% end %>
       </div>
       <div class="col-8 px-2 pt-1">
         <%= link_to hotel.name, frontend.hotel_path(hotel, conference_id: @conference.id), class: "h6 text-dark" %>
