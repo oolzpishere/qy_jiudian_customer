@@ -117,6 +117,7 @@ module Admin
           :checkout,
           :nights,
           :total_price,
+          :payment_id,
           rooms_attributes: [:id, :names, :room_number, :_destroy],
         )
       end

@@ -21,17 +21,26 @@ module Admin
         openid: current_identify.uid
       }.merge(form_params)
 
+      # TODO: create payment and WxPayment
+      wx_payment_params = pay_params.slice(:out_trade_no)
+      wx_payment = Pay::WxPayment.new(wx_payment_params)
+      payment = Pay::Payment.new(wx_payment_id: wx_payment.id) if wx_payment.save
+
       prepay_result = WxPay::Service.invoke_unifiedorder(pay_params)
-      if prepay_result.success?
+      if prepay_result.success? && payment && payment.save
         js_pay_params = {
           prepayid: prepay_result['prepay_id'],
           noncestr: prepay_result['nonce_str']
         }
         pay_params = WxPay::Service.generate_js_pay_req js_pay_params
+        # add payment_id to return.
+        pay_params.merge!({payment_id: payment.id})
+
         logger.info pay_params
         render json: pay_params
       else
         logger.error prepay_result['return_msg']
+        logger.error "wx_payment.save #{wx_payment.save}"
         render json: prepay_result
       end
     end

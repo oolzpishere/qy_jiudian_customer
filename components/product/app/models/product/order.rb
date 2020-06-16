@@ -15,6 +15,8 @@ module Product
     attribute :price, :float
     attribute :total_price, :float
 
+    has_one :payment
+
     # def checkin_zh
     #   checkin = self.checkin
     #   "#{checkin.month}月#{checkin.day}日"

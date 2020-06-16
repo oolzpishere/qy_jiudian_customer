@@ -16,9 +16,13 @@ $(document).on("ready page:load turbolinks:load", function() {
 
     $(this).unbind('submit').submit(); // continue the submit unbind preventDefault
   });
+
   function wxpay(params = {}) {
     $.post('/wx_pay', params,
     function(data) {
+
+      addPaymentId(data.payment_id);
+
       wx.chooseWXPay({
         timestamp: data.timeStamp,
         nonceStr: data.nonceStr,
@@ -33,6 +37,10 @@ $(document).on("ready page:load turbolinks:load", function() {
         }
       });
     });
+  }
+
+  function addPaymentId(id) {
+    $('#order_patment_id').val(id)
   }
 
 

@@ -108,6 +108,8 @@ gem 'shared', path: 'components/shared'
 gem 'account', path: 'components/account'
 gem 'admin', path: 'components/admin'
 gem 'product', path: 'components/product'
+gem 'pay', path: 'components/pay'
+
 # admin engine
 # not need this gem, use production send sms plan A.
 # gem 'send_sms', '~> 0.1.2', git: "https://github.com/oolzpishere/send_sms"
