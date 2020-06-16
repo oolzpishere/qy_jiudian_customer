@@ -48,7 +48,7 @@ module Admin
       if @order.save
         date_rooms_handler.handle_date_rooms
         if Rails.env.match(/production/)
-          SendSms::Combiner.send_sms(@order, "order")
+          # SendSms::Combiner.send_sms(@order, "order")
         end
         redirect_to(frontend.hotels_path(conference_id: @conference.id), notice: '酒店预订成功。')
         # redirect_to @order, notice: 'Order was successfully created.'
