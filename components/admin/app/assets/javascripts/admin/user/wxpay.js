@@ -4,11 +4,11 @@ $(document).on("ready page:load turbolinks:load", function() {
   $('.wx_pay_form').submit( function(event) {
     event.preventDefault(); //this will prevent the default submit
 
-    alert('submit')
+    // alert('submit')
     wx.config({
       appId: "wx37860e03b3e55945"
     });
-
+    // console.log("under testing")
     params = {
       total_fee: $('#total_fee').val()
     }

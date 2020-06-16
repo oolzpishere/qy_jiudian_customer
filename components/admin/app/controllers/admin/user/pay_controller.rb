@@ -22,9 +22,14 @@ module Admin
       }.merge(form_params)
 
       # TODO: create payment and WxPayment
-      wx_payment_params = pay_params.slice(:out_trade_no)
-      wx_payment = Pay::WxPayment.new(wx_payment_params)
-      payment = Pay::Payment.new(wx_payment_id: wx_payment.id) if wx_payment.save
+      wx_payment_params = pay_params.slice(:out_trade_no, :total_fee)
+      payment = Pay::Payment.new
+      if payment.save
+        wx_payment_params.merge!(payment_id: payment.id)
+        wx_payment = Pay::WxPayment.new(wx_payment_params)
+      else
+        raise "Payment.new save fail."
+      end
 
       prepay_result = WxPay::Service.invoke_unifiedorder(pay_params)
       if prepay_result.success? && payment && payment.save
