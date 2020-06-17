@@ -3,7 +3,7 @@ module Admin
     layout "admin/user/sessions.html.erb"
 
     before_action :authenticate_user!, except: [:wx_notify]
-    skip_before_action :verify_authenticity_token, only: [:wx_notify]
+
 
     def wx_pay
       current_identify = Account::Identify.find_by(user: current_user, provider: 'wechat')

@@ -1,5 +1,6 @@
 module Pay
   class PaymentController < Pay::ApplicationController
+    skip_before_action :verify_authenticity_token, only: [:wx_notify]
 
     def wx_notify
       result = Hash.from_xml(request.body.read)["xml"]
