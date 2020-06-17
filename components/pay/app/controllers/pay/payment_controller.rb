@@ -3,6 +3,8 @@ module Pay
 
     def wx_notify
       result = Hash.from_xml(request.body.read)["xml"]
+      logger.info "!!! result: #{result}"
+      logger.info "!!! WxPay::Sign.verify?(result): #{WxPay::Sign.verify?(result)}"
 
       if WxPay::Sign.verify?(result)
 
