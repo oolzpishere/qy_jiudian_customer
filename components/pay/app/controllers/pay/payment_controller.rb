@@ -9,7 +9,7 @@ module Pay
 
       if WxPay::Sign.verify?(result)
 
-        if result[:result_code].upcase == "SUCCESS"
+        if result["result_code"].upcase == "SUCCESS"
           out_trade_no = result[:out_trade_no]
           wx_payment = Pay::WxPayment.find_by(out_trade_no: out_trade_no)
           wx_payment.update(result)
