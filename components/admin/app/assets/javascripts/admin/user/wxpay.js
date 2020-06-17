@@ -4,7 +4,7 @@ $(document).on("ready page:load turbolinks:load", function() {
   $('.wx_pay_form').submit( function(event) {
     event.preventDefault(); //this will prevent the default submit
 
-    // alert('submit')
+    alert('submit123')
     wx.config({
       appId: "wx37860e03b3e55945"
     });
@@ -20,6 +20,7 @@ $(document).on("ready page:load turbolinks:load", function() {
   function wxpay(params = {}) {
     $.post('/wx_pay', params,
     function(data) {
+      alert('package' + data.package);
 
       addPaymentId(data.payment_id);
 
