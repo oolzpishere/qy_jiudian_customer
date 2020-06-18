@@ -26,13 +26,13 @@ module Admin
       payment = Pay::Payment.new
       if payment.save
         wx_payment_params.merge!(payment_id: payment.id)
-        wx_payment = Pay::WxPayment.new(wx_payment_params)
+        wx_payment = Pay::WxPayment.create(wx_payment_params)
       else
         raise "Payment.new save fail."
       end
 
       prepay_result = WxPay::Service.invoke_unifiedorder(pay_params)
-      if prepay_result.success? && payment && payment.save
+      if prepay_result.success?
         js_pay_params = {
           prepayid: prepay_result['prepay_id'],
           noncestr: prepay_result['nonce_str']
@@ -45,7 +45,7 @@ module Admin
         render json: pay_params
       else
         logger.error prepay_result['return_msg']
-        logger.error "wx_payment.save #{wx_payment.save}"
+        # logger.error "wx_payment.save #{wx_payment.save}"
         render json: prepay_result
       end
     end
