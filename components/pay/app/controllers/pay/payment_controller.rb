@@ -12,7 +12,7 @@ module Pay
         if result["result_code"].upcase == "SUCCESS"
           out_trade_no = result["out_trade_no"]
           wx_payment = Pay::WxPayment.find_by(out_trade_no: out_trade_no)
-          wx_payment.update(result)
+          wx_payment.update(result_slice)
         else
           # TODO: when result_code == "FAIL"
         end
@@ -27,6 +27,9 @@ module Pay
 
     private
     # TODO: result.permit()
+    def result_slice
+      result.slice( :payment, :appid, :mch_id, :device_info, :openid, :is_subscribe, :trade_type, :bank_type, :total_fee, :settlement_total_fee, :fee_type, :cash_fee, :cash_fee_type, :transaction_id, :out_trade_no, :attach,:time_end )
+    end
 
   end
 end
