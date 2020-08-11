@@ -7,7 +7,7 @@ module Admin
 
     def wx_pay
       current_identify = Account::Identify.find_by(user: current_user, provider: 'wechat')
-      # byebug
+
       form_params = {
         total_fee: params['total_fee']
       }
@@ -21,15 +21,8 @@ module Admin
         openid: current_identify.uid
       }.merge(form_params)
 
-      # TODO: create payment and WxPayment
-      wx_payment_params = pay_params.slice(:out_trade_no, :total_fee)
-      payment = Pay::Payment.new
-      if payment.save
-        wx_payment_params.merge!(payment_id: payment.id)
-        wx_payment = Pay::WxPayment.create(wx_payment_params)
-      else
-        raise "Payment.new save fail."
-      end
+      payment = Pay::Payment.create
+      create_wx_payment(payment, pay_params)
 
       prepay_result = WxPay::Service.invoke_unifiedorder(pay_params)
       if prepay_result.success?
@@ -45,9 +38,15 @@ module Admin
         render json: pay_params
       else
         logger.error prepay_result['return_msg']
-        # logger.error "wx_payment.save #{wx_payment.save}"
         render json: prepay_result
       end
+    end
+
+    private
+    def create_wx_payment(payment, pay_params)
+      wx_payment_params = pay_params.slice(:out_trade_no, :total_fee)
+      wx_payment_params.merge!(payment_id: payment.id)
+      Pay::WxPayment.create(wx_payment_params)
     end
 
   end

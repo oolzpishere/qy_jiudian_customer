@@ -35,9 +35,9 @@
           <% order_data = Admin::OrderTranslate::Index.new(order: item) %>
           <% case spa.to_s %>
           <% when /names/ %>
-            <td><%= order_data.send_command(request: "all_names_string").truncate(16) %></td>
+            <td><%= order_data.get_data("all_names_string").truncate(16) %></td>
           <% else %>
-            <td><%= order_data.send_command(request: spa) %></td>
+            <td><%= order_data.get_data(spa) %></td>
           <% end %>
 
 

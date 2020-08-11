@@ -10,19 +10,14 @@ module Admin
         @processed_order = Admin::ProcessedOrder.new(order: order)
       end
 
-      def send_command(request: nil)
-        if request.is_a?(Hash)
-          req_str = request[:request]
-          type = request[:type]
-        else
-          req_str = request
-        end
+      # @params: req_string or { request(string), type: type_name(string) }
+      def get_data(request, type: nil)
 
         # raw data
-        @processed_data = processed_order.get_data(request: req_str, type: type)
+        @processed_data = processed_order.get_data(request, type: type)
 
-        if self.try(req_str)
-          self.send(req_str)
+        if self.try(request)
+          self.send(request)
         else
           processed_data
         end
@@ -55,7 +50,7 @@ module Admin
       end
 
       def room_type_zh
-        processed_order.bed_obj.hotel_room_type.room_type.name
+        processed_order.hotel_room_type.room_type.name
       end
 
       def room_count_zh

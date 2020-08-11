@@ -20,7 +20,6 @@ require 'active_model_otp'
 require 'wx_pay'
 
 
-require 'admin/order_data'
 require 'admin/date_rooms_handler'
 require 'admin/order_rooms_count'
 

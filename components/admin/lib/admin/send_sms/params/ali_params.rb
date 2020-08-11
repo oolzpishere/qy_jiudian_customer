@@ -12,41 +12,41 @@ module Admin
       def order
         {"conference" => record.conference.name,
           "hotel" => record.hotel.name,
-          "period" => "#{order_data.send_command(request: "check_in_out")}#{order_data.send_command(request: "nights")}天",
-          "names" => order_data.send_command(request: "all_names_string"),
-          "total_people" => order_data.send_command(request: "peoples_count"),
-          "rooms" => order_data.send_command(request: "room_type_zh") + order_data.send_command(request: "room_count_zh"),
-          "price" => order_data.send_command(request: "price"),
-          "breakfast" => "#{order_data.send_command(request: "breakfast_boolean")}"
+          "period" => "#{order_data.get_data("check_in_out")}#{order_data.get_data("nights")}天",
+          "names" => order_data.get_data("all_names_string"),
+          "total_people" => order_data.get_data("peoples_count"),
+          "rooms" => order_data.get_data("room_type_zh") + order_data.get_data("room_count_zh"),
+          "price" => order_data.get_data("price"),
+          "breakfast" => "#{order_data.get_data("breakfast_boolean")}"
          }.to_json
       end
 
       def order_car
         {"conference" => record.conference.name,
           "hotel" => record.hotel.name,
-          "checkin" => order_data.send_command(request: "checkin_zh"),
-          "checkout" => order_data.send_command(request: "checkout_zh"),
-          "days" => order_data.send_command(request: "nights"),
-          "names" => order_data.send_command(request: "all_names_string"),
-          "total_people" => order_data.send_command(request: "peoples_count"),
-          "rooms" => order_data.send_command(request: "room_type_zh") + order_data.send_command(request: "room_count_zh"),
-          "price" => order_data.send_command(request: "price"),
-          "breakfast" => "#{order_data.send_command(request: "breakfast_boolean")}",
-          "car_usage" => "#{order_data.send_command(request: "conference_period_zh")}"
+          "checkin" => order_data.get_data("checkin_zh"),
+          "checkout" => order_data.get_data("checkout_zh"),
+          "days" => order_data.get_data("nights"),
+          "names" => order_data.get_data("all_names_string"),
+          "total_people" => order_data.get_data("peoples_count"),
+          "rooms" => order_data.get_data("room_type_zh") + order_data.get_data("room_count_zh"),
+          "price" => order_data.get_data("price"),
+          "breakfast" => "#{order_data.get_data("breakfast_boolean")}",
+          "car_usage" => "#{order_data.get_data("conference_period_zh")}"
          }.to_json
       end
 
       def cancel
         {"conference" => record.conference.name,
           "hotel" => record.hotel.name,
-          "checkin" => order_data.send_command(request: "checkin_zh"),
-          "checkout" => order_data.send_command(request: "checkout_zh"),
-          "days" => order_data.send_command(request: "nights"),
-          "names" => order_data.send_command(request: "all_names_string"),
-          "total_people" => order_data.send_command(request: "peoples_count"),
-          "rooms" => order_data.send_command(request: "room_type_zh") + order_data.send_command(request: "room_count_zh"),
-          "price" => order_data.send_command(request: "price"),
-          "breakfast" => "#{order_data.send_command(request: "breakfast_boolean")}"
+          "checkin" => order_data.get_data("checkin_zh"),
+          "checkout" => order_data.get_data("checkout_zh"),
+          "days" => order_data.get_data("nights"),
+          "names" => order_data.get_data("all_names_string"),
+          "total_people" => order_data.get_data("peoples_count"),
+          "rooms" => order_data.get_data("room_type_zh") + order_data.get_data("room_count_zh"),
+          "price" => order_data.get_data("price"),
+          "breakfast" => "#{order_data.get_data("breakfast_boolean")}"
          }.to_json
       end
     end

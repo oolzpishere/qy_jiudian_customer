@@ -14,7 +14,7 @@
           <%= t(".#{item}") %>
         </td>
         <td>
-          <%= order_data.send_command(request: item) %>
+          <%= order_data.get_data(item) %>
         </td>
       </tr>
     <% end %>

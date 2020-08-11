@@ -59,17 +59,17 @@
           <div class="col-12 my-2 d-flex justify-content-between">
             <%= order_data.room_type_zh %>
             <span class="ml-2">
-              总价：<%= order_data.send_command(request: {request: "total_price", type: "calc"}) %>
+              总价：<%= order_data.get_data("total_price") %>
             </span>
 
           </div>
 
           <div class="col-12 ">
-            入住日期：<%= order_data.send_command(request: "check_in_out") %>
+            入住日期：<%= order_data.get_data("check_in_out") %>
             <br>
-            <%= order_data.send_command(request: "room_count_zh") %>
+            <%= order_data.get_data("room_count_zh") %>
             <span class="ml-2">
-              <%= order_data.send_command(request: "nights") %>晚
+              <%= order_data.get_data("nights") %>晚
             </span>
           </div>
         </div>
