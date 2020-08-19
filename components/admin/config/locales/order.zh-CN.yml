@@ -44,6 +44,10 @@ zh-CN:
           nights: 天数（天）
         show:
           group: 组数
+          payment_total_price: 应付金额
+          trade_no: 交易号
+          trade_status: 交易状态
+          payment_method: 支付渠道
           id: 号码
           conference_name: 会议
           hotel_name: 酒店

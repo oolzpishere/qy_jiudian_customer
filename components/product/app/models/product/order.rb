@@ -15,7 +15,7 @@ module Product
     attribute :price, :float
     attribute :total_price, :float
 
-    has_one :payment
+    has_one :payment, class_name: "Pay::Payment"
 
     # def checkin_zh
     #   checkin = self.checkin

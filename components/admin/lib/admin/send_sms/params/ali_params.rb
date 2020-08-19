@@ -6,7 +6,7 @@ module Admin
       attr_reader :order_data
       def initialize( record, type )
         super
-        @order_data = Admin::OrderTranslate::Sms.new(order: record)
+        @order_data = Admin::OrderTranslate::Sms.new(record)
       end
 
       def order

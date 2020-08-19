@@ -14,6 +14,7 @@ module Admin
     before_action :hotel_room_types, only: [:index, :new, :create, :edit]
     before_action :set_show_attributes, only: [:show]
 
+
     # GET /orders
     def index
       @orders = Product::Order.where(conference: @conference, hotel: @hotel)
@@ -208,7 +209,8 @@ module Admin
       end
 
       def set_show_attributes
-        @show_attributes = [ :group, :conference_name, :hotel_name, :room_type_zh, :room_count_zh, :all_names_string, :contact, :phone, :price, :breakfast, :car, :checkin, :checkout, :nights]
+        @show_attributes ||= [ :group, :conference_name, :hotel_name, :room_type_zh, :room_count_zh, :all_names_string, :contact, :phone, :price, :breakfast, :car, :checkin, :checkout, :nights]
+        insert_payment_keys
       end
 
       def set_attribute_types
@@ -229,6 +231,16 @@ module Admin
         # }
       end
 
+      def insert_payment_keys
+        if PAYABLE == true
+          payment_keys = [:payment_total_price, :trade_no, :trade_status, :payment_method]
+          # if paymentkeys not add to @show_attributes yet.
+          if (@show_attributes & payment_keys).empty?
+            # add paymentkeys to @show_attributes after :group.
+            @show_attributes.insert(1, payment_keys).flatten!
+          end
+        end
+      end
 
   end
 end

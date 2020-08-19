@@ -36,7 +36,7 @@ xlsx_package.workbook do |wb|
   count = 0
 
   wb.add_worksheet(name: "Orders") do |sheet|
-    first_order_data = Admin::OrderTranslate::Excel.new(order: @orders.first)
+    first_order_data = Admin::OrderTranslate::Excel.new(@orders.first)
     sheet.add_row ["前沿课堂#{@conference.name + @hotel.name + first_order_data.get_data(  "conference_check_in_out") }"], :style => head
 
 
@@ -45,7 +45,7 @@ xlsx_package.workbook do |wb|
       order.rooms.each do |room|
         count += 1
         row = columns.map do |column|
-          tf = Admin::OrderTranslate::Excel.new(order: order)
+          tf = Admin::OrderTranslate::Excel.new(order)
           if column.is_a?(Hash) && column[:type] && column[:type].match(/proc/)
             column[:proc].call(room)
           else

@@ -1,18 +1,11 @@
-require_relative 'processed_order/base'
-require_relative 'processed_order/hotel'
-# require_relative 'processed_order/bed'
-# require_relative 'processed_order/calc'
-
+require_relative 'processed_payment'
 
 module Admin
   class ProcessedOrder
 
-    attr_reader :order, :bed_obj, :nothing_obj, :hotel_obj, :calc_obj, :room_type_eng_name, :hotel, :room_type, :hotel_room_type
-
-    def initialize(order: nil)
+    attr_reader :order, :nothing_obj, :room_type_eng_name, :hotel, :room_type, :hotel_room_type, :processed_payment
+    def initialize(order)
       @order = order
-
-      set_all_data
 
       @room_type_eng_name = order.room_type
       @hotel = order.hotel
@@ -23,23 +16,15 @@ module Admin
 
     end
 
-    def set_all_data
-      # @bed_obj = Bed.new(order)
-      # @nothing_obj = Nothing.new(order)
-      # @base_obj = Base.new(order)
-      # @hotel_obj = Hotel.new(order)
-      # @calc_obj = Calc.new(order, bed_obj: bed_obj)
-    end
-
     def get_data(request, type: nil)
       if type
-        factory(order, request, type: type).data(request)
+        # get_type_data(request, type)
       else
-        base_action(request)
+        base_getter(request)
       end
     end
 
-    def base_action(request)
+    def base_getter(request)
       if self.try(request)
         self.send(request)
       elsif order.try(request)
@@ -49,24 +34,26 @@ module Admin
       end
     end
 
-    def factory(order, request, type: nil)
-      # could give type, otherwise use request to factory.
-      case type
-      # when /calc/
-      #   return calc_obj
-      when /hotel/
-        return hotel_obj
-      # when /bed/
-      #   return bed_obj
-      end
-
-      # case request.to_s
-      # when /bed/
-      #   bed_obj
-      # else
-      #   nothing_obj
-      # end
-    end
+    # def get_type_data(request, type)
+    #   type_obj = get_type_obj(type)
+    #   if type_obj
+    #     type_obj.send(request)
+    #   else
+    #     return nil
+    #   end
+    # end
+    #
+    # def get_type_obj(type)
+    #   case type
+    #   when /payment/
+    #     if order.payment
+    #       @processed_payment = Admin::ProcessedPayment.new(order.payment)
+    #       return @processed_payment
+    #     end
+    #   else
+    #     return nil
+    #   end
+    # end
 
     def set_room_type_details
       # TODO: delete bed file.
@@ -91,28 +78,28 @@ module Admin
     end
 
     def nights
-      (order.checkout-order.checkin).to_i
+      @nights ||= (order.checkout-order.checkin).to_i
     end
 
     def total_price
       # 单价 * 天数
-      order.price * nights
+      @total_price ||= order.price * nights
     end
 
     def profit
-      total_price - actual_settlement
+      @profit ||= total_price - actual_settlement
     end
 
     def tax_rate
-      hotel.tax_rate
+      @tax_rate ||= hotel.tax_rate
     end
 
     def tax_point
-      hotel.tax_point
+      @tax_point ||= hotel.tax_point
     end
 
     def actual_profit
-      profit - (profit * tax_rate)
+      @actual_profit ||= profit - (profit * tax_rate)
     end
 
   end

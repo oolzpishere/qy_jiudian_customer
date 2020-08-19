@@ -7,6 +7,8 @@ module Admin
 
     before_action :configure_permitted_parameters, if: :devise_controller?
 
+    PAYABLE = true
+
     protected
 
     def configure_permitted_parameters

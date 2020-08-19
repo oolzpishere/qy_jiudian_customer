@@ -32,7 +32,7 @@
       <tr>
         <td><%= check_box_tag 'select', item.id %></td>
         <% @show_page_attributes.each do |spa| %>
-          <% order_data = Admin::OrderTranslate::Index.new(order: item) %>
+          <% order_data = Admin::OrderTranslate::Index.new(item) %>
           <% case spa.to_s %>
           <% when /names/ %>
             <td><%= order_data.get_data("all_names_string").truncate(16) %></td>

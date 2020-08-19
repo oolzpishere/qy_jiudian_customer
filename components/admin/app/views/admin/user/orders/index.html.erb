@@ -47,7 +47,7 @@
       </div> -->
 
       <% @orders.each do |order| %>
-        <% order_data = Admin::OrderTranslate::Index.new(order: order) %>
+        <% order_data = Admin::OrderTranslate::Index.new(order) %>
         <div class="row no-gutters my-2 mx-2 py-2 px-3 bg-white rounded-lg">
 
           <div class="col-12 ">

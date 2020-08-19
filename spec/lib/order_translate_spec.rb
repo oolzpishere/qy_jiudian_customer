@@ -16,7 +16,7 @@ RSpec.describe "OrderTranslate" do
       columns << ["actual_settlement", "profit", "tax_rate", "tax_point",  "actual_profit"]
       columns.flatten!
 
-      tf = Admin::OrderTranslate::Excel.new(order: @order)
+      tf = Admin::OrderTranslate::Excel.new( @order)
       tf.get_data("twin_beds")
       results = columns.map do |column|
         tf.get_data(column)

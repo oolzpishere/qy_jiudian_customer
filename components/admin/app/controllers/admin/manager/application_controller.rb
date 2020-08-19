@@ -1,5 +1,5 @@
 module Admin
-  class Manager::ApplicationController < ApplicationController
+  class Manager::ApplicationController < ::Admin::ApplicationController
 
     before_action :authenticate_manager!, :except => [:download]
     # before_action :check_user
