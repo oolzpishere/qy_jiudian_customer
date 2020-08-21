@@ -30,3 +30,6 @@
 
 //= require admin/user/order
 //= require admin/user/wxpay
+
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js
