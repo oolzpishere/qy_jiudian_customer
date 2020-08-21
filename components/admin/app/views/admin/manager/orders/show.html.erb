@@ -7,14 +7,14 @@
   </thead>
 
   <tbody>
-    <% translate_order = Admin::OrderTranslate::Index.new( @order) %>
+    <% order_translate = Admin::OrderTranslate::Index.new( @order) %>
     <% @show_attributes.each do |item| %>
       <tr>
         <td>
           <%= t(".#{item}") %>
         </td>
         <td>
-          <%= translate_order.get_data(item) %>
+          <%= order_translate.get_data(item) %>
         </td>
       </tr>
     <% end %>

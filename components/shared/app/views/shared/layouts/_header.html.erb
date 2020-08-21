@@ -6,16 +6,15 @@
   <span class=""><%= @conference && @conference.name %></span>
   <%= link_to "", admin.orders_path, class: "far fa-lg fa-user text-dark" %>
   <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-
-  <div class="navbar-collapse justify-content-md-center collapse" id="navbarsExample10" style="">
-    <ul class="navbar-nav">
-      <% @conferences.each do |conf| %>
-        <li class="nav-item">
-          <% class_tags = ["nav-link"] %>
-          <% class_tags << "active" if params["conference_id"] == conf.id.to_s %>
-          <%= link_to conf.name, frontend.hotels_path(conference_id: conf.id), class: class_tags.join(" ") %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
 </nav>
+<div class="navbar-collapse justify-content-md-center collapse" id="navbarsExample10" style="">
+  <ul class="navbar-nav">
+    <% @conferences.each do |conf| %>
+      <li class="nav-item">
+        <% class_tags = ["nav-link"] %>
+        <% class_tags << "active" if params["conference_id"] == conf.id.to_s %>
+        <%= link_to conf.name, frontend.hotels_path(conference_id: conf.id), class: class_tags.join(" ") %>
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -8,6 +8,10 @@ zh-CN:
           edit: 编辑
           destroy: 删除
           group: 组数
+          payment_total_price: 应付金额
+          trade_no: 交易号
+          trade_status: 交易状态
+          payment_method: 支付渠道
           names: 姓名
           contact: 联系人
           phone: 联系方式

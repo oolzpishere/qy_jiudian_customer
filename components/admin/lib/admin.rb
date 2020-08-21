@@ -4,7 +4,7 @@ require 'devise'
 require 'jquery-ui-rails'
 require 'bootstrap'
 require "momentjs-rails"
-require "datetime_picker_rails"
+require "bootstrap-datepicker-rails"
 require 'omniauth'
 require "omniauth-wechat-oauth2"
 require "selectize-rails"

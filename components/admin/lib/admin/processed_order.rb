@@ -55,6 +55,9 @@ module Admin
     #   end
     # end
 
+    ########################################
+    # data
+    ########################################
     def set_room_type_details
       # TODO: delete bed file.
       class_eval <<-METHODS, __FILE__, __LINE__ + 1

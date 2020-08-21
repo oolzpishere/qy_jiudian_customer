@@ -233,11 +233,10 @@ module Admin
 
       def insert_payment_keys
         if PAYABLE == true
-          payment_keys = [:payment_total_price, :trade_no, :trade_status, :payment_method]
           # if paymentkeys not add to @show_attributes yet.
-          if (@show_attributes & payment_keys).empty?
+          if (@show_attributes & PAYMENT_KEYS).empty?
             # add paymentkeys to @show_attributes after :group.
-            @show_attributes.insert(1, payment_keys).flatten!
+            @show_attributes.insert(1, PAYMENT_KEYS).flatten!
           end
         end
       end

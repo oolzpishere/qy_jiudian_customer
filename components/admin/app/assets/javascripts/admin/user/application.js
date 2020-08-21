@@ -16,7 +16,7 @@
 //= require activestorage
 //= require moment
 //= require moment/zh-cn
-//= require datetime_picker
+
 //= require selectize
 //= require jquery.validate
 //= require jquery.validate.localization/messages_zh

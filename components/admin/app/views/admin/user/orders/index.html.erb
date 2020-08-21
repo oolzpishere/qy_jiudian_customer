@@ -20,11 +20,7 @@
       </div>
     </div>
 
-    <div class="row no-gutters py-2 px-3">
-      <div class="col-12">
-        <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-      </div>
-    </div>
+
 
     <div class="row no-gutters py-2 px-3">
       <div class="col-12 d-flex justify-content-between">
@@ -47,7 +43,7 @@
       </div> -->
 
       <% @orders.each do |order| %>
-        <% order_data = Admin::OrderTranslate::Index.new(order) %>
+        <% order_translate = Admin::OrderTranslate::Index.new(order) %>
         <div class="row no-gutters my-2 mx-2 py-2 px-3 bg-white rounded-lg">
 
           <div class="col-12 ">
@@ -57,28 +53,42 @@
           </div>
 
           <div class="col-12 my-2 d-flex justify-content-between">
-            <%= order_data.room_type_zh %>
+            <%= order_translate.room_type_zh %>
             <span class="ml-2">
-              总价：<%= order_data.get_data("total_price") %>
+              总价：<%= order_translate.get_data("total_price") %>
             </span>
 
           </div>
 
           <div class="col-12 ">
-            入住日期：<%= order_data.get_data("check_in_out") %>
+            入住日期：<%= order_translate.get_data("check_in_out") %>
             <br>
-            <%= order_data.get_data("room_count_zh") %>
+            <%= order_translate.get_data("room_count_zh") %>
             <span class="ml-2">
-              <%= order_data.get_data("nights") %>晚
+              <%= order_translate.get_data("nights") %>晚
             </span>
           </div>
+          <% if Admin::ApplicationController::PAYABLE %>
+            <% Admin::ApplicationController::PAYMENT_KEYS.each do |payment_key| %>
+              <div class="col-6">
+                <%= t(".#{payment_key}") %>:
+              </div>
+              <div class="col-6">
+                <%= order_translate.get_data(payment_key) %>
+              </div>
+            <% end %>
+          <% end %>
         </div>
 
 
         <% end %>
 
 
-
+    <div class="row no-gutters py-2 px-3">
+      <div class="col-12">
+        <%= link_to('退出登录', destroy_user_session_path, method: :delete) %>
+      </div>
+    </div>
   </div>
 
 <% end %>

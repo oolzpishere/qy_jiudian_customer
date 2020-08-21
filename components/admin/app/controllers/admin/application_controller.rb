@@ -8,6 +8,7 @@ module Admin
     before_action :configure_permitted_parameters, if: :devise_controller?
 
     PAYABLE = true
+    PAYMENT_KEYS = [:payment_total_price, :trade_no, :trade_status, :payment_method]
 
     protected
 

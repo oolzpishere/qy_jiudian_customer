@@ -15,10 +15,6 @@ module Pay
     end
 
     private
-    # TODO: result.permit()
-    def result_slice(result)
-      result.symbolize_keys.slice( :payment, :appid, :mch_id, :device_info, :openid, :is_subscribe, :trade_type, :bank_type, :total_fee, :settlement_total_fee, :fee_type, :cash_fee, :cash_fee_type, :transaction_id, :out_trade_no, :attach,:time_end )
-    end
 
     def update_wx_payment(result)
       if result["result_code"].upcase == "SUCCESS"
@@ -28,6 +24,11 @@ module Pay
       else
         # TODO: when result_code == "FAIL"
       end
+    end
+
+    # TODO: result.permit()
+    def result_slice(result)
+      result.symbolize_keys.slice( :payment, :appid, :mch_id, :device_info, :openid, :is_subscribe, :trade_type, :bank_type, :total_fee, :settlement_total_fee, :fee_type, :cash_fee, :cash_fee_type, :transaction_id, :out_trade_no, :attach,:time_end )
     end
 
   end

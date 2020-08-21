@@ -48,12 +48,12 @@
 
   <div class="form-group position-relative">
     <%= form.label t(".checkin"), class: "h6" %>
-    <%= form.text_field :checkin, data: { type: 'datetime' }, class: "form-control", required: true %>
+    <%= form.text_field :checkin, data: { type: 'datetime' }, class: "form-control datepicker", required: true %>
   </div>
 
   <div class="form-group position-relative">
     <%= form.label t(".checkout"), class: "h6" %>
-    <%= form.text_field :checkout, data: { type: 'datetime' }, class: "form-control", required: true %>
+    <%= form.text_field :checkout, data: { type: 'datetime' }, class: "form-control datepicker", required: true %>
   </div>
 
   <div class="form-group">

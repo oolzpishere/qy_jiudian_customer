@@ -32,6 +32,9 @@ module Admin
       end
     end
 
+    ########################################
+    # data
+    ########################################
     # 应付金额 wechat: total_fee
     def payment_total_price
       @payment_total_price ||= payment_detail_obj.total_fee * 0.01

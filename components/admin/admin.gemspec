@@ -47,7 +47,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'jquery-fileupload-rails'
 
   spec.add_dependency "momentjs-rails"
-  spec.add_dependency "datetime_picker_rails", "~> 0.0.7"
+  spec.add_dependency "bootstrap-datepicker-rails"
 
   # spec.add_dependency "cocoon"
   spec.add_dependency "selectize-rails"

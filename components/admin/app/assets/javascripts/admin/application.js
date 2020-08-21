@@ -16,7 +16,7 @@
 //= require activestorage
 //= require moment
 //= require moment/zh-cn
-//= require datetime_picker
+
 //= require selectize
 //= require admin/jquery.fileDownload
 //= require admin/date_time_picker
@@ -28,3 +28,5 @@
 //= require cocoon
 //= require jquery-fileupload
 //= require admin/user/session
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js
