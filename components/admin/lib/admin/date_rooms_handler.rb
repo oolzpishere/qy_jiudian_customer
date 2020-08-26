@@ -7,10 +7,6 @@ module DateRoomsHandler
 
       # before data
       @order_rooms_before = @order.rooms.length
-      before_checkin = @order.checkin
-      before_checkout = @order.checkout
-      @before_date_range_array = (before_checkin..before_checkout).to_a
-      @before_date_range_array.pop
     end
 
     # have to check after assign attributes to @order, because order_rooms_change_to need assigned @order.
@@ -96,6 +92,13 @@ module DateRoomsHandler
       # count
     end
 
+    private
+    # before data
+    def before_date_range_array
+      before_checkin = order.checkin
+      before_checkout = order.checkout
+      @before_date_range_array ||= (before_checkin..before_checkout).to_a.pop
+    end
   end
 
   class Create < Base

@@ -27,6 +27,7 @@ require 'admin/order_translate'
 
 require 'admin/table'
 require 'admin/change_rooms'
+require 'admin/date_rooms'
 
 # require 'send_sms'
 require_relative "admin/send_sms/params"

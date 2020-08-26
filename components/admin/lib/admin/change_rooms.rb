@@ -1,16 +1,9 @@
 module Admin
   class ChangeRooms
-    attr_reader :order, :date_range_array, :hotel_room_type, :order_rooms_before, :order_room_type_before, :before_date_range_array, :table
+    attr_reader :order, :date_range_array, :hotel_room_type, :order_rooms_before, :order_room_type_before, :table
     def initialize( order: )
       @order = order
-
-      # before data
-      @order_rooms_before = @order.rooms.length
-      @order_room_type_before = @order.room_type
-      before_checkin = @order.checkin
-      before_checkout = @order.checkout
-      @before_date_range_array = (before_checkin..before_checkout).to_a
-      @before_date_range_array.pop
+      set_before_data
 
       # init change table
       @table ||= Admin::Table.new()
@@ -101,6 +94,19 @@ module Admin
     end
 
     private
+    # before data
+    def set_before_data
+      @order_rooms_before = @order.rooms.length
+      @order_room_type_before = @order.room_type
+      before_date_range_array
+    end
+
+    def before_date_range_array
+      before_checkin = order.checkin
+      before_checkout = order.checkout
+      @before_date_range_array ||= (before_checkin..before_checkout).to_a.pop
+    end
+
     # get current date_range_array, track the newest checkin and checkout.
     def date_range_array_now
       date_range_array = (@order.checkin..@order.checkout).to_a
@@ -120,6 +126,7 @@ module Admin
       # hotel and room_types have to be compound keys.
       Product::HotelRoomType.joins(:room_type).where(hotel: order.hotel, room_types: {name_eng: order.room_type}).first
     end
+
 
   end
 end
