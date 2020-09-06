@@ -1,18 +1,35 @@
 module Admin
   class UpdateRooms
 
-    attr_reader :order, :hotel, :new_params
+    attr_reader :order, :hotel, :new_params, :new_date_range, :new_change_rooms, :new_hotel, :new_room_type_str
     def initialize( order: nil, new_params: nil)
-      @order = order
-      @hotel = order.hotel
+      if order
+        @order = order
+        @hotel = order.hotel
+      end
+
 
       @new_params = new_params
-      # new_params['hotel']
-      # new_params['room_type']
+      @new_date_range = get_date_range(new_params[:checkin], new_params[:checkout])
+      # decrease rooms for new order.
+      @new_change_rooms = -new_params[:rooms_attributes].compact.length
+      @new_hotel = new_params[:hotel]
+      @new_room_type_str = new_params[:room_type]
       # new_params['checkin']
       # new_params['checkout']
       # new_params['rooms_attributes'] length
 
+    end
+
+    def create
+      new_room_type_rec = get_room_type_rec(new_hotel, new_room_type_str)
+      new_room_type = Admin::RoomType.new(new_room_type_rec)
+
+      raise "Don't have enough rooms for new order." unless new_room_type.check_available( new_date_range, new_change_rooms)
+
+      # new_room_type change_rooms(new_date_range, new_change_rooms)
+      # change_rooms! == change_rooms and apply_changes
+      new_room_type.change_rooms!(new_date_range, new_change_rooms)
     end
 
     # same_hotel_and_rt only need one room_type obj, restore and apply new change to it.
@@ -24,63 +41,85 @@ module Admin
       end
     end
 
+    def delete
+      old_room_type_rec = get_room_type_rec(order.hotel, order.room_type)
+      old_room_type = Admin::RoomType.new(old_room_type_rec)
+
+      # old_room_type restore(old_date_range, order.rooms.length) rooms.
+      old_date_range = get_date_range(order.checkin, order.checkout)
+      old_room_type.change_rooms!(old_date_range, order.rooms.length)
+    end
+
+    def check_available
+      if order.nil?
+        new_room_type_rec = get_room_type_rec(new_params.hotel, new_params.room_type)
+        new_room_type = Admin::RoomType.new(new_room_type_rec)
+
+        # new_room_type check_available for new new_params
+        # return false if check not available.
+        new_room_type.check_available( new_date_range, new_change_rooms)
+      else
+        room_type_rec = get_room_type_rec(order.hotel, order.room_type)
+        room_type = RoomType.new(room_type_rec)
+
+        # @room_type restore
+        date_range = get_date_range(order.checkin, order.checkout)
+        room_type.change_rooms(date_range, order.rooms.length)
+
+        room_type.check_available(new_date_range, new_change_rooms)
+      end
+    end
+
     def same_hotel_and_rt_proc
-      # room_type = RoomType.new(room_type_rec)
-      room_type = RoomType.new(order.hotel)
+      room_type_rec = get_room_type_rec(order.hotel, order.room_type)
+      room_type = RoomType.new(room_type_rec)
 
       # @room_type restore
       date_range = get_date_range(order.checkin, order.checkout)
-      room_type.change_rooms(order.room_type, date_range, order.rooms.length)
-      # TODO: if difference hotel_room_type, before change_rooms will not save.
+      room_type.change_rooms(date_range, order.rooms.length)
 
       # @room_type check_available for new order_params
       # !!stop proccess if check not available.
-      new_date_range = get_date_range(order_params.checkin, order_params.checkout)
-      raise "Don't have enough rooms for new order." unless room_type.check_available(order_params[:room_type], new_date_range, order_params.rooms_attributes.compact.length)
+      new_date_range = get_date_range(new_params.checkin, new_params.checkout)
+      new_change_rooms = -new_params.rooms_attributes.compact.length
+      raise "Don't have enough rooms for new order." unless room_type.check_available( new_date_range, new_change_rooms)
 
-      # @room_type change_rooms(room_type, order_params.checkin, order_params.checkout, order_params.rooms_attributes.length)
-      room_type.change_rooms(room_type, order_params.checkin, order_params.checkout, order_params.rooms_attributes.length)
-
-      # save all changes.
-      room_type.apply_changes
+      # @room_type.change_rooms(new_date_range, new_change_rooms)
+      # change_rooms! == change_rooms and apply_changes
+      room_type.change_rooms!(new_date_range, new_change_rooms)
     end
 
     def diff_hotel_and_rt_proc
-      # old_room_type = RoomType.new(room_type_rec)
-      @old_room_type = RoomType.new(order.hotel)
-      # new_room_type = RoomType.new(room_type_rec)
-      @new_room_type = RoomType.new(order_params.hotel)
+      old_room_type_rec = get_room_type_rec(order.hotel, order.room_type)
+      old_room_type = RoomType.new(old_room_type_rec)
+      new_room_type_rec = get_room_type_rec(new_params.hotel, new_params.room_type)
+      new_room_type = RoomType.new(new_room_type_rec)
 
-      # @new_room_type check_available(room_type, order_params.checkin, order_params.checkout, order_params.rooms_attributes.length)
-      # @old_room_type restore(order.checkin, order.checkout, order.rooms.length) rooms.
-      # @new_room_type change_rooms(room_type, order_params.checkin, order_params.checkout, order_params.rooms_attributes.length)
-      # save @old_room_type and @new_date_rooms(room_type, order_params.checkin, order_params.checkout).
+      # new_room_type check_available for new new_params
+      # !!stop proccess if check not available.
+      new_date_range = get_date_range(new_params.checkin, new_params.checkout)
+      new_change_rooms = -new_params.rooms_attributes.compact.length
+      raise "Don't have enough rooms for new order." unless new_room_type.check_available( new_date_range, new_change_rooms)
+
+      # old_room_type restore(old_date_range, order.rooms.length) rooms.
+      old_date_range = get_date_range(order.checkin, order.checkout)
+      old_room_type.change_rooms!(old_date_range, order.rooms.length)
+
+      # new_room_type change_rooms(new_date_range, new_change_rooms)
+      # change_rooms! == change_rooms and apply_changes
+      new_room_type.change_rooms!(new_date_range, new_change_rooms)
     end
 
     def decrease_rooms
 
     end
 
-    def restore_rooms
-      room_type_name_eng = order.room_type
-      date_range_arr = get_date_range_arr(order.checkin, order.checkout)
-      change_rooms = order.rooms.length
-      if room_type_name_eng && date_range_arr && change_rooms
-        date_rooms.change_rooms(room_type_name_eng, date_range_arr, change_rooms)
-      end
-    end
-
-    def get_date_range_arr(start_date, end_date)
-      date_range_array = (start_date..end_date).to_a
-      date_range_array.pop
-      date_range_array
-    end
-
     private
     # old hotel and room_type equal new hotel and room_type?
     def same_hotel_and_rt?
-      same_hotel? = order.hotel.name == Hotel.find(new_params['hotel']).name
-      same_room_type? = order.room_type == new_params['room_type']
+      same_hotel = (order.hotel.name == Hotel.find(new_params['hotel']).name)
+      same_room_type = (order.room_type == new_params['room_type'])
+      same_hotel && same_room_type
     end
 
     # get date_range_array

@@ -39,20 +39,19 @@ module Admin
     # POST /orders
     def create
       @order = Product::Order.new(order_params)
-      change_rooms = ChangeRooms.new( order: @order )
-      change_rooms.create_to_table
+      update_rooms = Admin::UpdateRooms.new(new_params: order_params)
+      # change_rooms = ChangeRooms.new( order: @order )
+      # change_rooms.create_to_table
 
-      # date_rooms_handler = DateRoomsHandler::Create.new( order: @order )
-
-      # unless date_rooms_handler.check_all_date_rooms
-      unless change_rooms.check_all_date_rooms
+      # unless change_rooms.check_all_date_rooms
+      unless update_rooms.check_available
         redirect_to(admin.conference_hotel_orders_path(@conference, @hotel), alert: '入住日期不在售卖范围内，请重新填写，或修改酒店售卖日期')
         return
       end
 
       if @order.save
-        # date_rooms_handler.handle_date_rooms
-        change_rooms.insert_to_db
+        # change_rooms.insert_to_db
+        update_rooms.create
         if Rails.env.match(/production/)
           SendSms::Combiner.send_sms(@order, "order")
         end
@@ -64,19 +63,20 @@ module Admin
 
     # PATCH/PUT /orders/1
     def update
-      # date_rooms_handler = DateRoomsHandler::Update.new(order: @order )
-      change_rooms = ChangeRooms.new( order: @order )
+      # change_rooms = ChangeRooms.new( order: @order )
+      update_rooms = Admin::UpdateRooms.new(order: @order, new_params: order_params)
 
-      @order.assign_attributes(order_params)
-      change_rooms.update_to_table
+      # @order.assign_attributes(order_params)
+      # change_rooms.update_to_table
 
-      unless change_rooms.check_all_date_rooms
+      # unless change_rooms.check_all_date_rooms
+      unless update_rooms.check_available
         return redirect_back_or_default(admin.admin_root_path, alert: '入住日期不在售卖范围内，请重新填写，或修改酒店售卖日期')
       end
 
-      if @order.save
-        change_rooms.insert_to_db
-        # date_rooms_handler.handle_date_rooms
+      if @order.update(order_params)
+        # change_rooms.insert_to_db
+        update_rooms.update
         if Rails.env.match(/production/)
           SendSms::Combiner.send_sms(@order, "order")
         end

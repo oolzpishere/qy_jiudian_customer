@@ -7,14 +7,20 @@ RSpec.describe "ChangeRooms" do
       @conf = FactoryBot.create(:conf)
       @hotel = FactoryBot.create(:hotel_with_hotel_room_types)
       @order = FactoryBot.create(:order_with_rooms, conference: @conf, hotel: @hotel)
-      change_rooms = Admin::ChangeRooms.new(order: @order)
-      change_rooms.create_to_table
-      change_rooms.insert_to_db
+      # change_rooms = Admin::ChangeRooms.new(order: @order)
+      # change_rooms.create_to_table
+      # change_rooms.insert_to_db
     end
 
     it "create" do
       # after save, then create order.rooms records in db.
       # @order.save
+      order_params = attributes_for(:order_with_rooms, conference: @conf, hotel: @hotel)
+      rooms_attributes = {rooms_attributes: [attributes_for(:room), attributes_for(:room)]}
+      order_params.merge!(rooms_attributes)
+
+      update_rooms = Admin::UpdateRooms.new(new_params: order_params)
+      update_rooms.create
 
       hrt = Product::HotelRoomType.joins(:room_type).where(hotel: @order.hotel, room_types: {name_eng: @order.room_type}).first
 
