@@ -48,10 +48,15 @@ module Admin
 
         # date_room_num = room_type_hash[date]
         date_room = date_rooms.find_date_room(date)
-        date_room_num = date_room.rooms if date_room
 
-        result = date_room_num + change_rooms > 0
-        break unless result
+        if date_room
+          date_room_num = date_room.rooms
+          result = date_room_num + change_rooms > 0
+          break unless result
+        else
+          result = false
+          break
+        end
       end
       result ? (allow_change = true) : (allow_change = false)
       result

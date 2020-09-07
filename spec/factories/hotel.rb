@@ -20,6 +20,9 @@ FactoryBot.define do
         create(:date_room_first, hotel_room_type: hotel_room_type_first)
         create(:date_room_second, hotel_room_type: hotel_room_type_first)
 
+        create(:date_room_first, hotel_room_type: hotel_room_type_second)
+        create(:date_room_second, hotel_room_type: hotel_room_type_second)
+
         # create_list(:hotel_room_type, evaluator.hotel_room_types_count, hotel: hotel)
       end
     end

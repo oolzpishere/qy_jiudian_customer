@@ -8,16 +8,18 @@ module Admin
         @hotel = order.hotel
       end
 
+      if new_params
+        @new_params = new_params
+        @new_date_range = get_date_range(new_params[:checkin], new_params[:checkout])
+        # decrease rooms for new order.
+        @new_change_rooms = -new_params[:rooms_attributes].compact.length
+        @new_hotel = new_params[:hotel]
+        @new_room_type_str = new_params[:room_type]
+        # new_params['checkin']
+        # new_params['checkout']
+        # new_params['rooms_attributes'] length
+      end
 
-      @new_params = new_params
-      @new_date_range = get_date_range(new_params[:checkin], new_params[:checkout])
-      # decrease rooms for new order.
-      @new_change_rooms = -new_params[:rooms_attributes].compact.length
-      @new_hotel = new_params[:hotel]
-      @new_room_type_str = new_params[:room_type]
-      # new_params['checkin']
-      # new_params['checkout']
-      # new_params['rooms_attributes'] length
 
     end
 
@@ -60,7 +62,7 @@ module Admin
         new_room_type.check_available( new_date_range, new_change_rooms)
       else
         room_type_rec = get_room_type_rec(order.hotel, order.room_type)
-        room_type = RoomType.new(room_type_rec)
+        room_type = Admin::RoomType.new(room_type_rec)
 
         # @room_type restore
         date_range = get_date_range(order.checkin, order.checkout)
@@ -72,7 +74,7 @@ module Admin
 
     def same_hotel_and_rt_proc
       room_type_rec = get_room_type_rec(order.hotel, order.room_type)
-      room_type = RoomType.new(room_type_rec)
+      room_type = Admin::RoomType.new(room_type_rec)
 
       # @room_type restore
       date_range = get_date_range(order.checkin, order.checkout)
@@ -80,8 +82,6 @@ module Admin
 
       # @room_type check_available for new order_params
       # !!stop proccess if check not available.
-      new_date_range = get_date_range(new_params.checkin, new_params.checkout)
-      new_change_rooms = -new_params.rooms_attributes.compact.length
       raise "Don't have enough rooms for new order." unless room_type.check_available( new_date_range, new_change_rooms)
 
       # @room_type.change_rooms(new_date_range, new_change_rooms)
@@ -91,14 +91,12 @@ module Admin
 
     def diff_hotel_and_rt_proc
       old_room_type_rec = get_room_type_rec(order.hotel, order.room_type)
-      old_room_type = RoomType.new(old_room_type_rec)
-      new_room_type_rec = get_room_type_rec(new_params.hotel, new_params.room_type)
-      new_room_type = RoomType.new(new_room_type_rec)
+      old_room_type = Admin::RoomType.new(old_room_type_rec)
+      new_room_type_rec = get_room_type_rec(new_hotel.id, new_room_type_str)
+      new_room_type = Admin::RoomType.new(new_room_type_rec)
 
       # new_room_type check_available for new new_params
       # !!stop proccess if check not available.
-      new_date_range = get_date_range(new_params.checkin, new_params.checkout)
-      new_change_rooms = -new_params.rooms_attributes.compact.length
       raise "Don't have enough rooms for new order." unless new_room_type.check_available( new_date_range, new_change_rooms)
 
       # old_room_type restore(old_date_range, order.rooms.length) rooms.
@@ -110,15 +108,16 @@ module Admin
       new_room_type.change_rooms!(new_date_range, new_change_rooms)
     end
 
-    def decrease_rooms
-
-    end
-
     private
     # old hotel and room_type equal new hotel and room_type?
     def same_hotel_and_rt?
-      same_hotel = (order.hotel.name == Hotel.find(new_params['hotel']).name)
-      same_room_type = (order.room_type == new_params['room_type'])
+      new_hotel_id = if new_params[:hotel].is_a?(Integer)
+        new_params[:hotel]
+      elsif new_params[:hotel].is_a?(Product::Hotel)
+        new_params[:hotel].id
+      end
+      same_hotel = (order.hotel.name == Product::Hotel.find(new_hotel_id).name)
+      same_room_type = (order.room_type == new_params[:room_type])
       same_hotel && same_room_type
     end
 
@@ -128,8 +127,8 @@ module Admin
     #   checkout: String or Date
     # @return: [date_inst, date_inst...], Date instance array.
     def get_date_range(checkin, checkout)
-      checkin_date = Date.parse(checkin)
-      checkout_date = Date.parse(checkout)
+      checkin_date = (checkin.is_a?(String) ? Date.parse(checkin) : checkin)
+      checkout_date = (checkout.is_a?(String) ? Date.parse(checkout) : checkout)
       date_range_array = (checkin_date..checkout_date).to_a
       date_range_array.pop
       date_range_array

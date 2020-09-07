@@ -17,9 +17,14 @@ module Admin
 
     #
     def find_date_room(date)
+      result_date_room = nil
       self.all.each do |date_room|
-        return date_room if date_room.same_date?(date)
+        if date_room.same_date?(date)
+          result_date_room = date_room
+          break
+        end
       end
+      result_date_room || false
     end
 
     #++output for views
