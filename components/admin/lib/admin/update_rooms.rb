@@ -15,12 +15,7 @@ module Admin
         @new_change_rooms = -new_params[:rooms_attributes].compact.length
         @new_hotel = new_params[:hotel]
         @new_room_type_str = new_params[:room_type]
-        # new_params['checkin']
-        # new_params['checkout']
-        # new_params['rooms_attributes'] length
       end
-
-
     end
 
     def create
@@ -29,8 +24,8 @@ module Admin
 
       raise "Don't have enough rooms for new order." unless new_room_type.check_available( new_date_range, new_change_rooms)
 
-      # new_room_type change_rooms(new_date_range, new_change_rooms)
-      # change_rooms! == change_rooms and apply_changes
+      # new_room_type change_rooms!(new_date_range, new_change_rooms)
+      # change_rooms! is change_rooms and apply_changes
       new_room_type.change_rooms!(new_date_range, new_change_rooms)
     end
 
@@ -48,27 +43,30 @@ module Admin
       old_room_type = Admin::RoomType.new(old_room_type_rec)
 
       # old_room_type restore(old_date_range, order.rooms.length) rooms.
+      # change_rooms! is change_rooms and apply_changes
       old_date_range = get_date_range(order.checkin, order.checkout)
       old_room_type.change_rooms!(old_date_range, order.rooms.length)
     end
 
+    # TODO: need to know too much? have to remember to take order param when update.
+    # TODO: use new_params order.id to find out need to restore or not.
     def check_available
       if order.nil?
-        new_room_type_rec = get_room_type_rec(new_params.hotel, new_params.room_type)
+        new_room_type_rec = get_room_type_rec(new_hotel, new_room_type_str)
         new_room_type = Admin::RoomType.new(new_room_type_rec)
 
         # new_room_type check_available for new new_params
-        # return false if check not available.
         new_room_type.check_available( new_date_range, new_change_rooms)
       else
-        room_type_rec = get_room_type_rec(order.hotel, order.room_type)
-        room_type = Admin::RoomType.new(room_type_rec)
+        room_types = Admin::RoomTypes.new(order: order)
 
-        # @room_type restore
+        # restore original room_type
         date_range = get_date_range(order.checkin, order.checkout)
-        room_type.change_rooms(date_range, order.rooms.length)
+        room_types.change_rooms(order.hotel, order.room_type, date_range, order.rooms.length)
 
-        room_type.check_available(new_date_range, new_change_rooms)
+        # add_new_room_type then check new params available?
+        room_types.add_new_room_type(new_hotel, new_room_type_str)
+        room_types.check_available(new_hotel, new_room_type_str, new_date_range, new_change_rooms)
       end
     end
 
@@ -117,7 +115,7 @@ module Admin
         new_params[:hotel].id
       end
       same_hotel = (order.hotel.name == Product::Hotel.find(new_hotel_id).name)
-      same_room_type = (order.room_type == new_params[:room_type])
+      same_room_type = (order.room_type == new_room_type_str)
       same_hotel && same_room_type
     end
 

@@ -7,7 +7,7 @@ module Admin
     def initialize(hotel_room_type_rec)
       @hotel_room_type_rec = hotel_room_type_rec
       @date_rooms = Admin::DateRooms.new(hotel_room_type_rec)
-      # init_drs
+
       @allow_change = false
     end
 
@@ -91,31 +91,6 @@ module Admin
 
     private
 
-    # def init_drs
-    #   @date_rooms = []
-    #   hotel_room_type_rec.date_rooms.each do |dr|
-    #     date_room = Admin::DateRoom.new(dr)
-    #     @date_rooms << date_room
-    #     # TODO delete commented
-    #     # date = dr.date
-    #     # rooms_num = dr.rooms
-    #     # date_rooms[room_type_name][date] = rooms_num
-    #   end
-    #   # date_rooms[hotel_room_type.room_type.name_eng] = {}
-    #   # set_drs(hrt)
-    # end
-    # TODO delete commented
-    # def set_drs(hotel_room_type)
-    #   room_type_name = hotel_room_type.room_type.name_eng
-    #   hotel_room_type.date_rooms.each do |dr|
-    #     date = dr.date
-    #     rooms_num = dr.rooms
-    #     date_rooms[room_type_name][date] = rooms_num
-    #   end
-    # end
-
-
-
     # @params:
     #   room_type_name_eng: String, room_type string.
     #   date:
@@ -124,35 +99,6 @@ module Admin
       # both date is Date instance.
       hotel_room_type_rec.date_rooms.find {|dr| dr.date == date.date}
     end
-
-    # def find_hotel_room_type_recs(room_type_name_eng)
-    #   Product::HotelRoomType.joins(:room_type).where(hotel: hotel, room_types: {name_eng: room_type_name_eng}).first
-    # end
-
-    # def date_obj_to_str_arr(date_array)
-    #   if date_inst_array.first.is_a?(Date)
-    #     date_inst_array.map { |date| date.to_s }
-    #   else
-    #     date_array
-    #   end
-    # end
-
-    # def date_rooms_getter(room_type, date = nil, k: nil)
-    #   if room_type && (date == nil) && (k == nil)
-    #     date_rooms.dig(room_type)
-    #   elsif room_type && date && (k == nil)
-    #     date_rooms.dig(room_type, date)
-    #   elsif room_type && date && k
-    #     date_rooms.dig(room_type, date, k)
-    #   end
-    # end
-    #
-    # def date_rooms_setter(room_type, date = nil, k: nil, v: nil)
-    #   return false unless rt = date_rooms.dig(room_type)
-    #   if date && k && rt[date]
-    #     rt[date][k] = v
-    #   end
-    # end
 
   end
 end
