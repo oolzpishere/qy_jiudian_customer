@@ -65,7 +65,7 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
     describe "POST #create" do
       context "with valid params" do
         it "creates a new item" do
-          @order = FactoryBot.attributes_for(:order_with_rooms, conference_id: @conf.id, hotel_id: @hotel.id)
+          @order = FactoryBot.attributes_for(:order_with_rooms, conference_id: @conf.id, hotel_id: @hotel.id, rooms_attributes: [attributes_for(:room)])
           expect {
             post :create, :params => {conference_id: @conf.id, hotel_id: @hotel.id, order: @order}
           }.to change(Product::Order, :count).by(1)
@@ -73,7 +73,7 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
 
         it "creates a new order and decrease hotel_room_type.date_rooms" do
           room = FactoryBot.attributes_for(:room)
-          @order = FactoryBot.attributes_for(:order_with_rooms, conference_id: @conf.id, hotel_id: @hotel.id, rooms_attributes: {"0"=>room})
+          @order = FactoryBot.attributes_for(:order_with_rooms, conference_id: @conf.id, hotel_id: @hotel.id, rooms_attributes: [attributes_for(:room)])
 
           post :create, :params => {conference_id: @conf.id, hotel_id: @hotel.id, order: @order}
           # get created order.
@@ -89,7 +89,7 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
       context "with wrong params" do
         it "creates a new order with date not in available range." do
           room = FactoryBot.attributes_for(:room)
-          @order = FactoryBot.attributes_for(:order_with_rooms, conference_id: @conf.id, hotel_id: @hotel.id, checkout: "2019-11-2", rooms_attributes: {"0"=>room})
+          @order = FactoryBot.attributes_for(:order_with_rooms, conference_id: @conf.id, hotel_id: @hotel.id, checkout: "2019-11-2", rooms_attributes: [attributes_for(:room)])
 
           post :create, :params => {conference_id: @conf.id, hotel_id: @hotel.id, order: @order}
 
@@ -120,10 +120,9 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
         it "updates the requested item" do
           FactoryBot.create(:order_with_rooms, conference: @conf, hotel: @hotel)
 
-          order_org = Product::Order.first
           # order change group and add room
           room = FactoryBot.attributes_for(:room)
-          order_new_params = FactoryBot.attributes_for(:order_with_rooms, id: 1, group: 2, conference: @conf, hotel: @hotel, rooms_attributes: {"0"=>room})
+          order_new_params = FactoryBot.attributes_for(:order_with_rooms, id: 1, group: 2, conference_id: @conf.id, hotel_id: @hotel.id, rooms_attributes: {"0"=>room})
 
           put :update, params: {id: order_new_params[:id], order: order_new_params}, session: valid_session
           # below is test.
@@ -132,8 +131,8 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
 
           date_rooms_array = hrt.date_rooms.map { |dr| dr.rooms }
 
-          expect(order_org.group).to_not eq(order_now.group)
-          expect(date_rooms_array).to eq([24,24])
+          expect(order_now.group).to_not eq(1)
+          expect(date_rooms_array).to eq([26,26])
         end
       end
 

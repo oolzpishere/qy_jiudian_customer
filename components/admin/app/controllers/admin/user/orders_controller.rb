@@ -37,16 +37,15 @@ module Admin
       order_params.merge!(extra_params)
       @order = Product::Order.new(order_params)
 
-      date_rooms_handler = DateRoomsHandler::Create.new( order: @order )
-      hotel_room_type_id = params['hotel_room_type_id']
+      update_rooms = Admin::UpdateRooms.new(new_params: order_params)
 
-      unless date_rooms_handler.check_all_date_rooms
+      unless update_rooms.check_available
         redirect_to(frontend.hotel_path(@hotel.id, conference_id: @conference.id), alert: '入住日期不在售卖范围内，请重新填写.')
         return
       end
-      # byebug
+
       if @order.save
-        date_rooms_handler.handle_date_rooms
+        update_rooms.create
         if Rails.env.match(/production/)
           # SendSms::Combiner.send_sms(@order, "order")
         end

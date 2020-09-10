@@ -50,7 +50,10 @@ module Admin
 
     def add_room_type(order, params, hotel, room_type)
       hotel_id, room_type_name_eng = get_hotel_id_and_rt(order: order, params: params, hotel: hotel, room_type: room_type)
-      if room_type_exist?(hotel_id, room_type_name_eng)
+
+      # "can't get hotel_id and room_type_name_eng"
+      return false unless (hotel_id && room_type_name_eng)
+      if find_room_type(hotel_id, room_type_name_eng)
         return
       else
         room_type_rec = get_room_type_rec(hotel_id, room_type_name_eng)
@@ -59,16 +62,16 @@ module Admin
       end
     end
 
-    def room_type_exist?(hotel_id, room_type_name_eng)
-      exist = false
-      room_types.each do |rt|
-        if rt.hotel_id == hotel_id && rt.room_type_name_eng == room_type_name_eng
-          exist = true
-          break
-        end
-      end
-      return exist
-    end
+    # def room_type_exist?(hotel_id, room_type_name_eng)
+    #   exist = false
+    #   room_types.each do |rt|
+    #     if rt.hotel_id == hotel_id && rt.room_type_name_eng == room_type_name_eng
+    #       exist = true
+    #       break
+    #     end
+    #   end
+    #   return exist
+    # end
 
     def get_room_type_rec(hotel_id, room_type_name_eng)
       Product::HotelRoomType.joins(:room_type).where(hotel: hotel_id, room_types: {name_eng: room_type_name_eng}).first
@@ -76,10 +79,11 @@ module Admin
 
     def find_room_type(hotel_id, room_type_name_eng)
       room_types.each do |rt|
-        if rt.hotel_id == hotel_id && rt.room_type_name_eng == room_type_name_eng
+        if rt.data("hotel_id").to_s == hotel_id.to_s && rt.data("room_type_name_eng") == room_type_name_eng
           return rt
         end
       end
+      return false
     end
 
     def get_hotel_id_and_rt(order: nil, params: nil, hotel: nil, room_type: nil)
@@ -106,10 +110,10 @@ module Admin
     end
 
     def get_hotel_id(hotel)
-      if hotel.is_a?(Integer)
-        hotel
-      elsif hotel.is_a?(Product::Hotel)
+      if hotel.is_a?(Product::Hotel)
         hotel.id
+      else
+        hotel
       end
     end
 

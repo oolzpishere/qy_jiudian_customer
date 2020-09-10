@@ -59,6 +59,7 @@ module Admin
 
     # PATCH/PUT /orders/1
     def update
+
       update_rooms = Admin::UpdateRooms.new(order: @order, new_params: order_params)
 
       # @order.assign_attributes(order_params)

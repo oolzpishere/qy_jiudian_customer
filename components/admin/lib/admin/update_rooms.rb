@@ -12,8 +12,8 @@ module Admin
         @new_params = new_params
         @new_date_range = get_date_range(new_params[:checkin], new_params[:checkout])
         # decrease rooms for new order.
-        @new_change_rooms = -new_params[:rooms_attributes].compact.length
-        @new_hotel = new_params[:hotel]
+        @new_change_rooms = -get_rooms_attributes_length(new_params[:rooms_attributes])
+        @new_hotel = new_params[:hotel] || new_params[:hotel_id]
         @new_room_type_str = new_params[:room_type]
       end
     end
@@ -53,8 +53,8 @@ module Admin
     def check_available
       if order.nil?
         new_room_type_rec = get_room_type_rec(new_hotel, new_room_type_str)
+        return false unless new_room_type_rec
         new_room_type = Admin::RoomType.new(new_room_type_rec)
-
         # new_room_type check_available for new new_params
         new_room_type.check_available( new_date_range, new_change_rooms)
       else
@@ -65,7 +65,7 @@ module Admin
         room_types.change_rooms(order.hotel, order.room_type, date_range, order.rooms.length)
 
         # add_new_room_type then check new params available?
-        room_types.add_new_room_type(new_hotel, new_room_type_str)
+        room_types.add_new_room_type(hotel: new_hotel, room_type: new_room_type_str)
         room_types.check_available(new_hotel, new_room_type_str, new_date_range, new_change_rooms)
       end
     end
@@ -109,11 +109,7 @@ module Admin
     private
     # old hotel and room_type equal new hotel and room_type?
     def same_hotel_and_rt?
-      new_hotel_id = if new_params[:hotel].is_a?(Integer)
-        new_params[:hotel]
-      elsif new_params[:hotel].is_a?(Product::Hotel)
-        new_params[:hotel].id
-      end
+      new_hotel_id = get_hotel_id(new_params[:hotel_id]) || get_hotel_id(new_params[:hotel])
       same_hotel = (order.hotel.name == Product::Hotel.find(new_hotel_id).name)
       same_room_type = (order.room_type == new_room_type_str)
       same_hotel && same_room_type
@@ -136,6 +132,21 @@ module Admin
       Product::HotelRoomType.joins(:room_type).where(hotel: hotel_id, room_types: {name_eng: room_type_name_eng}).first
     end
 
+    def get_rooms_attributes_length(rooms_attributes)
+      if rooms_attributes.is_a?(ActionController::Parameters)
+        rooms_attributes.to_hash.length
+      else
+        rooms_attributes.length
+      end
+    end
+
+    def get_hotel_id(hotel)
+      if hotel.is_a?(Product::Hotel)
+        hotel.id
+      else
+        hotel
+      end
+    end
 
   end
 end
