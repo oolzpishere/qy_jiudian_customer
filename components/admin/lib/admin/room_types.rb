@@ -5,15 +5,30 @@ module Admin
     # add only one room_type, when initialize.
     # @params:
     #   hotel: instance, hotel record object.
-    def initialize(order: nil, params: nil, hotel: nil, room_type: nil)
+    def initialize(hotel: nil, room_type: nil)
       @room_types = []
-      add_room_type(order, params, hotel, room_type)
+      add_room_type(hotel, room_type)
 
     end
 
-    # @params:
-    def add_new_room_type(order: nil, params: nil, hotel: nil, room_type: nil)
-      add_room_type(order, params, hotel, room_type)
+    def add_room_type(hotel, room_type)
+      hotel_id = get_hotel_id(hotel)
+      room_type_name_eng = room_type
+
+      # check hotel_id and room_type_name_eng and find_room_type success.
+      if find_room_type(hotel_id, room_type_name_eng)
+        return false
+      elsif hotel_id && room_type_name_eng
+        room_type_rec = get_room_type_rec(hotel_id, room_type_name_eng)
+        if room_type_rec
+          room_type = Admin::RoomType.new(room_type_rec)
+          room_types << room_type
+        else
+          return false
+        end
+      else
+        return false
+      end
     end
 
     # @params:
@@ -48,65 +63,19 @@ module Admin
 
     private
 
-    def add_room_type(order, params, hotel, room_type)
-      hotel_id, room_type_name_eng = get_hotel_id_and_rt(order: order, params: params, hotel: hotel, room_type: room_type)
-
-      # "can't get hotel_id and room_type_name_eng"
-      return false unless (hotel_id && room_type_name_eng)
-      if find_room_type(hotel_id, room_type_name_eng)
-        return
-      else
-        room_type_rec = get_room_type_rec(hotel_id, room_type_name_eng)
-        room_type = Admin::RoomType.new(room_type_rec)
-        room_types << room_type
-      end
-    end
-
-    # def room_type_exist?(hotel_id, room_type_name_eng)
-    #   exist = false
-    #   room_types.each do |rt|
-    #     if rt.hotel_id == hotel_id && rt.room_type_name_eng == room_type_name_eng
-    #       exist = true
-    #       break
-    #     end
-    #   end
-    #   return exist
-    # end
-
     def get_room_type_rec(hotel_id, room_type_name_eng)
       Product::HotelRoomType.joins(:room_type).where(hotel: hotel_id, room_types: {name_eng: room_type_name_eng}).first
     end
 
     def find_room_type(hotel_id, room_type_name_eng)
+      return false unless hotel_id || room_type_name_eng
+      result_room_type = nil
       room_types.each do |rt|
-        if rt.data("hotel_id").to_s == hotel_id.to_s && rt.data("room_type_name_eng") == room_type_name_eng
-          return rt
-        end
+        same_hotel = ( rt.data("hotel_id").to_s == hotel_id.to_s )
+        same_room_type = ( rt.data("room_type_name_eng") == room_type_name_eng.to_s )
+        result_room_type = rt if same_hotel && same_room_type
       end
-      return false
-    end
-
-    def get_hotel_id_and_rt(order: nil, params: nil, hotel: nil, room_type: nil)
-      hotel_id = nil
-      room_type_name_eng = nil
-      if hotel
-        hotel_id = get_hotel_id(hotel)
-      end
-
-      if room_type
-        room_type_name_eng = room_type
-      end
-      # if setted before, not override.
-      if order
-        hotel_id ||= order.hotel.id
-        room_type_name_eng ||= order.room_type
-      end
-      # if setted before, not override.
-      if params
-        hotel_id ||= params[:hotel_id]
-        room_type_name_eng ||= params[:room_type]
-      end
-      return hotel_id, room_type_name_eng
+      return result_room_type
     end
 
     def get_hotel_id(hotel)

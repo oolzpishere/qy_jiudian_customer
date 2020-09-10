@@ -58,14 +58,14 @@ module Admin
         # new_room_type check_available for new new_params
         new_room_type.check_available( new_date_range, new_change_rooms)
       else
-        room_types = Admin::RoomTypes.new(order: order)
+        room_types = Admin::RoomTypes.new(hotel: order.hotel, room_type: order.room_type)
 
         # restore original room_type
         date_range = get_date_range(order.checkin, order.checkout)
         room_types.change_rooms(order.hotel, order.room_type, date_range, order.rooms.length)
 
         # add_new_room_type then check new params available?
-        room_types.add_new_room_type(hotel: new_hotel, room_type: new_room_type_str)
+        room_types.add_room_type(new_hotel, new_room_type_str)
         room_types.check_available(new_hotel, new_room_type_str, new_date_range, new_change_rooms)
       end
     end

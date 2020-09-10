@@ -30,7 +30,6 @@ require 'admin/change_rooms'
 require 'admin/room_type'
 require 'admin/room_types'
 require 'admin/date_room'
-require 'admin/date_rooms'
 require 'admin/update_rooms'
 
 
