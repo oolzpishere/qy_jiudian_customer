@@ -16,16 +16,13 @@ module Admin
       room_type_name_eng = room_type
 
       # check hotel_id and room_type_name_eng and find_room_type success.
-      if find_room_type(hotel_id, room_type_name_eng)
-        return false
-      elsif hotel_id && room_type_name_eng
+      return false if find_room_type(hotel_id, room_type_name_eng)
+
+      if hotel_id && room_type_name_eng
         room_type_rec = get_room_type_rec(hotel_id, room_type_name_eng)
-        if room_type_rec
-          room_type = Admin::RoomType.new(room_type_rec)
-          room_types << room_type
-        else
-          return false
-        end
+        return false unless room_type_rec
+        room_type = Admin::RoomType.new(room_type_rec)
+        room_types << room_type
       else
         return false
       end

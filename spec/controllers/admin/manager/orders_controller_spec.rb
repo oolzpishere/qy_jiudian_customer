@@ -118,6 +118,7 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
     describe "PUT #update" do
       context "with valid params" do
         it "updates the requested item" do
+
           FactoryBot.create(:order_with_rooms, conference: @conf, hotel: @hotel)
 
           # order change group and add room
@@ -131,7 +132,8 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
 
           date_rooms_array = hrt.date_rooms.map { |dr| dr.rooms }
 
-          expect(order_now.group).to_not eq(1)
+          expect(order_now.group).to eq(2)
+          # restore 2 to 27 then decrease 1.
           expect(date_rooms_array).to eq([26,26])
         end
       end
@@ -139,7 +141,7 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
       context "with wrong params" do
         before(:each) do
           FactoryBot.create(:order_with_rooms, conference: @conf, hotel: @hotel)
-          @order_org = Product::Order.first
+          @order_org = Product::Order.first.dup
           # order change group and add room
           @room = FactoryBot.attributes_for(:room)
         end
@@ -153,7 +155,7 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
 
           date_rooms_array = hrt.date_rooms.map { |dr| dr.rooms }
           # test order should not saved.
-          expect(@order_org.group).to eq(order_now.group)
+          expect(@order_org.group).to eq(1)
           # test date_rooms should not change
           expect(date_rooms_array).to eq([25,25])
         end
@@ -173,7 +175,7 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
 
           date_rooms_array = hrt.date_rooms.map { |dr| dr.rooms }
           # test order should not saved.
-          expect(@order_org.group).to eq(order_now.group)
+          expect(order_now.group).to eq(1)
           # test date_rooms should not change
           expect(date_rooms_array).to eq([25,25])
         end

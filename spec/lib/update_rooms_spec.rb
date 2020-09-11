@@ -11,6 +11,7 @@ RSpec.describe "UpdateRooms" do
 
     it "create" do
       order_params = attributes_for(:order_with_rooms, conference: @conf, hotel: @hotel, rooms_attributes: [attributes_for(:room), attributes_for(:room)])
+      order_params = ActionController::Parameters.new(order_params)
 
       update_rooms = Admin::UpdateRooms.new(new_params: order_params)
       update_rooms.create
@@ -30,7 +31,7 @@ RSpec.describe "UpdateRooms" do
       hrt = Product::HotelRoomType.joins(:room_type).where(hotel: @order.hotel, room_types: {name_eng: @order.room_type}).first
 
       results = hrt.date_rooms.map { |dr| dr.rooms }
-      expect(results).to eq([25,25])
+      expect(results).to eq([27,27])
     end
 
   end
@@ -47,6 +48,8 @@ RSpec.describe "UpdateRooms" do
         conference: @conf,
         hotel: @hotel,
         rooms_attributes: [attributes_for(:room), attributes_for(:room)])
+      order_params = ActionController::Parameters.new(order_params)
+
       update_rooms = Admin::UpdateRooms.new(new_params: order_params)
       update_rooms.create
     end
@@ -57,6 +60,7 @@ RSpec.describe "UpdateRooms" do
         conference: @conf,
         hotel: @hotel,
         rooms_attributes: [attributes_for(:room)])
+      order_params = ActionController::Parameters.new(order_params)
 
       update_rooms = Admin::UpdateRooms.new(order: @order, new_params: order_params)
       update_rooms.update
@@ -74,6 +78,7 @@ RSpec.describe "UpdateRooms" do
         hotel: @hotel,
         checkin: "2019-10-31",
         rooms_attributes: [attributes_for(:room), attributes_for(:room)])
+      order_params = ActionController::Parameters.new(order_params)
 
       update_rooms = Admin::UpdateRooms.new(order: @order, new_params: order_params)
       update_rooms.update
@@ -95,6 +100,7 @@ RSpec.describe "UpdateRooms" do
         hotel: @hotel,
         room_type: new_room_type_str,
         rooms_attributes: [attributes_for(:room)])
+      order_params = ActionController::Parameters.new(order_params)
 
       update_rooms = Admin::UpdateRooms.new(order: @order, new_params: order_params)
       update_rooms.update
