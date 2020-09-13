@@ -27,7 +27,7 @@ module Admin
 
     def create
       new_room_type_rec = get_room_type_rec(new_order[:hotel], new_order[:room_type_str])
-      new_room_type = Admin::RoomType.new(new_room_type_rec)
+      new_room_type = Admin::UpdateRooms::RoomType.new(new_room_type_rec)
 
       raise "Don't have enough rooms for new order." unless new_room_type.check_available( new_order[:date_range], new_order[:change_rooms])
 
@@ -47,7 +47,7 @@ module Admin
 
     def delete
       old_room_type_rec = get_room_type_rec(org_order[:hotel], org_order[:room_type_str])
-      old_room_type = Admin::RoomType.new(old_room_type_rec)
+      old_room_type = Admin::UpdateRooms::RoomType.new(old_room_type_rec)
 
       # old_room_type restore(old_date_range, org_order[:change_rooms]) rooms.
       # change_rooms! is change_rooms and apply_changes
@@ -60,11 +60,11 @@ module Admin
       if order.nil?
         new_room_type_rec = get_room_type_rec(new_order[:hotel], new_order[:room_type_str])
         return false unless new_room_type_rec
-        new_room_type = Admin::RoomType.new(new_room_type_rec)
+        new_room_type = Admin::UpdateRooms::RoomType.new(new_room_type_rec)
         # new_room_type check_available for new new_params
         new_room_type.check_available( new_order[:date_range], new_order[:change_rooms])
       else
-        room_types = Admin::RoomTypes.new(hotel: org_order[:hotel], room_type: org_order[:room_type_str])
+        room_types = Admin::UpdateRooms::RoomTypes.new(hotel: org_order[:hotel], room_type: org_order[:room_type_str])
 
         # restore original room_type
         room_types.change_rooms(org_order[:hotel], org_order[:room_type_str], org_order[:date_range], org_order[:change_rooms])
@@ -77,7 +77,7 @@ module Admin
 
     def same_hotel_and_rt_proc
       room_type_rec = get_room_type_rec(org_order[:hotel], org_order[:room_type_str])
-      room_type = Admin::RoomType.new(room_type_rec)
+      room_type = Admin::UpdateRooms::RoomType.new(room_type_rec)
 
       # @room_type restore
       room_type.change_rooms(org_order[:date_range], org_order[:change_rooms])
@@ -93,9 +93,9 @@ module Admin
 
     def diff_hotel_and_rt_proc
       old_room_type_rec = get_room_type_rec(org_order[:hotel], org_order[:room_type_str])
-      old_room_type = Admin::RoomType.new(old_room_type_rec)
+      old_room_type = Admin::UpdateRooms::RoomType.new(old_room_type_rec)
       new_room_type_rec = get_room_type_rec(new_order[:hotel].id, new_order[:room_type_str])
-      new_room_type = Admin::RoomType.new(new_room_type_rec)
+      new_room_type = Admin::UpdateRooms::RoomType.new(new_room_type_rec)
 
       # new_room_type check_available for new new_params
       # !!stop proccess if check not available.

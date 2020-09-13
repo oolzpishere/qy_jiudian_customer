@@ -19,19 +19,14 @@ require 'cocoon'
 require 'active_model_otp'
 require 'wx_pay'
 
-
-require 'admin/date_rooms_handler'
 require 'admin/order_rooms_count'
 
 require 'admin/order_translate'
 
-require 'admin/table'
-require 'admin/change_rooms'
-require 'admin/room_type'
-require 'admin/room_types'
-require 'admin/date_room'
+require 'admin/update_rooms/room_type'
+require 'admin/update_rooms/room_types'
+require 'admin/update_rooms/date_room'
 require 'admin/update_rooms'
-
 
 # require 'send_sms'
 require_relative "admin/send_sms/params"
