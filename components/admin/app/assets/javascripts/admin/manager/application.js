@@ -14,5 +14,19 @@
 //= require rails-ujs
 //= require jquery-ui
 //= require activestorage
+//= require moment
+//= require moment/zh-cn
 
+//= require selectize
+//= require admin/jquery.fileDownload
+//= require admin/date_time_picker
+//= require admin/has_many
+//= require admin/manager/order
+//= require admin/manager/hotel
+//= require jquery.validate
+//= require jquery.validate.localization/messages_zh
+//= require cocoon
+//= require jquery-fileupload
 //= require admin/user/session
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js

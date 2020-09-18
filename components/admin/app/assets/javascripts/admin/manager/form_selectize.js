@@ -1,3 +1,4 @@
+//= require admin/date_rooms
 
 $(document).on("ready page:load turbolinks:load", function() {
 
@@ -40,32 +41,27 @@ $(document).on("ready page:load turbolinks:load", function() {
     onInitialize: function(){
       if (this.items.length) {
         var init_hotel_id = this.items[0];
-        $.ajax({
-          url: '/manager/hotels/' + init_hotel_id + '.json',
-          success: function(results) {
-            hotel_hash = results;
-            setDateRoomsTable()
-          },
-          error: function() {
-          }
-        });
+        var date_rooms = new DateRooms();
+        var success_proc =  function(return_hotel_hash){
+          hotel_hash = return_hotel_hash;
+          date_rooms.resetDateRoomsTable(return_hotel_hash);
+        }
+        date_rooms.getHotelDataAndRun(init_hotel_id, success_proc);
       }
     },
     // get hotel_hash; resetRoomTypeOptions and resetAllHotelField;
     onChange: function(value) {
       if (!value.length) return;
-      $.ajax({
-        url: '/manager/hotels/' + value + '.json',
-        success: function(results) {
-          hotel_hash = results;
-          // refresh hotel_hash first!
-          resetRoomTypeOptions();
-          resetAllHotelField();
-          setDateRoomsTable()
-        },
-        error: function() {
-        }
-      })
+      var date_rooms = new DateRooms();
+
+      var success_proc = function(return_hotel_hash){
+        hotel_hash = return_hotel_hash;
+        resetRoomTypeOptions();
+        resetAllHotelField();
+        date_rooms.resetDateRoomsTable(return_hotel_hash);
+      };
+
+      date_rooms.getHotelDataAndRun(value, success_proc);
 
     }
   });
@@ -129,55 +125,10 @@ $(document).on("ready page:load turbolinks:load", function() {
       });
     }
 
-    // room_types_array.forEach(function(element) {
-    //   if (hotel_hash && hotel_hash[element] > 0 ) {
-    //     existingRoomTypeArray.push(element);
-    //   }
-    // });
-
-    // existingRoomTypeArray.forEach(function(element){
-    //   var hash = {"db_name": element, "name": roomTypeTranslate[element]};
-    //     existingRoomTypeOptions.push(hash);
-    // });
-
     room_type_selection.load(function(callback) {
       callback(existingRoomTypeOptions)
     });
   }
 
-  // get date_rooms table
-  function setDateRoomsTable(){
-    if ($('#order_date_rooms_table').length > 0) {
-      if (hotel_hash["hotel_room_types"].length > 0) {
-        var hotel_room_types = hotel_hash["hotel_room_types"];
-      } else {
-        return
-      }
-
-      tbl = document.getElementById('order_date_rooms_tbody')
-      // remove current tbody rows
-      $('#order_date_rooms_tbody tr').remove()
-
-      hotel_room_types.forEach(function(hotel_room_type) {
-        var tr = tbl.insertRow();
-        var td_type = tr.insertCell();
-
-        td_type.appendChild(document.createTextNode(hotel_room_type["name"]));
-        td_type.setAttribute('colspan', '2')
-        td_type.style = 'text-align: center';
-
-        hotel_room_type["date_rooms"].forEach(function(date_room) {
-          var tr = tbl.insertRow();
-          var td1 = tr.insertCell(), td2 = tr.insertCell();
-          td1.appendChild(document.createTextNode(date_room["date"]));
-          td2.appendChild(document.createTextNode(date_room["rooms"]));
-        });
-        // var date = hotel_room_type['date'],
-        //     rooms = hotel_room_type['rooms'];
-        // td.appendChild(document.createTextNode(date));
-        // td2.appendChild(document.createTextNode(rooms));
-      });
-    }
-  }
 
 });

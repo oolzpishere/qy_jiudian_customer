@@ -18,7 +18,20 @@
       <%= form.hidden_field :hotel_id, value: @hotel.id %>
       <%= form.hidden_field :user_id, value: current_user.id %>
       <%= form.hidden_field :patment_id, value: "" %>
+      <div class="col-3 p-0 shadow rounded">
+        <table id="order_date_rooms_table" class="table table-sm table-striped">
+          <thead>
+            <tr>
+              <th scope="col">日期</th>
+              <th scope="col">余房</th>
+            </tr>
+          </thead>
+          <tbody id="order_date_rooms_tbody">
 
+          </tbody>
+        </table>
+      </div>
+      
       <span class="h6">房型：</span>
       <%= form.label @hotel_room_type.room_type.name, class: "h6" %>
       <%= form.hidden_field :room_type, value: @hotel_room_type.room_type.name_eng %>

@@ -1,1 +1,1 @@
-Rails.application.config.assets.precompile += %w( admin/form_selectize.js )
+Rails.application.config.assets.precompile += %w( admin/manager/form_selectize.js )
