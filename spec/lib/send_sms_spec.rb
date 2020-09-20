@@ -9,31 +9,30 @@ RSpec.describe "SendSms" do
       @order = FactoryBot.create(:order_with_rooms, conference: @conf, hotel: @hotel)
     end
 
-    xit "send order" do
+    it "send order" do
       ali_sms = class_double("Aliyun::Sms").as_stubbed_const(:transfer_nested_constants => true)
 
-      phone_numbers = "15977793123"
-      template_param = Admin::SendSms::AliParams.new(@order, "order")
-      template_param_string = template_param.to_params
-      template_code = Admin::SendSms::TemplateCodes::ALI["ali"]["order"]["template_code"]
-      expect(ali_sms).to receive(:send).with(phone_numbers, template_code, template_param_string)
+      params_name = "order"
+      template_params = Admin::RecordSendSms::Params::AliParams.new(@order).to_params(params_name)
+      template_code = Admin::RecordSendSms::AliSendSms.new(@order, params_name).get_template_codes
 
-      Admin::SendSms::Combiner.send_sms(@order, "order")
+      expect(ali_sms).to receive(:send).with("15977793123", template_code, template_params)
 
+      Admin::RecordSendSms.send_sms(@order, "order")
     end
 
 
 
-    xit "send cancel" do
+    it "send cancel" do
       ali_sms = class_double("Aliyun::Sms").as_stubbed_const(:transfer_nested_constants => true)
 
-      phone_numbers = "15977793123"
-      template_code = Admin::SendSms::TemplateCodes::ALI["ali"]["cancel"]["template_code"]
-      template_param = Admin::SendSms::AliParams.new(@order, "cancel")
-      template_param_string = template_param.to_params
-      expect(ali_sms).to receive(:send).with(phone_numbers, template_code, template_param_string)
+      params_name = "cancel"
+      template_params = Admin::RecordSendSms::Params::AliParams.new(@order).to_params(params_name)
+      template_code = Admin::RecordSendSms::AliSendSms.new(@order, params_name).get_template_codes
 
-      Admin::SendSms::Combiner.send_sms(@order, "cancel")
+      expect(ali_sms).to receive(:send).with("15977793123", template_code, template_params)
+
+      Admin::RecordSendSms.send_sms(@order, "cancel")
     end
 
   end
@@ -45,16 +44,16 @@ RSpec.describe "SendSms" do
       @order = FactoryBot.create(:order_with_rooms, conference: @conf, hotel: @hotel)
     end
 
-    xit "send order_car" do
+    it "send order_car" do
       ali_sms = class_double("Aliyun::Sms").as_stubbed_const(:transfer_nested_constants => true)
 
-      phone_numbers = "15977793123"
-      template_param = Admin::SendSms::AliParams.new(@order, "order_car")
-      template_param_string = template_param.to_params
-      template_code = Admin::SendSms::TemplateCodes::ALI["ali"]["order_car"]["template_code"]
-      expect(ali_sms).to receive(:send).with(phone_numbers, template_code, template_param_string)
+      params_name = "order_car"
+      template_params = Admin::RecordSendSms::Params::AliParams.new(@order).to_params(params_name)
+      template_code = Admin::RecordSendSms::AliSendSms.new(@order, params_name).get_template_codes
 
-      Admin::SendSms::Combiner.send_sms(@order, "order_car")
+      expect(ali_sms).to receive(:send).with("15977793123", template_code, template_params)
+
+      Admin::RecordSendSms.send_sms(@order, "order_car")
     end
   end
 

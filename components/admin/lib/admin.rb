@@ -29,11 +29,13 @@ require 'admin/update_rooms/date_room'
 require 'admin/update_rooms'
 
 # require 'send_sms'
-require_relative "admin/send_sms/params"
-require_relative "admin/send_sms/params/ali_params"
-require_relative "admin/send_sms/template_codes"
-require_relative "admin/send_sms/type"
-require_relative "admin/send_sms/combiner"
+# require_relative "admin/send_sms/params"
+# require_relative "admin/send_sms/params/ali_params"
+# require_relative "admin/send_sms/template_codes"
+# require_relative "admin/send_sms/type"
+# require_relative "admin/send_sms/combiner"
+require_relative "admin/record_send_sms"
+
 
 module Admin
   # Your code goes here...

@@ -26,7 +26,6 @@
 //= require admin/jquery.fileDownload
 //= require admin/date_time_picker
 //= require admin/has_many
-//= require admin/hotel
 
 //= require admin/user/order
 //= require admin/user/wxpay

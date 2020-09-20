@@ -49,7 +49,7 @@ module Admin
       if @order.save
         update_rooms.create
         if Rails.env.match(/production/)
-          SendSms::Combiner.send_sms(@order, "order")
+          RecordSendSms.send_sms(@order, "order")
         end
         redirect_to(admin.conference_hotel_orders_path(@conference, @hotel), notice: '订单创建成功。')
       else
@@ -71,7 +71,7 @@ module Admin
       if @order.update(order_params)
         update_rooms.update
         if Rails.env.match(/production/)
-          SendSms::Combiner.send_sms(@order, "order")
+          RecordSendSms.send_sms(@order, "order")
         end
         redirect_back_or_default(admin.admin_root_path, notice: '订单更新成功。')
       else
@@ -82,8 +82,7 @@ module Admin
     # DELETE /orders/1
     def destroy
       if Rails.env.match(/production/)
-        # SendSms::Ali.new(@order, "cancel").send_sms
-        SendSms::Combiner.send_sms(@order, "cancel")
+        RecordSendSms.send_sms(@order, "cancel")
       end
       update_rooms = Admin::UpdateRooms.new(order: @order)
 
@@ -125,8 +124,7 @@ module Admin
       @orders = Product::Order.order(:id).find(orders_array)
 
       @orders.each do |order|
-        # SendSms::Ali.new(order, "order").send_sms
-        SendSms::Combiner.send_sms(order, "order")
+        RecordSendSms.send_sms(order, "order")
       end
     end
 

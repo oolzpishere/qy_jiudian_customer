@@ -111,5 +111,5 @@ gem 'product', path: 'components/product'
 gem 'pay', path: 'components/pay'
 
 # admin engine
-# not need this gem, use production send sms plan A.
+# not need this gem, use info>note>production send sms plan A.
 # gem 'send_sms', '~> 0.1.2', git: "https://github.com/oolzpishere/send_sms"
