@@ -12,7 +12,7 @@ module Admin
         phone_numbers = get_phone_numbers
         template_code = get_template_codes
         params_name = get_params_name
-        template_params = get_params
+        template_params = get_params(params_name)
 
         Aliyun::Sms.send(phone_numbers, template_code, template_params)
       end
@@ -26,7 +26,7 @@ module Admin
         ::Admin::RecordSendSms::ParamsName.get_name(record, params_name)
       end
 
-      def get_params
+      def get_params(params_name)
         Admin::RecordSendSms::Params::AliParams.new(record).to_params(params_name)
       end
 
