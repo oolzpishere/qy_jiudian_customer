@@ -55,7 +55,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'qcloud-sms', "~> 1.0.1"
   spec.add_dependency 'aliyun-sms'
 
-  spec.add_dependency 'rubyzip', "~> 1.2.1"
+  spec.add_dependency 'rubyzip', ">= 1.2.1", "< 2.4.0"
   spec.add_dependency 'axlsx'
   spec.add_dependency 'axlsx_rails', "~> 0.5.2"
 
