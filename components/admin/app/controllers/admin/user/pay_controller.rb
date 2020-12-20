@@ -24,6 +24,15 @@ module Admin
       payment = Pay::Payment.create
       create_wx_payment(payment, pay_params)
 
+      # result, result_hash = Admin::Prepay.new().invoke_unifiedorder(pay_params)
+      # if result
+      #   # add payment_id to return.
+      #   result_hash.merge!({payment_id: payment.id})
+      #   render json: result_hash
+      # else
+      #   render json: result_hash
+      # end
+
       prepay_result = WxPay::Service.invoke_unifiedorder(pay_params)
       if prepay_result.success?
         js_pay_params = {

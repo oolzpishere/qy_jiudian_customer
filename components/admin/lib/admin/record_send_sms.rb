@@ -3,9 +3,7 @@ require_relative "record_send_sms/qcloud_send_sms"
 
 require_relative "record_send_sms/params/base"
 require_relative "record_send_sms/params/ali_params"
-# require_relative "record_send_sms/template_codes"
 require_relative "record_send_sms/params_name"
-# require_relative "record_send_sms/combiner"
 
 module Admin
   module RecordSendSms

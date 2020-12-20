@@ -11,6 +11,7 @@ $(document).on("ready page:load turbolinks:load", ->
         success: (data) ->
           if data.result is true
             $("#provider_business_phone").val($("#verification_phone").val())
+            $("#verification_phone").prop("disabled", false);
             clearInterval(interval)
             $("#error_code_label").hide()
             $("#success_code_label").show()
