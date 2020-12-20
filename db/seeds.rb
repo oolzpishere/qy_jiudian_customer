@@ -29,7 +29,8 @@ room_types = Product::RoomType.create([
   ])
 
 Product::HotelRoomType.create([
-  {id: 1, hotel_id: 1, room_type_id: 1, price: 100, settlement_price: 80}
+  {id: 1, hotel_id: 1, room_type_id: 1, price: 100, settlement_price: 80},
+  {id: 2, hotel_id: 1, room_type_id: 2, price: 200, settlement_price: 180}
   ])
 
 Account::Manager.create([
