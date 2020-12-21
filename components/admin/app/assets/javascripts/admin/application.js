@@ -14,5 +14,3 @@
 //= require rails-ujs
 //= require jquery-ui
 //= require activestorage
-
-//= require admin/user/session

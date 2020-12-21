@@ -16,47 +16,18 @@ Admin::Engine.routes.draw do
     end
     resources :hotel_images, only: [:show, :edit, :update, :destroy]
 
-
-    # get "/hotel/:hotel_id/hotel_images/dashboard", :controller => "hotel_images/dashboard"
-    # get "/hotel/:hotel_id/hotel_images/dashboard", to: "hotel_images#dashboard", as: :hotel_images_dashboard
-    # post "/hotel/:hotel_id/hotel_images", to: "hotel_images#create"
-
-
     root to: "conferences#index", :as => :admin_root
   end
 
   scope path: "/user", module: "user" do
     resources :orders
     root to: "orders#index", :as => :user_root
-    resources :sessions, only: [:new, :create]
-    resources :reset_password_by_phone, only: [:new, :create]
-    # get "sessions", to: "sessions#index"
   end
 
   post 'wx_pay' => '/admin/user/pay#wx_pay'
 
-  # namespace :user do
-  #
-  #     resources :orders
-  #     # root to: "conferences#index"
-  #
-  # end
-
-  devise_for :managers, module: 'devise', class_name: "Account::Manager"
-  devise_for :users,  module: 'devise', class_name: "Account::User"
-  # devise_for :users, controllers: { sessions: '/admin/user/sessions' }, :action => "check_verification_code"
-
-  post :check_verification_code, :controller => "/admin/user/phone_verification", :action => "check_verification_code"
-  get :sendverification, :controller => "/admin/user/phone_verification", :action => "sendverification"
-
-
-  # devise_scope :user do
-  #   get 'signin', to: 'devise/sessions#new'
-  # end
-
   # get "/auth/wechat/callback" => "authentications#wechat"
   get "/auth/:action/callback", :controller => "user/authentications", :constraints => { :action => /wechat/ }
-
 
   root to: "conferences#index"
   # get "/auth/:action/callback", :controller => "authentications", :constraints => { :action => /wechat|google/ }

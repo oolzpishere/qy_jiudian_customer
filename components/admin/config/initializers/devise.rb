@@ -303,8 +303,8 @@ Devise.setup do |config|
   # config.sign_in_after_change_password = true
 end
 
-Rails.application.config.to_prepare do
-  DeviseController.layout "admin/devise"
-  # Devise::RegistrationsController.layout proc { |controller| user_signed_in? ? "application" : "devise" }
-  # And/or Sessions, Confirmations, Unlocks, Passwords
-end
+# Rails.application.config.to_prepare do
+#   # DeviseController.layout "admin/devise"
+#   # Devise::RegistrationsController.layout proc { |controller| user_signed_in? ? "application" : "devise" }
+#   # And/or Sessions, Confirmations, Unlocks, Passwords
+# end

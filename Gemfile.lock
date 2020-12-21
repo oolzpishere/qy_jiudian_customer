@@ -7,11 +7,19 @@ GIT
       omniauth-oauth2 (~> 1.0)
 
 PATH
-  remote: components/account
+  remote: ../_gems/account
   specs:
     account (0.1.0)
+      active_model_otp
+      aliyun-sms
+      bootstrap
       devise
-      rails (~> 5.2.3)
+      devise-i18n
+      jquery-rails
+      omniauth
+      omniauth-wechat-oauth2
+      qcloud-sms (~> 1.0.1)
+      rails (~> 5.2.2)
 
 PATH
   remote: components/admin

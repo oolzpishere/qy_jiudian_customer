@@ -101,10 +101,11 @@ gem 'babel-transpiler'
 # my engines
 gem 'frontend', path: 'components/frontend'
 gem 'shared', path: 'components/shared'
-gem 'account', path: 'components/account'
 gem 'admin', path: 'components/admin'
 gem 'product', path: 'components/product'
 gem 'pay', path: 'components/pay'
+
+gem 'account', path: "../_gems/account"
 
 # admin engine
 # not need this gem, use info>note>production send sms plan A.

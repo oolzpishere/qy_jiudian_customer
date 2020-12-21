@@ -1,7 +1,5 @@
 module Admin
   class User::PayController < ActionController::Base
-    layout "admin/user/sessions.html.erb"
-
     before_action :authenticate_user!, except: [:wx_notify]
 
 

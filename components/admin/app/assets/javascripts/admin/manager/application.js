@@ -27,6 +27,6 @@
 //= require jquery.validate.localization/messages_zh
 //= require cocoon
 //= require jquery-fileupload
-//= require admin/user/session
+
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js

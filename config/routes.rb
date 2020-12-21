@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   mount Product::Engine => '/', as: 'product'
   mount Admin::Engine => '/', as: 'admin'
   mount Pay::Engine => '/', as: 'pay'
+  
+  mount Account::Engine   => '/', as: 'account'
 
   # root to: "manager/conferences#index"
 end

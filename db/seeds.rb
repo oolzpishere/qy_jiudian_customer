@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Product::Conference.create([
-  {id: 1, name: "2019年秋季", start: "2019-09-13", finish: "2019-09-15", sale_from: "2019-09-13", sale_to: "2019-09-20"},
+  {id: 1, name: "2019年秋季小学数学", start: "2019-09-13", finish: "2019-09-15", sale_from: "2019-09-13", sale_to: "2019-09-20"},
   {id: 2, name: "2019年秋小学语文", start: "2019-09-17", finish: "2019-09-19", sale_from: "2019-09-13", sale_to: "2019-09-26"}
   ])
 
@@ -33,7 +33,7 @@ Product::HotelRoomType.create([
   {id: 2, hotel_id: 1, room_type_id: 2, price: 200, settlement_price: 180}
   ])
 
-Account::Manager.create([
+Account::Admin.create([
   {id: 1, email: ENV["TEST_APP_EMAIL"], password: ENV["TEST_APP_PASSWORD"], password_confirmation: ENV["TEST_APP_PASSWORD"]}
   ])
 

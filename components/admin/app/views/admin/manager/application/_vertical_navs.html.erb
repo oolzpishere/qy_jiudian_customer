@@ -1,6 +1,6 @@
 <div class="shadow p-3 rounded">
-  <%= current_manager.email %>
-  <%= link_to "退出登录", admin.destroy_manager_session_path, method: "delete", class: " btn btn-sm btn-secondary"%>
+  <%= current_admin.email %>
+  <%= link_to "退出登录", account.destroy_admin_session_path, method: "delete", class: " btn btn-sm btn-secondary"%>
 </div>
 
 <ul class="nav flex-column mt-3">
