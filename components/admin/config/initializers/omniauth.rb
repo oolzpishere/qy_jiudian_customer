@@ -10,6 +10,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
         token_method:  :get
       },
    :authorize_params => {:scope => "snsapi_userinfo"}
+   # :authorize_params => {:scope => "snsapi_base"}
+
   # test account
   # provider :wechat, ENV["WECHAT_TEST_APP_ID"], ENV["WECHAT_TEST_APP_SECRET"], :authorize_params => {:scope => "snsapi_base"}
 

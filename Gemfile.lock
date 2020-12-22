@@ -34,14 +34,11 @@ PATH
       bootstrap-datepicker-rails
       cocoon
       devise
-      devise-i18n
       jquery-fileupload-rails
       jquery-rails
       jquery-ui-rails
       jquery-validation-rails
       momentjs-rails
-      omniauth
-      omniauth-wechat-oauth2
       product
       qcloud-sms (~> 1.0.1)
       rails (~> 5.2.3)

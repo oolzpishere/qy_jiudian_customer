@@ -26,9 +26,6 @@ Admin::Engine.routes.draw do
 
   post 'wx_pay' => '/admin/user/pay#wx_pay'
 
-  # get "/auth/wechat/callback" => "authentications#wechat"
-  get "/auth/:action/callback", :controller => "user/authentications", :constraints => { :action => /wechat/ }
-
   root to: "conferences#index"
-  # get "/auth/:action/callback", :controller => "authentications", :constraints => { :action => /wechat|google/ }
+
 end
