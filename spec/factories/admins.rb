@@ -1,7 +1,7 @@
 FactoryBot.define do
-  factory :manager, class: "Account::Manager" do
+  factory :admin, class: "Account::Admin" do
     id { 1 }
-    email { 'manager@example.com' }
+    email { 'admin@example.com' }
     password { "password"}
     password_confirmation { "password" }
   end

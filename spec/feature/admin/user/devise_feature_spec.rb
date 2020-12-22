@@ -8,7 +8,7 @@ RSpec.feature "devise", :type => :feature do
       @user = FactoryBot.create(:user)
     end
 
-    it "signs me in with phone" do
+    xit "signs me in with phone" do
       visit '/user'
       within("#new_user") do
         fill_in 'user[login]', with: @user.phone
@@ -19,7 +19,7 @@ RSpec.feature "devise", :type => :feature do
       expect(page).to have_content '登录成功'
     end
 
-    it "signs me in with email" do
+    xit "signs me in with email" do
       visit '/user'
       within("#new_user") do
         fill_in 'user[login]', with: @user.email
@@ -30,7 +30,7 @@ RSpec.feature "devise", :type => :feature do
       expect(page).to have_content '登录成功'
     end
 
-    it "Fail, when account wrong" do
+    xit "Fail, when account wrong" do
       visit '/user'
       within("#new_user") do
         fill_in 'user[login]', with: "12345"
@@ -49,7 +49,7 @@ RSpec.feature "devise", :type => :feature do
       @user = FactoryBot.build(:user)
     end
 
-    it "only have phone,sign up success." do
+    xit "only have phone,sign up success." do
       visit '/users/sign_up'
       within("#new_user") do
         fill_in 'user[phone]', with: @user.phone
@@ -61,7 +61,7 @@ RSpec.feature "devise", :type => :feature do
       expect(Account::User.count).to eq(1)
     end
 
-    it "only have email,sign up success." do
+    xit "only have email,sign up success." do
       visit '/users/sign_up'
       within("#new_user") do
         fill_in 'user[email]', with: "test@email.com"
@@ -73,7 +73,7 @@ RSpec.feature "devise", :type => :feature do
       expect(Account::User.count).to eq(1)
     end
 
-    it "Don't have email and phone,sign up fail." do
+    xit "Don't have email and phone,sign up fail." do
       visit '/users/sign_up'
       within("#new_user") do
         fill_in 'user[password]', with: @user.password

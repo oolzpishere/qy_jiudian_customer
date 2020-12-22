@@ -6,7 +6,7 @@ RSpec.describe Admin::Manager::HotelsController, type: :controller do
   let(:valid_session) { {} }
 
   describe "Authorise manager" do
-    login_manager
+    login_admin
 
     before(:each) do
       FactoryBot.create(:conf)

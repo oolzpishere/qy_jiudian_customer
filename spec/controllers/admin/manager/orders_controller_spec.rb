@@ -5,7 +5,7 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
   let(:valid_session) { {} }
 
   describe "Authorise manager" do
-    login_manager
+    login_admin
 
     before(:each) do
       @conf = FactoryBot.create(:conf)
@@ -55,7 +55,7 @@ RSpec.describe Admin::Manager::OrdersController, type: :controller do
   end
 
   describe "Authorise manager, post actions" do
-    login_manager
+    login_admin
 
     before(:each) do
       @conf = FactoryBot.create(:conf)
