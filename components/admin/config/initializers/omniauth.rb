@@ -1,6 +1,6 @@
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :wechat, ENV["SFLX_APPID"], ENV["SFLX_APP_SECRET"],
+  provider(:wechat, ENV["SFLX_APPID"], ENV["SFLX_APP_SECRET"], :setup => true,
    :client_options => {
         site:          "https://api.weixin.qq.com",
         # authorize_url: "https://open.weixin.qq.com/connect/oauth2/authorize?#wechat_redirect",
@@ -9,7 +9,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
         token_url:     "/sns/oauth2/access_token",
         token_method:  :get
       },
-   :authorize_params => {:scope => "snsapi_userinfo"}
+   :authorize_params => {:scope => "snsapi_userinfo"})
    # :authorize_params => {:scope => "snsapi_base"}
 
   # test account

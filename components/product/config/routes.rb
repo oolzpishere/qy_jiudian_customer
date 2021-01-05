@@ -1,6 +1,7 @@
 Product::Engine.routes.draw do
   root to: "hotels#index"
-
-  resources :hotels, only: [:index, :show]
+  scope path: "/product" do
+    resources :hotels, only: [:index, :show]
+  end
   resources :orders
 end

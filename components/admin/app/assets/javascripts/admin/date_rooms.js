@@ -8,7 +8,7 @@ var DateRooms = function() {
 DateRooms.prototype.getHotelDataAndRun = function(hotel_id, success_proc){
   var _self = this;
   $.ajax({
-    url: '/manager/hotels/' + hotel_id + '.json',
+    url: '/product/hotels/' + hotel_id + '.json',
     success: function(results) {
       // set object hotel_hash.
       _self.hotel_hash = results;

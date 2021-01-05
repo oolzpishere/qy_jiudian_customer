@@ -1,4 +1,4 @@
-module Pay
+module Admin
   class WxPayment < ApplicationRecord
     self.table_name = 'wx_payments'
 

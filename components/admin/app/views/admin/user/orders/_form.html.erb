@@ -17,7 +17,7 @@
       <%= form.hidden_field :conference_id, value: @conference.id %>
       <%= form.hidden_field :hotel_id, value: @hotel.id %>
       <%= form.hidden_field :user_id, value: current_user.id %>
-      <%= form.hidden_field :patment_id, value: "" %>
+
       <div class="col-3 p-0 shadow rounded">
         <table id="order_date_rooms_table" class="table table-sm table-striped">
           <thead>
@@ -31,7 +31,7 @@
           </tbody>
         </table>
       </div>
-      
+
       <span class="h6">房型：</span>
       <%= form.label @hotel_room_type.room_type.name, class: "h6" %>
       <%= form.hidden_field :room_type, value: @hotel_room_type.room_type.name_eng %>
@@ -97,7 +97,7 @@
       </div>
 
       <div class="form-group">
-        <%= form.hidden_field :total_fee, id: "total_fee", value: 1 %>
+        <%= hidden_field :payment, :total_fee, id: "total_fee", value: 1 %>
       </div>
 
       <div class="actions">

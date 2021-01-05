@@ -28,9 +28,14 @@ room_types = Product::RoomType.create([
   {id: 4, name: "其它双人间", name_eng: "other_twin_beds", position: 4}
   ])
 
-Product::HotelRoomType.create([
+hotel_room_types = Product::HotelRoomType.create([
   {id: 1, hotel_id: 1, room_type_id: 1, price: 100, settlement_price: 80},
   {id: 2, hotel_id: 1, room_type_id: 2, price: 200, settlement_price: 180}
+  ])
+
+Product::DateRoom.create([
+  {hotel_room_type_id: 1, date: "2021-01-02", rooms: 20},
+  {hotel_room_type_id: 1, date: "2021-01-03", rooms: 10}
   ])
 
 Account::Admin.create([

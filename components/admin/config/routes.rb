@@ -24,8 +24,6 @@ Admin::Engine.routes.draw do
     root to: "orders#index", :as => :user_root
   end
 
-  post 'wx_pay' => '/admin/user/pay#wx_pay'
-
   root to: "conferences#index"
 
 end

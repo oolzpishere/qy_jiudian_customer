@@ -1,4 +1,4 @@
-module Pay
+module Admin
   class Payment < ApplicationRecord
     self.table_name = 'payments'
 
