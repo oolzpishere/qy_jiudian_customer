@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.11.0"
+lock "~> 3.14.1"
 
 set :application, "qy_jiudian_customer"
 set :repo_url, "https://github.com/oolzpishere/qy_jiudian_customer"
@@ -76,7 +76,7 @@ set :keep_assets, 2
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", 'public/uploads', 'public/assets', 'storage'
 
 # rbenv setting
-set :rbenv_ruby, '2.5.1'
+set :rbenv_ruby, '2.7.2'
 # set :rbenv_type, :user # or :system, depends on your rbenv setup
 # set :rbenv_prefix, "source ~/.zshrc; RBENV_ROOT=#{fetch(:rbenv_path)}  #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_prefix, "source ~/.zshrc;"
