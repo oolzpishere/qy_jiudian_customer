@@ -105,8 +105,10 @@ gem 'admin', path: 'components/admin'
 gem 'product', path: 'components/product'
 # gem 'pay', path: 'components/pay'
 
-gem 'account', path: "../_gems/account"
-gem 'epayment', path: "../_gems/epayment"
+# gem 'account', path: "../_gems/account"
+# gem 'epayment', path: "../_gems/epayment"
+gem 'account', git: "https://github.com/oolzpishere/account"
+gem 'epayment', git: "https://github.com/oolzpishere/epayment"
 
 # admin engine
 # not need this gem, use info>note>production send sms plan A.

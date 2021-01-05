@@ -6,10 +6,11 @@ GIT
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
 
-PATH
-  remote: ../_gems/account
+GIT
+  remote: https://github.com/oolzpishere/account
+  revision: 736bea6a7446929a71e00be48f22c6582b6a6c7e
   specs:
-    account (0.1.0)
+    account (0.1.1)
       active_model_otp
       aliyun-sms
       bootstrap
@@ -21,10 +22,11 @@ PATH
       qcloud-sms (~> 1.0.1)
       rails (~> 5.2.2)
 
-PATH
-  remote: ../_gems/epayment
+GIT
+  remote: https://github.com/oolzpishere/epayment
+  revision: 7f21e13390d5c9d6055c9c155b15d1e7ac83bea0
   specs:
-    epayment (0.1.0)
+    epayment (0.1.1)
       bootstrap
       jquery-rails
       omniauth
