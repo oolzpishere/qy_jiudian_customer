@@ -24,9 +24,9 @@ GIT
 
 GIT
   remote: https://github.com/oolzpishere/epayment
-  revision: 7f21e13390d5c9d6055c9c155b15d1e7ac83bea0
+  revision: f404d7bb6563f74f0f3bf5a9b5a035b92cf83610
   specs:
-    epayment (0.1.1)
+    epayment (0.1.2)
       bootstrap
       jquery-rails
       omniauth

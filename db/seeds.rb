@@ -34,8 +34,8 @@ hotel_room_types = Product::HotelRoomType.create([
   ])
 
 Product::DateRoom.create([
-  {hotel_room_type_id: 1, date: "2021-01-02", rooms: 20},
-  {hotel_room_type_id: 1, date: "2021-01-03", rooms: 10}
+  {hotel_room_type_id: 1, date: "2021-01-02", rooms: 200},
+  {hotel_room_type_id: 1, date: "2021-01-03", rooms: 100}
   ])
 
 Account::Admin.create([
