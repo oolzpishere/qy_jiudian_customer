@@ -46,6 +46,7 @@ zh-CN:
           checkout: 离店日期
           check_in_out: 入住日期
           nights: 晚
+          earnest: 定金
         show:
           group: 组数
           id: 号码

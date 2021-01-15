@@ -23,11 +23,11 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag    'shared/manifests/application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= render_manifests('css') %>
+  <%# render_manifests('css') %>
   <%= javascript_include_tag 'shared/manifests/application', 'data-turbolinks-track': 'reload', 'defer': true %>
 
   <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
-  
+
   <% if content_for(:user_page) %>
     <%= stylesheet_link_tag    "admin/application", media: "all" %>
     <%= javascript_include_tag "admin/user/application", 'data-turbolinks-track': 'reload', 'defer': true  %>

@@ -21,6 +21,7 @@ module Admin
     def new
       @order = Product::Order.new
       1.times { @order.rooms.build }
+      @earnest_each = 10
     end
 
     # GET /user/orders/1/edit

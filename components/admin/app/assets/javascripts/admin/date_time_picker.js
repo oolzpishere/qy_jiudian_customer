@@ -1,5 +1,5 @@
 
-$(document).on("ready page:load turbolinks:load", function() {
+$(document).on("turbolinks:load", function() {
   $('.datepicker').datepicker({
     language: 'zh-CN',
     format: 'yyyy-mm-dd'

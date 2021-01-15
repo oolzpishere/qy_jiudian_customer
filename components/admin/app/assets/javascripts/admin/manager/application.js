@@ -20,7 +20,8 @@
 //= require selectize
 //= require admin/jquery.fileDownload
 //= require admin/date_time_picker
-//= require admin/has_many
+
+//= require admin/rooms_controller
 //= require admin/manager/order
 //= require admin/manager/hotel
 //= require jquery.validate

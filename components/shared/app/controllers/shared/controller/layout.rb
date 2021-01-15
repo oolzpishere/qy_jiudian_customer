@@ -5,7 +5,7 @@ module Shared
 
       included do
         layout 'shared/layouts/application'
-        include Shared::Controller::Manifests
+        # include Shared::Controller::Manifests
       end
 
     end

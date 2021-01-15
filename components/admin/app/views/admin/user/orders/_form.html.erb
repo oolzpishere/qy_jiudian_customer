@@ -97,6 +97,20 @@
       </div>
 
       <div class="form-group">
+        <%= form.label t(".earnest"), class: "h6" %>
+        <%# rooms count * 1000 is total_fee, then humanlize to show %>
+        ￥
+        <span class="earnest_each" data-earnest-each=<%= @earnest_each %> >
+          <%= @earnest_each %>
+        </span>
+        (元/间) x
+        <span class="rooms_num">
+          <%= "1" %>
+        </span>
+        (间)
+        总金额￥<span id="earnest_total_fee">
+          <%# 10 * room_num %>
+        </span>
         <%= hidden_field :payment, :total_fee, id: "total_fee", value: 1 %>
       </div>
 

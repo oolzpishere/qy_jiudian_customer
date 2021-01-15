@@ -85,6 +85,9 @@ $(document).on("ready page:load turbolinks:load", function() {
   }
 
   // #form
+  // logic of click to add room.
+  var rooms_controller = new RoomsController();
+
   // jquery form validation.
   if ($('#order_form').length > 0) {
     $('.has_many_field_li:first input:first').attr('required', 'required');
