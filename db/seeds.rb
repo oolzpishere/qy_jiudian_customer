@@ -39,7 +39,7 @@ Product::DateRoom.create([
   ])
 
 Account::Admin.create([
-  {id: 1, email: ENV["TEST_APP_EMAIL"], password: ENV["TEST_APP_PASSWORD"], password_confirmation: ENV["TEST_APP_PASSWORD"]}
+  {id: 1, email: ENV["TEST_ADMIN_EMAIL"], password: ENV["TEST_APP_PASSWORD"], password_confirmation: ENV["TEST_APP_PASSWORD"]}
   ])
 
 Account::User.create([
