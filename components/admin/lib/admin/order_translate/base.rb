@@ -7,7 +7,7 @@ module Admin
 
       def initialize(order)
         @order = order
-        @processed_order = Admin::ProcessedOrder.new(order)
+        @processed_order = ::Admin::ProcessedOrder.new(order)
         @processed_payment = processed_order.processed_payment
       end
 

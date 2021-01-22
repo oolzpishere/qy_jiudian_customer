@@ -23,11 +23,11 @@ module Admin
       end
 
       def get_params_name
-        Admin::RecordSendSms::ParamsName.get_name(record, params_name)
+        ::Admin::RecordSendSms::ParamsName.get_name(record, params_name)
       end
 
       def get_params(params_name)
-        Admin::RecordSendSms::Params::AliParams.new(record).to_params(params_name)
+        ::Admin::RecordSendSms::Params::AliParams.new(record).to_params(params_name)
       end
 
       def get_template_codes

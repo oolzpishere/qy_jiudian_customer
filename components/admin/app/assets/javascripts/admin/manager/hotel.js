@@ -1,4 +1,4 @@
-
+console.log('hotel.js')
 $(document).on("ready page:load turbolinks:load", function() {
   // #hotel form
   // set tax_rate default value

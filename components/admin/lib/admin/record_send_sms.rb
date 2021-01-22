@@ -18,9 +18,9 @@ module Admin
 
     def self.for(type, record, params_name)
       if type == "ali"
-        Admin::RecordSendSms::AliSendSms
+        ::Admin::RecordSendSms::AliSendSms
       elsif type == "ten"
-        Admin::RecordSendSms::QcloudSendSms
+        ::Admin::RecordSendSms::QcloudSendSms
       end.new(record, params_name)
     end
 

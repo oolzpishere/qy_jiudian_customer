@@ -31,3 +31,17 @@
 
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js
+
+import "moment"
+import "selectize"
+import "jquery-validation"
+import "bootstrap-datepicker"
+
+// import {RoomsController} from "javascripts/admin/rooms_controller"
+import "javascripts/admin/date_time_picker"
+import "javascripts/admin/manager/order"
+import "javascripts/admin/manager/hotel"
+
+
+
+console.log('Hello World from Webpacker new 222222')

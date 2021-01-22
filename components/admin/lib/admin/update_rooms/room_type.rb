@@ -104,7 +104,7 @@ module Admin
       def init_drs
         @date_rooms ||= []
         hotel_room_type_rec.date_rooms.each do |dr|
-          date_room = Admin::UpdateRooms::DateRoom.new(dr)
+          date_room = UpdateRooms::DateRoom.new(dr)
           @date_rooms << date_room
         end
       end

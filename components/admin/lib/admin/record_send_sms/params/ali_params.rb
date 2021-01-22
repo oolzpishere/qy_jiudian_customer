@@ -7,7 +7,7 @@ module Admin
         attr_reader :order_data
         def initialize( record )
           super
-          @order_data = Admin::OrderTranslate::Sms.new(record)
+          @order_data = ::Admin::OrderTranslate::Sms.new(record)
         end
 
         # template_param：message template params, tring type, such as '{"code":"666666", "product":"content" }'.

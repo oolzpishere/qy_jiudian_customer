@@ -1,3 +1,5 @@
+console.log("rooms_controller")
+export { RoomsController };
 
 var RoomsController = function() {
   this.rooms_num = 0;

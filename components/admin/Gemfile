@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'account',path: "../account"
+# gem 'account',path: "../account"
 gem 'product',path: "../product"
 # gem 'devise_sms_activable', git: 'https://github.com/oolzpishere/devise_sms_activable'
 

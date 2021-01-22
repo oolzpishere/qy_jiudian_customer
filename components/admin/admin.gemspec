@@ -25,12 +25,12 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  spec.add_dependency "rails", "~> 5.2.3"
+  spec.add_dependency "rails", ">= 5.2.3"
   spec.add_dependency "sass-rails"
 
   spec.add_development_dependency "sqlite3"
 
-  spec.add_dependency 'account'
+  # spec.add_dependency 'account'
   spec.add_dependency 'product'
 
   spec.add_dependency 'bootstrap'

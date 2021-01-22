@@ -22,7 +22,7 @@ module Admin
         if hotel_id && room_type_name_eng
           room_type_rec = get_room_type_rec(hotel_id, room_type_name_eng)
           return false unless room_type_rec
-          room_type = Admin::UpdateRooms::RoomType.new(room_type_rec)
+          room_type = UpdateRooms::RoomType.new(room_type_rec)
           room_types << room_type
         else
           return false

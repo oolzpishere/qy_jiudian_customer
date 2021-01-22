@@ -6,7 +6,8 @@
   <%= csp_meta_tag %>
 
   <%= stylesheet_link_tag    "admin/application", media: "all" %>
-  <%= javascript_include_tag "admin/manager/application" %>
+  <%# javascript_include_tag "admin/manager/application" %>
+  <%= javascript_packs_with_chunks_tag 'admin/manager/application' %>
 
 </head>
 <body style="background-color: #f5f5f5;">

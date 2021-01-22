@@ -39,7 +39,7 @@ module Admin
     # POST /orders
     def create
       @order = Product::Order.new(order_params)
-      update_rooms = Admin::UpdateRooms.new(new_params: order_params)
+      update_rooms = ::Admin::UpdateRooms.new(new_params: order_params)
 
       unless update_rooms.check_available
         redirect_to(admin.conference_hotel_orders_path(@conference, @hotel), alert: '入住日期不在售卖范围内，请重新填写，或修改酒店售卖日期')
@@ -60,7 +60,7 @@ module Admin
     # PATCH/PUT /orders/1
     def update
 
-      update_rooms = Admin::UpdateRooms.new(order: @order, new_params: order_params)
+      update_rooms = UpdateRooms.new(order: @order, new_params: order_params)
 
       # @order.assign_attributes(order_params)
 
@@ -84,7 +84,7 @@ module Admin
       if Rails.env.match(/production/)
         RecordSendSms.send_sms(@order, "cancel")
       end
-      update_rooms = Admin::UpdateRooms.new(order: @order)
+      update_rooms = UpdateRooms.new(order: @order)
 
       @order.destroy
       update_rooms.delete
