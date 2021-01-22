@@ -43,5 +43,5 @@ Account::Admin.create([
   ])
 
 Account::User.create([
-  {id: 1, email: "oolzpishere@126.com", password: ENV["TEST_APP_PASSWORD"], password_confirmation: ENV["TEST_APP_PASSWORD"]}
+  {id: 1, email: ENV["TEST_USER_EMAIL"], password: ENV["TEST_APP_PASSWORD"], password_confirmation: ENV["TEST_APP_PASSWORD"]}
   ])
