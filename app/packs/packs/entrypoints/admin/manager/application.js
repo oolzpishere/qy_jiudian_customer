@@ -30,7 +30,3 @@ Turbolinks.start();
 import 'javascripts/admin/manager/application'
 
 // var $ = require( "jquery" );
-
-
-
-console.log('Hello World from Webpacker111')

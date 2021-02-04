@@ -126,7 +126,7 @@ emptyResult: 'Empty file upload result'
         {% } %}
     </td>
     <td>
-        <span class="size">{%=o.formatFileSize(file.size)%}</span>
+        <span class="size">{%= o.formatFileSize(file.size) %}</span>
     </td>
     <td>
         {% if (file.deleteUrl) { %}
@@ -144,48 +144,4 @@ emptyResult: 'Empty file upload result'
     </td>
 </tr>
 {% } %}
-</script>
-
-<script type="text/javascript" charset="utf-8">
-// (function($){ })(jQuery);
-window.onload = function() {
-(function($){
-// Initialize the jQuery File Upload widget:
-$('#fileupload').fileupload({
-// dataType: 'json',
-// add: function (e, data) {
-//   data.context = $('<button/>').text('Upload')
-//   .appendTo(document.body)
-//   .click(function () {
-//     data.context = $('<p/>').text('Uploading...').replaceAll($(this));
-//     data.submit();
-//   });
-// },
-// done: function (e, data) {
-//   data.context.text('Upload finished.');
-// }
-// options: {
-  autoUpload: false,
-  acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-
-});
-//
-// Load existing files:
-$.getJSON($('#fileupload').prop('action'), function (files) {
-  var fu = $('#fileupload').data('blueimpFileupload'),
-  template;
-  // fu._adjustMaxNumberOfFiles(-files.length);
-  console.log(files);
-  template = fu._renderDownload(files)
-  .appendTo($('#fileupload .files'));
-  // Force reflow:
-  fu._reflow = fu._transition && template.length &&
-  template[0].offsetWidth;
-  template.addClass('in');
-  $('#loading').remove();
-});
-//
-
-})(jQuery);
-}
 </script>

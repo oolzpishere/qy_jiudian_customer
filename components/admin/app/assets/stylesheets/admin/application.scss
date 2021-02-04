@@ -1,41 +1,12 @@
-@import "bootstrap";
 
-// @import "mdb/scss/mdb";
-@import "shared/lib/mdb/colors";
-@import "shared/lib/mdb/mixins";
-@import "shared/lib/mdb/variables";
-@import "shared/lib/mdb/navbars";
-@import "shared/lib/mdb/footers";
-@import "shared/lib/mdb/global";
+@import 'jquery-ui/themes/base/all.css';
+@import "bootstrap-datepicker/dist/css/bootstrap-datepicker";
 
-@import 'jquery-ui/core';
-@import 'jquery-ui/theme';
+@import 'selectize/dist/css/selectize';
+@import 'selectize/dist/css/selectize.default';
+//
+// // jquery.fileupload
+@import 'blueimp-file-upload/css/jquery.fileupload.css';
+@import 'blueimp-file-upload/css/jquery.fileupload-ui.css';
 
-@import 'jquery-ui/draggable';
-@import 'jquery-ui/resizable';
-@import 'jquery-ui/selectable';
-@import 'jquery-ui/sortable';
-
-@import 'jquery-ui/accordion';
-@import 'jquery-ui/autocomplete';
-@import 'jquery-ui/button';
-@import 'jquery-ui/datepicker';
-@import 'jquery-ui/dialog';
-@import 'jquery-ui/menu';
-@import 'jquery-ui/progressbar';
-@import 'jquery-ui/selectmenu';
-@import 'jquery-ui/slider';
-@import 'jquery-ui/spinner';
-@import 'jquery-ui/tabs';
-@import 'jquery-ui/tooltip';
-
-@import "bootstrap-datepicker";
-@import 'selectize';
-@import 'selectize.default';
-
-// jquery.fileupload
-@import 'jquery.fileupload';
-@import 'jquery.fileupload-ui';
-
-@import "font-awesome-sprockets";
-@import "font-awesome";
+@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";

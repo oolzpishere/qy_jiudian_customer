@@ -4,7 +4,8 @@ module Admin
   class Manager::HotelImagesController < Manager::ApplicationController
     before_action :set_hotel, only: [:index, :new, :create]
     before_action :set_hotel_image, only: [:show, :edit, :update, :destroy]
-
+    # skip_before_action :authenticate_admin!
+    # protect_from_forgery except: :index
     def dashboard
       # @manager_hotel_images = Product::HotelImage.all
       @hotel_image = Product::HotelImage.new
@@ -35,6 +36,7 @@ module Admin
     # POST /manager/hotel_images
     def create
       # not actually delete, return nil if not exist
+      # byebug
       images = hotel_image_params.delete(:images)
       # @hotel_image = Product::HotelImage.new(hotel_image_params)
 
