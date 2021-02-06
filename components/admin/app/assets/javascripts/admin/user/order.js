@@ -33,6 +33,7 @@ $(document).on("turbolinks:load", function() {
 
   }
 
+
   // date_rooms.resetDateRoomsTable();
 
 });
