@@ -9,3 +9,6 @@ import Popper from "Popper"
 import 'bootstrap'
 
 Turbolinks.start();
+
+// style
+import "@fortawesome/fontawesome-free/css/all.css";

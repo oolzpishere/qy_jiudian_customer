@@ -10,16 +10,26 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery3
-//= require jquery_ujs
-//= require jquery-ui
-//= require popper
-//= require bootstrap-sprockets
-//= require jquery.slick
-//= require turbolinks
-//= require shared/manifests/lib/slideout
-//= require shared/manifests/lib/waves
-//= require shared/manifests/lib/moveit
-//= require shared/manifests/lib/lazysizes
-//= require shared/manifests/lib/wow
-//= require shared/manifests/lib/jquery.scrollTo
+// require jquery3--
+// require jquery_ujs
+// require jquery-ui
+// require popper--
+// require bootstrap-sprockets--
+// require jquery.slick
+// require turbolinks
+// require shared/manifests/lib/slideout-
+// require shared/manifests/lib/waves-
+// require shared/manifests/lib/moveit-
+// require shared/manifests/lib/lazysizes-
+// require shared/manifests/lib/wow-
+// require shared/manifests/lib/jquery.scrollTo-
+
+import "slick-carousel/slick/slick"
+
+// local file
+import "javascripts/shared/manifests/lib/slideout"
+import "javascripts/shared/manifests/lib/waves"
+import "javascripts/shared/manifests/lib/moveit"
+import "javascripts/shared/manifests/lib/lazysizes"
+import "javascripts/shared/manifests/lib/wow"
+import "javascripts/shared/manifests/lib/jquery.scrollTo"

@@ -1,5 +1,3 @@
-@import "~bootstrap/scss/bootstrap";
-
-@import "packs/stylesheets/lib/mdb/emdb";
-
-@import 'stylesheets/admin/application';
+@import "packs/entrypoints/shared/manifests/application";
+// engines:
+@import 'stylesheets/user/application';

@@ -51,7 +51,7 @@ $navbar-height-xs:60px;
   }
 
   @for $i from 1 through 10 {
-    .mt-md-#{$i}0 { margin-top: #{$i}0%; }
+    .mt-md-#{$i}0 { margin-top: $i * 10%; }
   }
 
 }

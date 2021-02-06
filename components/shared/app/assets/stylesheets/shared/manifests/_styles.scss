@@ -1,10 +1,10 @@
 
 @for $i from 1 through 10 {
-  .w-#{$i}0 { width: #{$i}0%; }
+  .w-#{$i}0 { width: $i * 10%; }
 }
 
 @for $i from 1 through 10 {
-  .mt-#{$i}0 { margin-top: #{$i}0%; }
+  .mt-#{$i}0 { margin-top: $i * 10%; }
 }
 
 // .w-10{ width: 10%;}
@@ -17,7 +17,7 @@
 // .w-90{ width: 90%;}
 
 @for $i from 1 through 10 {
-  .h-#{$i}0 { height: #{$i}0%; }
+  .h-#{$i}0 { height: $i * 10%; }
 }
 
 .a-no-effect{

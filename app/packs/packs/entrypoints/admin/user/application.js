@@ -1,7 +1,7 @@
 
 
 
-import '../../common'
+import '../../shared/manifests/application'
 
 import 'javascripts/admin/user/application'
 

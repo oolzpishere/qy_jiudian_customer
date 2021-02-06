@@ -1,35 +1,21 @@
+// node_modules
+// @import "slick-carousel/slick/slick";
+// @import "slick-carousel/slick/slick-theme";
 
-// @import "mdb/scss/mdb";
-@import "shared/lib/mdb/colors";
-@import "shared/lib/mdb/mixins";
-@import "shared/lib/mdb/variables";
-@import "shared/lib/mdb/navbars";
-@import "shared/lib/mdb/footers";
-@import "shared/lib/mdb/global";
+// local
+@import 'stylesheets/shared/manifests/variables';
+@import 'stylesheets/shared/manifests/styles';
 
+@import "stylesheets/shared/manifests/slideout";
+@import "stylesheets/shared/lib/waves";
 
-@import 'shared/manifests/variables';
-@import "bootstrap";
-@import 'shared/manifests/styles';
-
-
-@import "shared/manifests/slideout";
-@import "shared/lib/waves";
-
-@import 'slick';
-@import 'slick-theme';
-
-@import 'jquery-ui';
-@import 'shared/lib/animate';
+@import 'stylesheets/shared/lib/animate';
 
 // variables include break-point, have to put it at last for overwrite normal style.
-@import 'shared/manifests/breakpoints';
-@import 'shared/lib/magnific-popup';
+@import 'stylesheets/shared/manifests/breakpoints';
+// @import 'stylesheets/shared/lib/magnific-popup';
 
-@import "font-awesome-sprockets";
-@import "font-awesome";
-
-@import "frontend/application";
+// @import "frontend/application";
 
 body{
   font-family: "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
