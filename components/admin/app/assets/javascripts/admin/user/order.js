@@ -1,4 +1,6 @@
 //= require admin/date_rooms
+import {DateRooms} from "javascripts/admin/date_rooms"
+import {RoomsController} from "javascripts/admin/rooms_controller"
 
 $(document).on("turbolinks:load", function() {
 

@@ -1,3 +1,4 @@
+export { DateRooms };
 
 var DateRooms = function() {
   // this.hotel_id = hotel_id;
@@ -28,7 +29,7 @@ DateRooms.prototype.resetDateRoomsTable = function(hotel_hash){
       return
     }
 
-    tbl = document.getElementById('order_date_rooms_tbody')
+    var tbl = document.getElementById('order_date_rooms_tbody');
     // remove current tbody all tr rows.
     $('#order_date_rooms_tbody tr').remove()
 

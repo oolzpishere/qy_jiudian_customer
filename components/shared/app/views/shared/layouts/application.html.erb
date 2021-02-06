@@ -30,7 +30,8 @@
 
   <% if content_for(:user_page) %>
     <%= stylesheet_link_tag    "admin/application", media: "all" %>
-    <%= javascript_include_tag "admin/user/application", 'data-turbolinks-track': 'reload', 'defer': true  %>
+    <%# javascript_include_tag "admin/user/application", 'data-turbolinks-track': 'reload', 'defer': true  %>
+    <%= javascript_packs_with_chunks_tag 'admin/user/application' %>
   <% end %>
 
 

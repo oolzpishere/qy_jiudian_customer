@@ -14,18 +14,8 @@
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
-import 'core-js/stable'
-import 'regenerator-runtime/runtime'
 
-import $ from 'jquery'
-import Turbolinks from "turbolinks"
-
-import Popper from "Popper"
-
-import 'bootstrap'
-
-
-Turbolinks.start();
+import '../../common'
 
 import 'javascripts/admin/manager/application'
 
