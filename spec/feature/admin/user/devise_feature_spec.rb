@@ -5,10 +5,13 @@ RSpec.feature "devise", :type => :feature do
 
   describe "devise sign in" do
     before :each do
+      @conf = FactoryBot.create(:conf)
+      @hotel = FactoryBot.create(:hotel_with_hotel_room_types)
+      @order = FactoryBot.create(:order_with_rooms, conference: @conf, hotel: @hotel)
       @user = FactoryBot.create(:user)
     end
 
-    xit "signs me in with phone" do
+    it "signs me in with phone" do
       visit '/user'
       within("#new_user") do
         fill_in 'user[login]', with: @user.phone
@@ -19,7 +22,7 @@ RSpec.feature "devise", :type => :feature do
       expect(page).to have_content '登录成功'
     end
 
-    xit "signs me in with email" do
+    it "signs me in with email" do
       visit '/user'
       within("#new_user") do
         fill_in 'user[login]', with: @user.email
@@ -30,10 +33,10 @@ RSpec.feature "devise", :type => :feature do
       expect(page).to have_content '登录成功'
     end
 
-    xit "Fail, when account wrong" do
+    it "Fail, when account wrong" do
       visit '/user'
       within("#new_user") do
-        fill_in 'user[login]', with: "12345"
+        fill_in 'user[login]', with: "wrong-account"
         fill_in 'user[password]', with: @user.password
       end
       click_button 'commit'
@@ -61,7 +64,7 @@ RSpec.feature "devise", :type => :feature do
       expect(Account::User.count).to eq(1)
     end
 
-    xit "only have email,sign up success." do
+    it "only have email,sign up success." do
       visit '/users/sign_up'
       within("#new_user") do
         fill_in 'user[email]', with: "test@email.com"
@@ -73,7 +76,7 @@ RSpec.feature "devise", :type => :feature do
       expect(Account::User.count).to eq(1)
     end
 
-    xit "Don't have email and phone,sign up fail." do
+    it "Don't have email and phone,sign up fail." do
       visit '/users/sign_up'
       within("#new_user") do
         fill_in 'user[password]', with: @user.password

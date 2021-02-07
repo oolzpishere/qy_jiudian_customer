@@ -20,11 +20,11 @@ RSpec.feature "sign in", :type => :feature do
     expect(page).to have_content '登录成功'
   end
 
-  xit "Fail, when password wrong" do
-    visit '/managers/sign_in'
-    within("#new_manager") do
-      fill_in 'manager[email]', with: 'admin@example.com'
-      fill_in 'manager[password]', with: 'password-wrong'
+  it "Fail, when password wrong" do
+    visit '/admins/sign_in'
+    within("#new_admin") do
+      fill_in 'admin[email]', with: 'admin@example.com'
+      fill_in 'admin[password]', with: 'password-wrong'
     end
     click_button 'commit'
 
