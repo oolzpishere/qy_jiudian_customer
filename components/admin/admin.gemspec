@@ -51,8 +51,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'aliyun-sms'
 
   spec.add_dependency 'rubyzip', "~> 1.2.1"
-  spec.add_dependency 'axlsx'
-  spec.add_dependency 'axlsx_rails', "~> 0.5.2"
+  spec.add_dependency 'caxlsx'
+  spec.add_dependency 'caxlsx_rails'
 
   # spec.add_dependency 'client_side_validations'
   spec.add_dependency 'jquery-validation-rails'
