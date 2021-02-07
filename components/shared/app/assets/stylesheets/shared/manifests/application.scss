@@ -4,15 +4,15 @@
 
 // local
 @import './variables';
-@import 'stylesheets/shared/manifests/styles';
+@import './styles';
 
-@import "stylesheets/shared/manifests/slideout";
-@import "stylesheets/shared/lib/waves";
+@import "./slideout";
+@import "../lib/waves";
 
-@import 'stylesheets/shared/lib/animate';
+@import '../lib/animate';
 
 // variables include break-point, have to put it at last for overwrite normal style.
-@import 'stylesheets/shared/manifests/breakpoints';
+@import './breakpoints';
 // @import 'stylesheets/shared/lib/magnific-popup';
 
 // @import "frontend/application";
