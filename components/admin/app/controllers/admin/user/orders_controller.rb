@@ -57,22 +57,19 @@ module Admin
         if !need_payment?
           redirect_to(frontend.hotels_path(conference_id: @conference.id), notice: '酒店预订成功。')
         else
-          total_fee = payment_params[:total_fee]
-          wx_payment = create_wx_payment(@order, total_fee)
-          unless wx_payment && wx_payment.out_trade_no
-            raise "out_trade_no of wx_payment record save fail."
-          end
+          earnest_each = payment_params[:earnest_each]
+          rooms_num = payment_params[:rooms_num]
+          total_fee = calc_total_fee(earnest_each, rooms_num)
+
+          wx_payment = create_payment(@order, total_fee)
 
           product_name = @order.hotel.name
-          single_price = total_fee
-          product_num = 1
           out_trade_no = wx_payment.out_trade_no
 
           payment_gateway_uri = URI(epayment.payment_gateway_wechat_pay_path)
           payment_gateway_uri.query = "total_fee=#{total_fee}&out_trade_no=#{out_trade_no}"
 
-          session["epayment.products"] = [{name: product_name, single_price: single_price, num: product_num}]
-
+          session["epayment.products"] = [{name: product_name, single_price: earnest_each, num: rooms_num}]
           session["epayment.after_payment_redirection_path"] = admin.user_root_path
 
           redirect_to payment_gateway_uri.to_s
@@ -130,7 +127,7 @@ module Admin
       end
 
       def payment_params
-        params.fetch(:payment, {}).permit(:total_fee)
+        params.fetch(:payment, {}).permit(:rooms_num, :earnest_each)
       end
 
       def need_payment?
@@ -141,12 +138,24 @@ module Admin
         SecureRandom.base58(32)
       end
 
-      def create_wx_payment(order, total_fee)
+      def create_payment(order, total_fee)
         payment = Admin::Payment.create(order_id: order.id)
         if payment
-          wx_payment = Admin::WxPayment.create(payment_id: payment.id, out_trade_no: gen_out_trade_no_random, total_fee: total_fee)
+          wx_payment = create_wx_payment(payment.id, total_fee)
         end
-        wx_payment ? wx_payment : false
+        # make sure WxPayment create success, not fail by gen_out_trade_no_random not uniq.
+        wx_payment ? wx_payment : create_wx_payment(payment.id, total_fee)
+      end
+
+      def create_wx_payment(payment_id, total_fee)
+        Admin::WxPayment.create(payment_id: payment_id, out_trade_no: gen_out_trade_no_random, total_fee: total_fee)
+      end
+
+      def calc_total_fee(earnest_each, rooms_num)
+        earnest_each = earnest_each.to_i
+        cents_of_earnest_each = earnest_each * 100
+        rooms_num = rooms_num.to_i
+        total_fee = cents_of_earnest_each * rooms_num
       end
   end
 end

@@ -103,14 +103,16 @@
         <span class="earnest_each" data-earnest-each=<%= @earnest_each %> >
           <%= @earnest_each %>
         </span>
+        <%= hidden_field :payment, :earnest_each, id: "earnest_each", value: @earnest_each %>
         (元/间) x
         <span class="rooms_num">
           <%= "1" %>
         </span>
+        <%= hidden_field :payment, :rooms_num, id: "rooms_num", value: 1 %>
         (间)
-        总金额￥<span id="earnest_total_fee">
-          <%# 10 * room_num %>
-        </span>
+        <p></p>
+        总金额￥
+        <span id="earnest_total_fee"></span>
         <%= hidden_field :payment, :total_fee, id: "total_fee", value: 1 %>
       </div>
 

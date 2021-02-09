@@ -23,6 +23,7 @@ $(document).on("turbolinks:load", function() {
       $('#has-many-addmore').on('click', function(e) {
         // room_list on change, update room_num
         $('.rooms_num').text(rooms_controller.rooms_num);
+        $('#rooms_num').val(rooms_controller.rooms_num);
         // update total earnest
         earnest_total_fee = earnest_each * rooms_controller.rooms_num
         $('#earnest_total_fee').text(earnest_total_fee);
