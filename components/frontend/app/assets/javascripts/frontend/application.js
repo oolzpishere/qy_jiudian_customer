@@ -1,3 +1,5 @@
 
-//= require activestorage
-//= require_tree .
+import "slick-carousel/slick/slick"
+
+// local file
+import "javascripts/frontend/hotels"

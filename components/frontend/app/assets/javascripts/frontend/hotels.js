@@ -1,6 +1,8 @@
-$(document).on("ready page:load turbolinks:load", function() {
+
+
+$(document).on("turbolinks:load", function() {
   if ($('.hotel-images-slick').length > 0) {
-    $('.hotel-images-slick').slick({
+    $('.hotel-images-slick').not('.slick-initialized').slick({
       dots: true,
       arrows: true,
       infinite: true,

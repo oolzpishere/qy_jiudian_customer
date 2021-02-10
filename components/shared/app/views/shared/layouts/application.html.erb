@@ -1,76 +1,77 @@
 <!DOCTYPE html>
+
 <html>
-<head>
-  <title><%= content_for(:title) || "前沿课堂" %></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <%= csrf_meta_tags %>
+  <head>
+    <title><%= content_for(:title) || "前沿课堂" %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <%= csrf_meta_tags %>
 
-  <% if content_for?(:turbolinks_reload) %>
-    <meta name="turbolinks-visit-control" content="reload">
-  <% end %>
+    <% if content_for?(:turbolinks_reload) %>
+      <meta name="turbolinks-visit-control" content="reload">
+    <% end %>
 
-  <% if content_for?(:turbolinks_no_cache) %>
-    <meta name="turbolinks-cache-control" content="no-cache">
-  <% end %>
-
-
-  <% if content_for(:description) %>
-    <meta name="description" content="<%= content_for(:description) %>">
-  <% end %>
-  <% if content_for(:keywords) %>
-    <meta name="keywords" content="<%= content_for(:keywords) %>">
-  <% end %>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% if content_for?(:turbolinks_no_cache) %>
+      <meta name="turbolinks-cache-control" content="no-cache">
+    <% end %>
 
 
-  <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+    <% if content_for(:description) %>
+      <meta name="description" content="<%= content_for(:description) %>">
+    <% end %>
+    <% if content_for(:keywords) %>
+      <meta name="keywords" content="<%= content_for(:keywords) %>">
+    <% end %>
 
-  <% if content_for(:user_page) %>
-    <%# stylesheet_link_tag    "admin/application", media: "all" %>
-    <%= stylesheet_packs_with_chunks_tag 'admin/user/application' %>
-
-    <%# javascript_include_tag "admin/user/application", 'data-turbolinks-track': 'reload', 'defer': true  %>
-    <%= javascript_packs_with_chunks_tag 'admin/user/application' %>
-  <% else %>
-    <%# stylesheet_link_tag    'shared/manifests/application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_packs_with_chunks_tag 'shared/manifests/application' %>
-    <%# render_manifests('css') %>
-    <%# javascript_include_tag 'shared/manifests/application', 'data-turbolinks-track': 'reload', 'defer': true %>
-    <%= javascript_packs_with_chunks_tag 'shared/manifests/application' %>
-  <% end %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-</head>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
 
-<body>
-  <div id="menu">
-    <div class="row">
+    <% if content_for(:user_page) %>
+      <%= stylesheet_packs_with_chunks_tag 'admin/user/application' %>
+      <%= javascript_packs_with_chunks_tag 'admin/user/application' %>
+    <% elsif content_for(:frontend_page) %>
+      <%= stylesheet_packs_with_chunks_tag 'frontend/application' %>
+      <%= javascript_packs_with_chunks_tag 'frontend/application' %>
+    <% else %>
+      <%# stylesheet_link_tag    'shared/manifests/application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= stylesheet_packs_with_chunks_tag 'shared/manifests/application' %>
+      <%# render_manifests('css') %>
+      <%# javascript_include_tag 'shared/manifests/application', 'data-turbolinks-track': 'reload', 'defer': true %>
+      <%= javascript_packs_with_chunks_tag 'shared/manifests/application' %>
+    <% end %>
+
+
+  </head>
+
+  <body>
+    <div id="menu">
+      <div class="row">
+      </div>
     </div>
-  </div>
 
-  <main id="panel" >
-    <header>
-      <%= render "shared/layouts/header" %>
-    </header>
+    <main id="panel" >
+      <header>
+        <%= render "shared/layouts/header" %>
+      </header>
 
-    <% if notice %>
-    <p class="notice alert alert-success fade show" role="alert"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-    <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
+      <% if notice %>
+      <p class="notice alert alert-success fade show" role="alert"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+      <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
 
-    <%= yield %>
-
-
-    <!-- <footer> -->
-    <%= render "shared/layouts/footer" %>
-
-  </main>
+      <%= yield %>
 
 
+      <!-- <footer> -->
+      <%= render "shared/layouts/footer" %>
 
-</body>
+    </main>
+
+
+
+  </body>
 
 </html>

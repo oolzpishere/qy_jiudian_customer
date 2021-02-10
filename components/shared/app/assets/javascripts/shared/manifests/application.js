@@ -24,7 +24,6 @@
 // require shared/manifests/lib/wow-
 // require shared/manifests/lib/jquery.scrollTo-
 
-import "slick-carousel/slick/slick"
 
 // local file
 import "javascripts/shared/manifests/lib/slideout"
