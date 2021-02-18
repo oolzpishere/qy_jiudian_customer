@@ -30,14 +30,9 @@ module Admin
 
     # POST /user/orders
     def create
+      # pre config
       send_sms_after_create_success = false
-
-      extra_params = {
-        # room_type: @hotel_room_type.room_type.name_eng,
-        # price: @hotel_room_type.price,
-        breakfast: @hotel.breakfast,
-      }
-      order_params.merge!(extra_params)
+      # user submit
       @order = Product::Order.new(order_params)
 
       update_rooms = Admin::UpdateRooms.new(new_params: order_params)
@@ -53,31 +48,16 @@ module Admin
         if Rails.env.match(/production/)
           SendSms::Combiner.send_sms(@order, "order") if send_sms_after_create_success
         end
-
-        if !need_payment?
-          redirect_to(frontend.hotels_path(conference_id: @conference.id), notice: '酒店预订成功。')
+        # handle payment
+        if need_payment?
+          # payment process
+          payment_proc(@order)
         else
-          earnest_each = payment_params[:earnest_each]
-          rooms_num = payment_params[:rooms_num]
-          total_fee = calc_total_fee(earnest_each, rooms_num)
-
-          wx_payment = create_payment(@order, total_fee)
-
-          product_name = @order.hotel.name
-          out_trade_no = wx_payment.out_trade_no
-
-          payment_gateway_uri = URI(epayment.payment_gateway_wechat_pay_path)
-          payment_gateway_uri.query = "total_fee=#{total_fee}&out_trade_no=#{out_trade_no}"
-
-          session["epayment.products"] = [{name: product_name, single_price: earnest_each, num: rooms_num}]
-          session["epayment.after_payment_redirection_path"] = admin.user_root_path
-
-          redirect_to payment_gateway_uri.to_s
+          redirect_to(frontend.hotels_path(conference_id: @conference.id), notice: '酒店预订成功。')
         end
 
       else
         redirect_to(frontend.hotel_path(@hotel.id, conference_id: @conference.id), alert: '储存失败，请重新填写.')
-        # render :new
       end
     end
 
@@ -97,6 +77,14 @@ module Admin
     end
 
     private
+      def order_params
+        params.fetch(:order, {}).permit( :id,:group,:count,:conference_id,:hotel_id,:user_id,:room_type,:names,:contact,:phone,:price,:breakfast,:checkin,:checkout,:nights,:total_price,:payment_id, rooms_attributes: [:id, :names, :room_number, :_destroy] )
+      end
+
+      def payment_params
+        params.fetch(:payment, {}).permit(:rooms_num, :earnest_each)
+      end
+
       # Use callbacks to share common setup or constraints between actions.
       def set_order
         @order = Product::Order.find(params[:id])
@@ -121,34 +109,22 @@ module Admin
         id && @hotel_room_type = Product::HotelRoomType.find(id)
       end
 
-      # Only allow a trusted parameter "white list" through.
-      def order_params
-        params.fetch(:order, {}).permit( :id,:group,:count,:conference_id,:hotel_id,:user_id,:room_type,:names,:contact,:phone,:price,:breakfast,:checkin,:checkout,:nights,:total_price,:payment_id, rooms_attributes: [:id, :names, :room_number, :_destroy] )
-      end
-
-      def payment_params
-        params.fetch(:payment, {}).permit(:rooms_num, :earnest_each)
-      end
-
       def need_payment?
-        payment_params["total_fee"]
+        @need_payment || true
       end
 
-      def gen_out_trade_no_random
-        SecureRandom.base58(32)
-      end
-
-      def create_payment(order, total_fee)
-        payment = Admin::Payment.create(order_id: order.id)
-        if payment
-          wx_payment = create_wx_payment(payment.id, total_fee)
-        end
-        # make sure WxPayment create success, not fail by gen_out_trade_no_random not uniq.
-        wx_payment ? wx_payment : create_wx_payment(payment.id, total_fee)
-      end
-
-      def create_wx_payment(payment_id, total_fee)
-        Admin::WxPayment.create(payment_id: payment_id, out_trade_no: gen_out_trade_no_random, total_fee: total_fee)
+      def payment_proc(order)
+        # set vars
+        earnest_each = payment_params[:earnest_each]
+        rooms_num = payment_params[:rooms_num]
+        total_fee = calc_total_fee(earnest_each, rooms_num)
+        wx_payment = create_payment(order, total_fee)
+        # set sessions
+        set_session_epayment_products(order, earnest_each, rooms_num)
+        session["epayment.after_payment_redirection_path"] = admin.user_root_path
+        # process payment by epayment engine
+        payment_gateway_uri = set_payment_gateway_uri(total_fee, wx_payment)
+        redirect_to payment_gateway_uri.to_s
       end
 
       def calc_total_fee(earnest_each, rooms_num)
@@ -157,5 +133,44 @@ module Admin
         rooms_num = rooms_num.to_i
         total_fee = cents_of_earnest_each * rooms_num
       end
+
+      def create_payment(order, total_fee)
+        payment = Admin::Payment.create(order_id: order.id)
+        raise "create payment fail." unless payment
+
+        wx_payment = create_wx_payment(payment.id, total_fee)
+
+        return wx_payment
+      end
+
+      def create_wx_payment(payment_id, total_fee)
+        # make sure WxPayment create success, not fail by gen_out_trade_no_random not uniq.
+        # try 2 times
+        _counter = 0
+        begin
+          wx_payment = Admin::WxPayment.create(payment_id: payment_id, out_trade_no: gen_out_trade_no_random, total_fee: total_fee)
+          counter += 1
+          raise "create wx_payment fail." if _counter > 3
+        end while !wx_payment
+
+        return wx_payment
+      end
+
+      def set_session_epayment_products(order, earnest_each, rooms_num)
+        product_name = order.hotel.name
+        session["epayment.products"] = [{name: product_name, single_price: earnest_each, num: rooms_num}]
+      end
+
+      def set_payment_gateway_uri(total_fee, wx_payment)
+        # uri from epayment engine routes:
+        payment_gateway_uri = URI(epayment.payment_gateway_wechat_pay_path)
+        payment_gateway_uri.query = "total_fee=#{total_fee}&out_trade_no=#{wx_payment.out_trade_no}"
+        payment_gateway_uri
+      end
+
+      def gen_out_trade_no_random
+        SecureRandom.base58(32)
+      end
+
   end
 end

@@ -87,7 +87,7 @@
       <div class="form-group">
         <%= form.label t(".breakfast"), class: "h6" %>
         <%= @hotel.breakfast == 0 ? "(不含早)" : "(含早)" %>
-        <%# form.hidden_field :breakfast, value: @hotel.breakfast %>
+        <%= form.hidden_field :breakfast, value: @hotel.breakfast %>
       </div>
 
       <div class="form-group">
@@ -113,7 +113,7 @@
         <p></p>
         总金额￥
         <span id="earnest_total_fee"></span>
-        <%= hidden_field :payment, :total_fee, id: "total_fee", value: 1 %>
+        <%# hidden_field :payment, :total_fee, id: "total_fee", value: 1 %>
       </div>
 
       <div class="actions">
