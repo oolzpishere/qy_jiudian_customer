@@ -28,17 +28,17 @@
     <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
 
     <% if content_for(:user_page) %>
-      <%= stylesheet_packs_with_chunks_tag 'admin/user/application' %>
-      <%= javascript_packs_with_chunks_tag 'admin/user/application' %>
+      <%= stylesheet_pack_tag 'admin/user/application' %>
+      <%= javascript_pack_tag 'admin/user/application' %>
     <% elsif content_for(:frontend_page) %>
-      <%= stylesheet_packs_with_chunks_tag 'frontend/application' %>
-      <%= javascript_packs_with_chunks_tag 'frontend/application' %>
+      <%= stylesheet_pack_tag 'frontend/application' %>
+      <%= javascript_pack_tag 'frontend/application' %>
     <% else %>
       <%# stylesheet_link_tag    'shared/manifests/application', media: 'all', 'data-turbolinks-track': 'reload' %>
-      <%= stylesheet_packs_with_chunks_tag 'shared/manifests/application' %>
+      <%= stylesheet_pack_tag 'shared/manifests/application' %>
       <%# render_manifests('css') %>
       <%# javascript_include_tag 'shared/manifests/application', 'data-turbolinks-track': 'reload', 'defer': true %>
-      <%= javascript_packs_with_chunks_tag 'shared/manifests/application' %>
+      <%= javascript_pack_tag 'shared/manifests/application' %>
     <% end %>
 
 

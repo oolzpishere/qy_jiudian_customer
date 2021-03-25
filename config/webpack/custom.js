@@ -15,6 +15,7 @@ module.exports = {
 
       'canvas-to-blob': 'blueimp-canvas-to-blob/js/canvas-to-blob.js',
       'jquery-ui/widget': 'blueimp-file-upload/js/vendor/jquery.ui.widget.js'
+
       // vue: 'vue/dist/vue.js',
       // React: 'react',
       // ReactDOM: 'react-dom',
